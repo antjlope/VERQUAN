@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Annie Waldherr">
+<meta name="dcterms.date" content="2023-10-10">
 
-<title>Datenanalyse mit R – R Tutorials</title>
+<title>einführung – R Tutorials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -89,7 +125,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -112,16 +148,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#einführung-und-datenmanagement" id="toc-einführung-und-datenmanagement" class="nav-link active" data-scroll-target="#einführung-und-datenmanagement">1. Einführung und Datenmanagement</a></li>
-  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">2. T-Test</a></li>
-  <li><a href="#varianzanalyse" id="toc-varianzanalyse" class="nav-link" data-scroll-target="#varianzanalyse">3. Varianzanalyse</a></li>
-  <li><a href="#multiple-varianzanalyse" id="toc-multiple-varianzanalyse" class="nav-link" data-scroll-target="#multiple-varianzanalyse">4. Multiple Varianzanalyse</a></li>
-  <li><a href="#regressionsanalyse" id="toc-regressionsanalyse" class="nav-link" data-scroll-target="#regressionsanalyse">5. Regressionsanalyse</a></li>
-  <li><a href="#regressionsanalyse-2" id="toc-regressionsanalyse-2" class="nav-link" data-scroll-target="#regressionsanalyse-2">6. Regressionsanalyse 2</a></li>
-  <li><a href="#conditional-process-modeling" id="toc-conditional-process-modeling" class="nav-link" data-scroll-target="#conditional-process-modeling">7. Conditional Process Modeling</a></li>
-  <li><a href="#faktorenanalyse-1" id="toc-faktorenanalyse-1" class="nav-link" data-scroll-target="#faktorenanalyse-1">8. Faktorenanalyse 1</a></li>
-  <li><a href="#faktorenanalyse-2" id="toc-faktorenanalyse-2" class="nav-link" data-scroll-target="#faktorenanalyse-2">9. Faktorenanalyse 2</a></li>
-  <li><a href="#clusteranalyse" id="toc-clusteranalyse" class="nav-link" data-scroll-target="#clusteranalyse">8. Clusteranalyse</a></li>
+  <li><a href="#lernziele-und-überblick" id="toc-lernziele-und-überblick" class="nav-link active" data-scroll-target="#lernziele-und-überblick">Lernziele und Überblick</a></li>
+  <li><a href="#r-markdown" id="toc-r-markdown" class="nav-link" data-scroll-target="#r-markdown">R Markdown</a></li>
+  <li><a href="#das-arbeitsverzeichnis" id="toc-das-arbeitsverzeichnis" class="nav-link" data-scroll-target="#das-arbeitsverzeichnis">Das Arbeitsverzeichnis</a></li>
+  <li><a href="#hilfefunktion" id="toc-hilfefunktion" class="nav-link" data-scroll-target="#hilfefunktion">Hilfefunktion</a></li>
+  <li><a href="#pakete-installieren" id="toc-pakete-installieren" class="nav-link" data-scroll-target="#pakete-installieren">Pakete installieren</a></li>
+  <li><a href="#pakete-laden" id="toc-pakete-laden" class="nav-link" data-scroll-target="#pakete-laden">Pakete laden</a></li>
+  <li><a href="#objekte" id="toc-objekte" class="nav-link" data-scroll-target="#objekte">Objekte</a></li>
+  <li><a href="#funktionen" id="toc-funktionen" class="nav-link" data-scroll-target="#funktionen">Funktionen</a></li>
+  <li><a href="#datentypen" id="toc-datentypen" class="nav-link" data-scroll-target="#datentypen">Datentypen</a></li>
   </ul>
 </nav>
     </div>
@@ -130,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Datenanalyse mit R</h1>
+<h1 class="title">Übung 0: Erste Schritte mit R</h1>
 </div>
 
 
@@ -138,6 +173,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2023-10-10</p>
+    </div>
+  </div>
   
     
   </div>
@@ -147,45 +188,143 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="einführung-und-datenmanagement" class="level2">
-<h2 class="anchored" data-anchor-id="einführung-und-datenmanagement">1. <a href="./Einführung.html">Einführung und Datenmanagement</a></h2>
-<p>Erste Schritte mit R.</p>
+<hr>
+<hr>
+<section id="lernziele-und-überblick" class="level2">
+<h2 class="anchored" data-anchor-id="lernziele-und-überblick">Lernziele und Überblick</h2>
+<p>In diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie</p>
+<ul>
+<li>Markdown-Skripte verwenden und anzeigen können</li>
+<li>Ihr Arbeitsverzeichnis prüfen und einstellen</li>
+<li>Pakete installieren und laden</li>
+<li>die Hilfefunktion verwenden</li>
+<li>das Konzept der R-Objekte und -Funktionen verstehen</li>
+<li>mit Fehlermeldungen umgehen.</li>
+</ul>
 </section>
-<section id="t-test" class="level2">
-<h2 class="anchored" data-anchor-id="t-test">2. <a href="./ttest.html">T-Test</a></h2>
-<p>Tutorial und Übung T-Test.</p>
+<section id="r-markdown" class="level2">
+<h2 class="anchored" data-anchor-id="r-markdown">R Markdown</h2>
+<p>Dies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche <strong>Knit</strong> klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument.</p>
 </section>
-<section id="varianzanalyse" class="level2">
-<h2 class="anchored" data-anchor-id="varianzanalyse">3. <a href="./Varianzanalyse.html">Varianzanalyse</a></h2>
-<p>Tutorial und Übung Varianzanalyse.</p>
+<section id="das-arbeitsverzeichnis" class="level2">
+<h2 class="anchored" data-anchor-id="das-arbeitsverzeichnis">Das Arbeitsverzeichnis</h2>
+<p>Zunächst prüfen wir mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Check working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial"</code></pre>
+</div>
+</div>
+<p>Wenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -&gt; Set Working Directory -&gt; Choose Directory, oder wir verwenden die Funktion “setwd()” und geben in Klammern den genauen Pfad zum gewünschten Ordner an.</p>
 </section>
-<section id="multiple-varianzanalyse" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-varianzanalyse">4. Multiple Varianzanalyse</h2>
-<p>Tutorial und Übung Multiple Varianzanalyse.</p>
+<section id="hilfefunktion" class="level2">
+<h2 class="anchored" data-anchor-id="hilfefunktion">Hilfefunktion</h2>
+<p>Mit der Funktion “help” kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion “setwd()”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(setwd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>starte den http Server für die Hilfe fertig</code></pre>
+</div>
+</div>
+<p>Alternativ können Sie auch auf den Tab “Hilfe” im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen.</p>
 </section>
-<section id="regressionsanalyse" class="level2">
-<h2 class="anchored" data-anchor-id="regressionsanalyse">5. Regressionsanalyse</h2>
-<p>Einführung in die Regressionsanalyse mit R.</p>
+<section id="pakete-installieren" class="level2">
+<h2 class="anchored" data-anchor-id="pakete-installieren">Pakete installieren</h2>
+<p>Im Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Pakete installieren</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(tidyverse)) {<span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: tidyverse</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(rmarkdown)) {<span class="fu">install.packages</span>(<span class="st">"rmarkdown"</span>)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: rmarkdown</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Paket 'rmarkdown' wurde unter R Version 4.4.3 erstellt</code></pre>
+</div>
+</div>
+<p>Alternativ können wir auf “Packages -&gt; Install” auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf “Install” und das Paket wird installiert. Wenn Sie auf “Update” klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren.</p>
 </section>
-<section id="regressionsanalyse-2" class="level2">
-<h2 class="anchored" data-anchor-id="regressionsanalyse-2">6. Regressionsanalyse 2</h2>
-<p>Tutorial und Übung multivariate Regression mit R</p>
+<section id="pakete-laden" class="level2">
+<h2 class="anchored" data-anchor-id="pakete-laden">Pakete laden</h2>
+<p>Jedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">##load packages</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmarkdown)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The installed packages are listed under “Packages” in the bottom right area. Loaded packages are shown with a tick.</p>
 </section>
-<section id="conditional-process-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="conditional-process-modeling">7. Conditional Process Modeling</h2>
-<p>Tutorial und Übung Conditional Process Modeling</p>
+<section id="objekte" class="level2">
+<h2 class="anchored" data-anchor-id="objekte">Objekte</h2>
+<p>Ein Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator “&lt;-” verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt “lieblingszahl” und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Objects</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lieblingszahl <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>lieblingszahl</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lieblingswort <span class="ot">&lt;-</span> <span class="st">"Zeitgeist"</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lieblingswort</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Zeitgeist"</code></pre>
+</div>
+</div>
+<p>Zum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden.</p>
 </section>
-<section id="faktorenanalyse-1" class="level2">
-<h2 class="anchored" data-anchor-id="faktorenanalyse-1">8. Faktorenanalyse 1</h2>
-<p>Tutorial und Übung Faktorenanalyse</p>
+<section id="funktionen" class="level2">
+<h2 class="anchored" data-anchor-id="funktionen">Funktionen</h2>
+<p>Mit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion “sqrt”, die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Functions</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">9</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(lieblingszahl)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(lieblingswort) <span class="co">#what's wrong?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="faktorenanalyse-2" class="level2">
-<h2 class="anchored" data-anchor-id="faktorenanalyse-2">9. Faktorenanalyse 2</h2>
-<p>Tutorial und Übung Faktorenanalyse 2</p>
-</section>
-<section id="clusteranalyse" class="level2">
-<h2 class="anchored" data-anchor-id="clusteranalyse">8. Clusteranalyse</h2>
-<p>Tutorial und Übung Clusteranalyse</p>
+<section id="datentypen" class="level2">
+<h2 class="anchored" data-anchor-id="datentypen">Datentypen</h2>
+<p>Wenn wir die Funktion “sqrt” mit unserem Objekt “lieblingswort” verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von “lieblingswort” herausfinden wollen, fragen wir nach seiner Klasse:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Data types</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lieblingswort)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(lieblingszahl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(lieblingswort)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Dies sind die wichtigsten Datentypen:</p>
+<ul>
+<li>integers: ganze Zahlen z.B., -1,0,1,2,3,…100,… 1000…</li>
+<li>doubles/numerics: Dezimalzahlen wie -4.6 und 40.8</li>
+<li>logicals: logische Zahlen wie TRUE or FALSE</li>
+<li>characters: Text wie “mein Lieblingswort”</li>
+</ul>
+<p>##Further reading</p>
+<p>Ismay &amp; Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) <a href="https://moderndive.netlify.app/index.html" class="uri">https://moderndive.netlify.app/index.html</a></p>
 
 
 </section>
