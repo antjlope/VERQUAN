@@ -86,30 +86,30 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Datenanalyse",
+    "title": "Datenanalyse mit R",
     "section": "",
-    "text": "Einführung in die Datenanalyse mit R.\n\n\n\nEinführung in den T-Test.\n\n\n\nEinführung in den T-Test.\n\n\n\nEinführung in den T-Test."
+    "text": "Einführung in die Datenanalyse mit R."
   },
   {
     "objectID": "index.html#einführung",
     "href": "index.html#einführung",
-    "title": "Datenanalyse",
+    "title": "Datenanalyse mit R",
     "section": "",
     "text": "Einführung in die Datenanalyse mit R."
   },
   {
     "objectID": "index.html#t-test",
     "href": "index.html#t-test",
-    "title": "Datenanalyse",
-    "section": "",
-    "text": "Einführung in den T-Test."
+    "title": "Datenanalyse mit R",
+    "section": "2. T-Test",
+    "text": "2. T-Test\nTutorial und Übung T-Test."
   },
   {
     "objectID": "index.html#varianzanalyse",
     "href": "index.html#varianzanalyse",
-    "title": "Datenanalyse",
-    "section": "",
-    "text": "Einführung in den T-Test."
+    "title": "Datenanalyse mit R",
+    "section": "3. Varianzanalyse",
+    "text": "3. Varianzanalyse\nTutorial und Übung Varianzanalyse."
   },
   {
     "objectID": "index.html#varianzanalyse-1",
@@ -117,5 +117,12 @@
     "title": "Datenanalyse",
     "section": "",
     "text": "Einführung in den T-Test."
+  },
+  {
+    "objectID": "index.html#multiple-varianzanalyse",
+    "href": "index.html#multiple-varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "4. Multiple Varianzanalyse",
+    "text": "4. Multiple Varianzanalyse\nTutorial und Übung Multiple Varianzanalyse."
   }
 ]
