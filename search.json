@@ -1,5 +1,152 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#einführung-und-datenmanagement",
+    "href": "index.html#einführung-und-datenmanagement",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#t-test",
+    "href": "index.html#t-test",
+    "title": "Datenanalyse mit R",
+    "section": "2. T-Test",
+    "text": "2. T-Test\nTutorial und Übung T-Test."
+  },
+  {
+    "objectID": "index.html#varianzanalyse",
+    "href": "index.html#varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "3. Varianzanalyse",
+    "text": "3. Varianzanalyse\nTutorial und Übung Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#multiple-varianzanalyse",
+    "href": "index.html#multiple-varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "4. Multiple Varianzanalyse",
+    "text": "4. Multiple Varianzanalyse\nTutorial und Übung Multiple Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse",
+    "href": "index.html#regressionsanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "5. Regressionsanalyse",
+    "text": "5. Regressionsanalyse\nEinführung in die Regressionsanalyse mit R."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse-2",
+    "href": "index.html#regressionsanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "6. Regressionsanalyse 2",
+    "text": "6. Regressionsanalyse 2\nTutorial und Übung multivariate Regression mit R"
+  },
+  {
+    "objectID": "index.html#conditional-process-modeling",
+    "href": "index.html#conditional-process-modeling",
+    "title": "Datenanalyse mit R",
+    "section": "7. Conditional Process Modeling",
+    "text": "7. Conditional Process Modeling\nTutorial und Übung Conditional Process Modeling"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-1",
+    "href": "index.html#faktorenanalyse-1",
+    "title": "Datenanalyse mit R",
+    "section": "8. Faktorenanalyse 1",
+    "text": "8. Faktorenanalyse 1\nTutorial und Übung Faktorenanalyse"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-2",
+    "href": "index.html#faktorenanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "9. Faktorenanalyse 2",
+    "text": "9. Faktorenanalyse 2\nTutorial und Übung Faktorenanalyse 2"
+  },
+  {
+    "objectID": "index.html#clusteranalyse",
+    "href": "index.html#clusteranalyse",
+    "title": "Datenanalyse mit R",
+    "section": "8. Clusteranalyse",
+    "text": "8. Clusteranalyse\nTutorial und Übung Clusteranalyse"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Einführung.html#lernziele-und-überblick",
+    "href": "Einführung.html#lernziele-und-überblick",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Lernziele und Überblick",
+    "text": "Lernziele und Überblick\nIn diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie\n\nMarkdown-Skripte verwenden und anzeigen können\nIhr Arbeitsverzeichnis prüfen und einstellen\nPakete installieren und laden\ndie Hilfefunktion verwenden\ndas Konzept der R-Objekte und -Funktionen verstehen\nmit Fehlermeldungen umgehen."
+  },
+  {
+    "objectID": "Einführung.html#r-markdown",
+    "href": "Einführung.html#r-markdown",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "R Markdown",
+    "text": "R Markdown\nDies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche Knit klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument."
+  },
+  {
+    "objectID": "Einführung.html#das-arbeitsverzeichnis",
+    "href": "Einführung.html#das-arbeitsverzeichnis",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nZunächst prüfen wir mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.\n\n##Check working directory\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -&gt; Set Working Directory -&gt; Choose Directory, oder wir verwenden die Funktion “setwd()” und geben in Klammern den genauen Pfad zum gewünschten Ordner an."
+  },
+  {
+    "objectID": "Einführung.html#hilfefunktion",
+    "href": "Einführung.html#hilfefunktion",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Hilfefunktion",
+    "text": "Hilfefunktion\nMit der Funktion “help” kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion “setwd()”:\n\nhelp(setwd)\n\nstarte den http Server für die Hilfe fertig\n\n\nAlternativ können Sie auch auf den Tab “Hilfe” im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen."
+  },
+  {
+    "objectID": "Einführung.html#pakete-installieren",
+    "href": "Einführung.html#pakete-installieren",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete installieren",
+    "text": "Pakete installieren\nIm Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:\n\n##Pakete installieren\nif (!require(tidyverse)) {install.packages(\"tidyverse\")}\n\nLade nötiges Paket: tidyverse\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nif (!require(rmarkdown)) {install.packages(\"rmarkdown\")}\n\nLade nötiges Paket: rmarkdown\n\n\nWarning: Paket 'rmarkdown' wurde unter R Version 4.4.3 erstellt\n\n\nAlternativ können wir auf “Packages -&gt; Install” auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf “Install” und das Paket wird installiert. Wenn Sie auf “Update” klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren."
+  },
+  {
+    "objectID": "Einführung.html#pakete-laden",
+    "href": "Einführung.html#pakete-laden",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete laden",
+    "text": "Pakete laden\nJedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:\n\n##load packages\nlibrary(tidyverse)\nlibrary(rmarkdown)\n\nThe installed packages are listed under “Packages” in the bottom right area. Loaded packages are shown with a tick."
+  },
+  {
+    "objectID": "Einführung.html#objekte",
+    "href": "Einführung.html#objekte",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Objekte",
+    "text": "Objekte\nEin Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator “&lt;-” verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt “lieblingszahl” und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.\n\n##Objects\nlieblingszahl &lt;- 9\nlieblingszahl\n\n[1] 9\n\nlieblingswort &lt;- \"Zeitgeist\"\nlieblingswort\n\n[1] \"Zeitgeist\"\n\n\nZum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden."
+  },
+  {
+    "objectID": "Einführung.html#funktionen",
+    "href": "Einführung.html#funktionen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Funktionen",
+    "text": "Funktionen\nMit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion “sqrt”, die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.\n\n##Functions\nsqrt(9)\nsqrt(lieblingszahl)\nsqrt(lieblingswort) #what's wrong?"
+  },
+  {
+    "objectID": "Einführung.html#datentypen",
+    "href": "Einführung.html#datentypen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Datentypen",
+    "text": "Datentypen\nWenn wir die Funktion “sqrt” mit unserem Objekt “lieblingswort” verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von “lieblingswort” herausfinden wollen, fragen wir nach seiner Klasse:\n\n##Data types\nclass(lieblingswort)\n\n[1] \"character\"\n\nclass(lieblingszahl)\n\n[1] \"numeric\"\n\nis.numeric(lieblingswort)\n\n[1] FALSE\n\n\nDies sind die wichtigsten Datentypen:\n\nintegers: ganze Zahlen z.B., -1,0,1,2,3,…100,… 1000…\ndoubles/numerics: Dezimalzahlen wie -4.6 und 40.8\nlogicals: logische Zahlen wie TRUE or FALSE\ncharacters: Text wie “mein Lieblingswort”\n\n##Further reading\nIsmay & Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) https://moderndive.netlify.app/index.html"
+  },
+  {
     "objectID": "ttest.html",
     "href": "ttest.html",
     "title": "T-Test mit R",
@@ -75,166 +222,5 @@
     "title": "T-Test mit R",
     "section": "Hausübung 2",
     "text": "Hausübung 2\nJetzt sind Sie dran! Prüfen Sie, ob sich Dokumentarfilme und Dramen signifikant in ihrer Länge unterscheiden.\n\nWählen Sie die Fälle nach den nun gewünschten Genres aus und speichern Sie sie in einem neuen Dataframe.\n\n\n#wählen Sie die Fälle nach den gewünschten Genres aus und speichern Sie sie in einem neuem Dataframe.\n\n\nIdentifizieren Sie unabhängige und abhängige Variable und legen Sie diese fest. Vergessen Sie nicht, die UV in einen Faktor umzuwandeln.\n\n\n#UV und AV definieren; UV dabei in Faktor umwandeln\n#Unabhängige und abhängige Variable definieren\n#die UV wandeln wir in einen Faktor um\n\n\nWelches Skalenniveau haben die beiden Variablen?\n\nAntwort: Ordinal (Score) und Nominal (Genre)\n\nFühren Sie nun den Levene-Test durch. Was ergibt er?\n\nAntwort: Das Ergebnis ist nicht signifikant ((F=1,234, p=0,74%), denn p ist größer als 0,05. Die Nullhypothese wird somit beibehalten, Varianz ist homogen und der T-Test kann berechnet werden.\n\n#Levene-Test durchführen\n\n\nWas für ein statistischer Test muss nun für den Mittelwertvergleich gerechnet werden? Begründen Sie Ihre Wahl kurz.\n\n\n\nFormulieren Sie Nullhypothese und Alternativhypothese für den Mittelwertvergleich:\nBerechnen und interpretieren Sie nun den Test. Was ergibt der Test?\n\nTipp! Sie müssen den Code nicht komplett selbst eintippen. Suchen Sie die entsprechenden Code-Chunks oben und übertragen Sie sie per Copy-Paste in die Platzhalter hier unten. In der Regel müssen Sie nur die Variablennamen und ggf. weitere Parameter anpassen. Bitte fügen Sie auch nur die Befehle und Berechnungen an, die jeweils in der Aufgabenstellung gefragt sind, d.h. löschen Sie Befehle, die nicht zur Aufgabenstellung gehören.\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung2.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Datenanalyse mit R",
-    "section": "",
-    "text": "Erste Schritte mit R."
-  },
-  {
-    "objectID": "index.html#einführung",
-    "href": "index.html#einführung",
-    "title": "Datenanalyse mit R",
-    "section": "",
-    "text": "Einführung in die Datenanalyse mit R."
-  },
-  {
-    "objectID": "index.html#t-test",
-    "href": "index.html#t-test",
-    "title": "Datenanalyse mit R",
-    "section": "2. T-Test",
-    "text": "2. T-Test\nTutorial und Übung T-Test."
-  },
-  {
-    "objectID": "index.html#varianzanalyse",
-    "href": "index.html#varianzanalyse",
-    "title": "Datenanalyse mit R",
-    "section": "3. Varianzanalyse",
-    "text": "3. Varianzanalyse\nTutorial und Übung Varianzanalyse."
-  },
-  {
-    "objectID": "index.html#varianzanalyse-1",
-    "href": "index.html#varianzanalyse-1",
-    "title": "Datenanalyse",
-    "section": "",
-    "text": "Einführung in den T-Test."
-  },
-  {
-    "objectID": "index.html#multiple-varianzanalyse",
-    "href": "index.html#multiple-varianzanalyse",
-    "title": "Datenanalyse mit R",
-    "section": "4. Multiple Varianzanalyse",
-    "text": "4. Multiple Varianzanalyse\nTutorial und Übung Multiple Varianzanalyse."
-  },
-  {
-    "objectID": "Einführung.html#lernziele-und-überblick",
-    "href": "Einführung.html#lernziele-und-überblick",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Lernziele und Überblick",
-    "text": "Lernziele und Überblick\nIn diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie\n\nMarkdown-Skripte verwenden und anzeigen können\nIhr Arbeitsverzeichnis prüfen und einstellen\nPakete installieren und laden\ndie Hilfefunktion verwenden\ndas Konzept der R-Objekte und -Funktionen verstehen\nmit Fehlermeldungen umgehen."
-  },
-  {
-    "objectID": "Einführung.html#r-markdown",
-    "href": "Einführung.html#r-markdown",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "R Markdown",
-    "text": "R Markdown\nDies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche Knit klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument."
-  },
-  {
-    "objectID": "Einführung.html#das-arbeitsverzeichnis",
-    "href": "Einführung.html#das-arbeitsverzeichnis",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Das Arbeitsverzeichnis",
-    "text": "Das Arbeitsverzeichnis\nZunächst prüfen wir mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.\n\n##Check working directory\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -&gt; Set Working Directory -&gt; Choose Directory, oder wir verwenden die Funktion “setwd()” und geben in Klammern den genauen Pfad zum gewünschten Ordner an."
-  },
-  {
-    "objectID": "Einführung.html#hilfefunktion",
-    "href": "Einführung.html#hilfefunktion",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Hilfefunktion",
-    "text": "Hilfefunktion\nMit der Funktion “help” kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion “setwd()”:\n\nhelp(setwd)\n\nstarte den http Server für die Hilfe fertig\n\n\nAlternativ können Sie auch auf den Tab “Hilfe” im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen."
-  },
-  {
-    "objectID": "Einführung.html#pakete-installieren",
-    "href": "Einführung.html#pakete-installieren",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Pakete installieren",
-    "text": "Pakete installieren\nIm Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:\n\n##Pakete installieren\nif (!require(tidyverse)) {install.packages(\"tidyverse\")}\n\nLade nötiges Paket: tidyverse\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nif (!require(rmarkdown)) {install.packages(\"rmarkdown\")}\n\nLade nötiges Paket: rmarkdown\n\n\nWarning: Paket 'rmarkdown' wurde unter R Version 4.4.3 erstellt\n\n\nAlternativ können wir auf “Packages -&gt; Install” auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf “Install” und das Paket wird installiert. Wenn Sie auf “Update” klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren."
-  },
-  {
-    "objectID": "Einführung.html#pakete-laden",
-    "href": "Einführung.html#pakete-laden",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Pakete laden",
-    "text": "Pakete laden\nJedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:\n\n##load packages\nlibrary(tidyverse)\nlibrary(rmarkdown)\n\nThe installed packages are listed under “Packages” in the bottom right area. Loaded packages are shown with a tick."
-  },
-  {
-    "objectID": "Einführung.html#objekte",
-    "href": "Einführung.html#objekte",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Objekte",
-    "text": "Objekte\nEin Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator “&lt;-” verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt “lieblingszahl” und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.\n\n##Objects\nlieblingszahl &lt;- 9\nlieblingszahl\n\n[1] 9\n\nlieblingswort &lt;- \"Zeitgeist\"\nlieblingswort\n\n[1] \"Zeitgeist\"\n\n\nZum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden."
-  },
-  {
-    "objectID": "Einführung.html#funktionen",
-    "href": "Einführung.html#funktionen",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Funktionen",
-    "text": "Funktionen\nMit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion “sqrt”, die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.\n\n##Functions\nsqrt(9)\nsqrt(lieblingszahl)\nsqrt(lieblingswort) #what's wrong?"
-  },
-  {
-    "objectID": "Einführung.html#datentypen",
-    "href": "Einführung.html#datentypen",
-    "title": "Übung 0: Erste Schritte mit R",
-    "section": "Datentypen",
-    "text": "Datentypen\nWenn wir die Funktion “sqrt” mit unserem Objekt “lieblingswort” verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von “lieblingswort” herausfinden wollen, fragen wir nach seiner Klasse:\n\n##Data types\nclass(lieblingswort)\n\n[1] \"character\"\n\nclass(lieblingszahl)\n\n[1] \"numeric\"\n\nis.numeric(lieblingswort)\n\n[1] FALSE\n\n\nDies sind die wichtigsten Datentypen:\n\nintegers: ganze Zahlen z.B., -1,0,1,2,3,…100,… 1000…\ndoubles/numerics: Dezimalzahlen wie -4.6 und 40.8\nlogicals: logische Zahlen wie TRUE or FALSE\ncharacters: Text wie “mein Lieblingswort”\n\n##Further reading\nIsmay & Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) https://moderndive.netlify.app/index.html"
-  },
-  {
-    "objectID": "index.html#einführung-und-datenmanagement",
-    "href": "index.html#einführung-und-datenmanagement",
-    "title": "Datenanalyse mit R",
-    "section": "",
-    "text": "Erste Schritte mit R."
-  },
-  {
-    "objectID": "index.html#regressionsanalyse",
-    "href": "index.html#regressionsanalyse",
-    "title": "Datenanalyse mit R",
-    "section": "5. Regressionsanalyse",
-    "text": "5. Regressionsanalyse\nEinführung in die Regressionsanalyse mit R."
-  },
-  {
-    "objectID": "index.html#regressionsanalyse-2",
-    "href": "index.html#regressionsanalyse-2",
-    "title": "Datenanalyse mit R",
-    "section": "6. Regressionsanalyse 2",
-    "text": "6. Regressionsanalyse 2\nTutorial und Übung multivariate Regression mit R"
-  },
-  {
-    "objectID": "index.html#conditional-process-modeling",
-    "href": "index.html#conditional-process-modeling",
-    "title": "Datenanalyse mit R",
-    "section": "7. Conditional Process Modeling",
-    "text": "7. Conditional Process Modeling\nTutorial und Übung Conditional Process Modeling"
-  },
-  {
-    "objectID": "index.html#faktorenanalyse-1",
-    "href": "index.html#faktorenanalyse-1",
-    "title": "Datenanalyse mit R",
-    "section": "8. Faktorenanalyse 1",
-    "text": "8. Faktorenanalyse 1\nTutorial und Übung Faktorenanalyse"
-  },
-  {
-    "objectID": "index.html#faktorenanalyse-2",
-    "href": "index.html#faktorenanalyse-2",
-    "title": "Datenanalyse mit R",
-    "section": "9. Faktorenanalyse 2",
-    "text": "9. Faktorenanalyse 2\nTutorial und Übung Faktorenanalyse 2"
-  },
-  {
-    "objectID": "index.html#clusteranalyse",
-    "href": "index.html#clusteranalyse",
-    "title": "Datenanalyse mit R",
-    "section": "8. Clusteranalyse",
-    "text": "8. Clusteranalyse\nTutorial und Übung Clusteranalyse"
   }
 ]
