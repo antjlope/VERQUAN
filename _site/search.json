@@ -1,0 +1,226 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#einführung-und-datenmanagement",
+    "href": "index.html#einführung-und-datenmanagement",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#t-test",
+    "href": "index.html#t-test",
+    "title": "Datenanalyse mit R",
+    "section": "2. T-Test",
+    "text": "2. T-Test\nTutorial und Übung T-Test."
+  },
+  {
+    "objectID": "index.html#varianzanalyse",
+    "href": "index.html#varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "3. Varianzanalyse",
+    "text": "3. Varianzanalyse\nTutorial und Übung Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#multiple-varianzanalyse",
+    "href": "index.html#multiple-varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "4. Multiple Varianzanalyse",
+    "text": "4. Multiple Varianzanalyse\nTutorial und Übung Multiple Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse",
+    "href": "index.html#regressionsanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "5. Regressionsanalyse",
+    "text": "5. Regressionsanalyse\nEinführung in die Regressionsanalyse mit R."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse-2",
+    "href": "index.html#regressionsanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "6. Regressionsanalyse 2",
+    "text": "6. Regressionsanalyse 2\nTutorial und Übung multivariate Regression mit R"
+  },
+  {
+    "objectID": "index.html#conditional-process-modeling",
+    "href": "index.html#conditional-process-modeling",
+    "title": "Datenanalyse mit R",
+    "section": "7. Conditional Process Modeling",
+    "text": "7. Conditional Process Modeling\nTutorial und Übung Conditional Process Modeling"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-1",
+    "href": "index.html#faktorenanalyse-1",
+    "title": "Datenanalyse mit R",
+    "section": "8. Faktorenanalyse 1",
+    "text": "8. Faktorenanalyse 1\nTutorial und Übung Faktorenanalyse"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-2",
+    "href": "index.html#faktorenanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "9. Faktorenanalyse 2",
+    "text": "9. Faktorenanalyse 2\nTutorial und Übung Faktorenanalyse 2"
+  },
+  {
+    "objectID": "index.html#clusteranalyse",
+    "href": "index.html#clusteranalyse",
+    "title": "Datenanalyse mit R",
+    "section": "8. Clusteranalyse",
+    "text": "8. Clusteranalyse\nTutorial und Übung Clusteranalyse"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Einführung.html#lernziele-und-überblick",
+    "href": "Einführung.html#lernziele-und-überblick",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Lernziele und Überblick",
+    "text": "Lernziele und Überblick\nIn diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie\n\nMarkdown-Skripte verwenden und anzeigen können\nIhr Arbeitsverzeichnis prüfen und einstellen\nPakete installieren und laden\ndie Hilfefunktion verwenden\ndas Konzept der R-Objekte und -Funktionen verstehen\nmit Fehlermeldungen umgehen."
+  },
+  {
+    "objectID": "Einführung.html#r-markdown",
+    "href": "Einführung.html#r-markdown",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "R Markdown",
+    "text": "R Markdown\nDies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche Knit klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument."
+  },
+  {
+    "objectID": "Einführung.html#das-arbeitsverzeichnis",
+    "href": "Einführung.html#das-arbeitsverzeichnis",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nZunächst prüfen wir mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.\n\n##Check working directory\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -&gt; Set Working Directory -&gt; Choose Directory, oder wir verwenden die Funktion “setwd()” und geben in Klammern den genauen Pfad zum gewünschten Ordner an."
+  },
+  {
+    "objectID": "Einführung.html#hilfefunktion",
+    "href": "Einführung.html#hilfefunktion",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Hilfefunktion",
+    "text": "Hilfefunktion\nMit der Funktion “help” kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion “setwd()”:\n\nhelp(setwd)\n\nstarte den http Server für die Hilfe fertig\n\n\nAlternativ können Sie auch auf den Tab “Hilfe” im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen."
+  },
+  {
+    "objectID": "Einführung.html#pakete-installieren",
+    "href": "Einführung.html#pakete-installieren",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete installieren",
+    "text": "Pakete installieren\nIm Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:\n\n##Pakete installieren\nif (!require(tidyverse)) {install.packages(\"tidyverse\")}\n\nLade nötiges Paket: tidyverse\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nif (!require(rmarkdown)) {install.packages(\"rmarkdown\")}\n\nLade nötiges Paket: rmarkdown\n\n\nWarning: Paket 'rmarkdown' wurde unter R Version 4.4.3 erstellt\n\n\nAlternativ können wir auf “Packages -&gt; Install” auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf “Install” und das Paket wird installiert. Wenn Sie auf “Update” klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren."
+  },
+  {
+    "objectID": "Einführung.html#pakete-laden",
+    "href": "Einführung.html#pakete-laden",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete laden",
+    "text": "Pakete laden\nJedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:\n\n##load packages\nlibrary(tidyverse)\nlibrary(rmarkdown)\n\nThe installed packages are listed under “Packages” in the bottom right area. Loaded packages are shown with a tick."
+  },
+  {
+    "objectID": "Einführung.html#objekte",
+    "href": "Einführung.html#objekte",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Objekte",
+    "text": "Objekte\nEin Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator “&lt;-” verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt “lieblingszahl” und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.\n\n##Objects\nlieblingszahl &lt;- 9\nlieblingszahl\n\n[1] 9\n\nlieblingswort &lt;- \"Zeitgeist\"\nlieblingswort\n\n[1] \"Zeitgeist\"\n\n\nZum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden."
+  },
+  {
+    "objectID": "Einführung.html#funktionen",
+    "href": "Einführung.html#funktionen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Funktionen",
+    "text": "Funktionen\nMit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion “sqrt”, die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.\n\n##Functions\nsqrt(9)\nsqrt(lieblingszahl)\nsqrt(lieblingswort) #what's wrong?"
+  },
+  {
+    "objectID": "Einführung.html#datentypen",
+    "href": "Einführung.html#datentypen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Datentypen",
+    "text": "Datentypen\nWenn wir die Funktion “sqrt” mit unserem Objekt “lieblingswort” verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von “lieblingswort” herausfinden wollen, fragen wir nach seiner Klasse:\n\n##Data types\nclass(lieblingswort)\n\n[1] \"character\"\n\nclass(lieblingszahl)\n\n[1] \"numeric\"\n\nis.numeric(lieblingswort)\n\n[1] FALSE\n\n\nDies sind die wichtigsten Datentypen:\n\nintegers: ganze Zahlen z.B., -1,0,1,2,3,…100,… 1000…\ndoubles/numerics: Dezimalzahlen wie -4.6 und 40.8\nlogicals: logische Zahlen wie TRUE or FALSE\ncharacters: Text wie “mein Lieblingswort”\n\n##Further reading\nIsmay & Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) https://moderndive.netlify.app/index.html"
+  },
+  {
+    "objectID": "ttest.html",
+    "href": "ttest.html",
+    "title": "T-Test mit R",
+    "section": "",
+    "text": "In diesem Tutorium lernen Sie, wie Sie Mittelwertunterschiede zwischen zwei unabhängigen Stichproben mit Hilfe eines t-Tests vergleichen können. Sie lernen, wie man:\n\ndie Daten für einen t-Test vorbereitet,\ndie Annahme der Varianzhomogenität mit dem Levene-Test prüft,\ndie Ergebnisse eines t-Tests berechnet, interpretiert und berichtet."
+  },
+  {
+    "objectID": "ttest.html#lernziele-und-überblick",
+    "href": "ttest.html#lernziele-und-überblick",
+    "title": "T-Test mit R",
+    "section": "",
+    "text": "In diesem Tutorium lernen Sie, wie Sie Mittelwertunterschiede zwischen zwei unabhängigen Stichproben mit Hilfe eines t-Tests vergleichen können. Sie lernen, wie man:\n\ndie Daten für einen t-Test vorbereitet,\ndie Annahme der Varianzhomogenität mit dem Levene-Test prüft,\ndie Ergebnisse eines t-Tests berechnet, interpretiert und berichtet."
+  },
+  {
+    "objectID": "ttest.html#das-arbeitsverzeichnis",
+    "href": "ttest.html#das-arbeitsverzeichnis",
+    "title": "T-Test mit R",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nWie immer prüfen wir zunächst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis ist. Dies ist der Ordner, in den R alle in diesem Projekt erstellten Dokumente ablegt, und aus dem es auch Dokumente einliest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein. Wenn wir ein Projekt angelegt haben, wird dieses automatisch als Working Directory (Arbeitsverzeichnis) angelegt.\n\n##Arbeitsverzeichnis checken\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWollen wir einen anderen Ordner als Arbeitsverzeichnis festlegen, dann können wir das am besten händisch unter: Session -&gt; Set Working Directory -&gt; Choose Directory.\nOder wir verwenden die Funktion “setwd()” und geben in den Klammern den genauen Pfad zum gewünschten Ordner an."
+  },
+  {
+    "objectID": "ttest.html#pakete-installieren-und-laden",
+    "href": "ttest.html#pakete-installieren-und-laden",
+    "title": "T-Test mit R",
+    "section": "Pakete installieren und laden",
+    "text": "Pakete installieren und laden\nIm Folgenden benötigen wir eine Reihe von R-Paketen, die nicht bereits in der Basisversion enthalten sind. Hierzu arbeiten wir dieses Mal mit dem Package “pacman”. Das eignet sich gut, um gleich mehrere Pakete zu installieren und zu laden.\n\n##Pakete installieren und laden\nif (!require(\"pacman\")) {install.packages(\"pacman\"); library(pacman)}\n\nLade nötiges Paket: pacman\n\np_load(mosaic, knitr, tidyverse, car)\nlibrary(dplyr)"
+  },
+  {
+    "objectID": "ttest.html#daten-einlesen",
+    "href": "ttest.html#daten-einlesen",
+    "title": "T-Test mit R",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nDer nächste Schritt ist wieder das Einlesen der Daten. Wir verwenden wie in der letzten Übung den Netflixdatensatz. Der Datensatz müsste noch in Ihrem Arbeitsverzeichnis liegen. Wenn nicht, dann kopieren Sie ihn nochmals dorthin.\n\n#Datensatz laden\nnetflix_films &lt;- read.csv(\"data/NetflixOriginals.csv\")\n\n#Datensatz inspizieren\n\nglimpse(netflix_films)\n\nRows: 584\nColumns: 6\n$ Title      &lt;chr&gt; \"Enter the Anime\", \"Dark Forces\", \"The App\", \"The Open Hous…\n$ Genre      &lt;chr&gt; \"Documentary\", \"Thriller\", \"Science fiction/Drama\", \"Horror…\n$ Premiere   &lt;chr&gt; \"August 5, 2019\", \"August 21, 2020\", \"December 26, 2019\", \"…\n$ Runtime    &lt;int&gt; 58, 81, 79, 94, 90, 147, 112, 149, 73, 139, 58, 112, 97, 10…\n$ IMDB.Score &lt;dbl&gt; 2.5, 2.6, 2.6, 3.2, 3.4, 3.5, 3.7, 3.7, 3.9, 4.1, 4.1, 4.1,…\n$ Language   &lt;chr&gt; \"English/Japanese\", \"Spanish\", \"Italian\", \"English\", \"Hindi…\n\nclass(netflix_films)\n\n[1] \"data.frame\"\n\nhead(netflix_films)\n\n            Title                 Genre          Premiere Runtime IMDB.Score\n1 Enter the Anime           Documentary    August 5, 2019      58        2.5\n2     Dark Forces              Thriller   August 21, 2020      81        2.6\n3         The App Science fiction/Drama December 26, 2019      79        2.6\n4  The Open House       Horror thriller  January 19, 2018      94        3.2\n5     Kaali Khuhi               Mystery  October 30, 2020      90        3.4\n6           Drive                Action  November 1, 2019     147        3.5\n          Language\n1 English/Japanese\n2          Spanish\n3          Italian\n4          English\n5            Hindi\n6            Hindi"
+  },
+  {
+    "objectID": "ttest.html#unabhängige-und-abhängige-variable-definieren",
+    "href": "ttest.html#unabhängige-und-abhängige-variable-definieren",
+    "title": "T-Test mit R",
+    "section": "Unabhängige und abhängige Variable definieren",
+    "text": "Unabhängige und abhängige Variable definieren\nWir möchten prüfen, ob sich die Bewertung von Komödien oder Dramen signifikant unterscheidet. Hierzu wählen wir zunächst mit filter() die Fälle aus, in denen das Genre entweder “Comedy” oder “Drama” entspricht. Wir speichern diesen reduzierten Datensatz als neues Objekt der Klasse Dataframe mit Namen “df”.\nDann definieren wir die Variable “Genre” als unabhängige Variable und die Variable “IMDB.Score” als abhängige Variable. Eine wichtige Voraussetzung für den t-Test ist, dass das Skalenniveua der UV nominal ist und nur zwei Ausprägungen hat (dichotom). Das Skalenniveu der AV muss metrisch sein. Wir prüfen mit glimpse(), ob dies der Fall ist.\n\n#Fälle auswählen und in neuem Dataframe speichern\ndf &lt;- filter(netflix_films, Genre == \"Comedy\" | Genre == \"Drama\" )\nglimpse(df)\n\nRows: 126\nColumns: 6\n$ Title      &lt;chr&gt; \"Leyla Everlasting\", \"Sardar Ka Grandson\", \"The Call\", \"Wha…\n$ Genre      &lt;chr&gt; \"Comedy\", \"Comedy\", \"Drama\", \"Comedy\", \"Comedy\", \"Comedy\", …\n$ Premiere   &lt;chr&gt; \"December 4, 2020\", \"May 18, 2021\", \"November 27, 2020\", \"J…\n$ Runtime    &lt;int&gt; 112, 139, 112, 102, 99, 107, 99, 95, 46, 88, 105, 93, 80, 1…\n$ IMDB.Score &lt;dbl&gt; 3.7, 4.1, 4.1, 4.3, 4.4, 4.5, 4.5, 4.6, 4.6, 4.6, 4.7, 4.7,…\n$ Language   &lt;chr&gt; \"Turkish\", \"Hindi\", \"Korean\", \"Korean\", \"English\", \"English…\n\nhead(df)\n\n                      Title  Genre          Premiere Runtime IMDB.Score\n1         Leyla Everlasting Comedy  December 4, 2020     112        3.7\n2        Sardar Ka Grandson Comedy      May 18, 2021     139        4.1\n3                  The Call  Drama November 27, 2020     112        4.1\n4 What Happened to Mr. Cha? Comedy   January 1, 2021     102        4.3\n5                Sextuplets Comedy   August 16, 2019      99        4.4\n6          Seriously Single Comedy     July 31, 2020     107        4.5\n  Language\n1  Turkish\n2    Hindi\n3   Korean\n4   Korean\n5  English\n6  English\n\nclass(df)\n\n[1] \"data.frame\"\n\n#Unabhängige und abhängige Variable definieren\ndf$uv &lt;- as.factor(df$Genre) #die UV wandeln wir in einen Faktor um\ndf$av &lt;- df$IMDB.Score"
+  },
+  {
+    "objectID": "ttest.html#deskriptive-statistiken-der-av",
+    "href": "ttest.html#deskriptive-statistiken-der-av",
+    "title": "T-Test mit R",
+    "section": "Deskriptive Statistiken der AV",
+    "text": "Deskriptive Statistiken der AV\nNun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken ausgeben.\n\n#Label UV vergeben\nlabel_uv &lt;- \"Genre\"\n\n#Deskriptive Statistiken berechnen\ndes_stat &lt;- favstats(df$av ~ df$uv)\n\n# Tabelle erstellen\nkable (des_stat,\n       col.names = c(label_uv,\"Minimum\", \"1.Quartil\", \n                     \"Median\", \"3.Quartil\", \"Maximum\", \n                     \"M\", \"SD\", \"N\", \"Fehlend\" ),\n       digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGenre\nMinimum\n1.Quartil\nMedian\n3.Quartil\nMaximum\nM\nSD\nN\nFehlend\n\n\n\n\nComedy\n3.7\n5.2\n5.5\n6.1\n7.2\n5.51\n0.79\n49\n0\n\n\nDrama\n4.1\n5.9\n6.4\n6.8\n7.9\n6.34\n0.76\n77\n0\n\n\n\n\n\nWir sehen, dass Dramen durchschnittlich höher bewertet werden als Komödien. Das bedeutet aber noch nicht, dass dieser Unterschied auch statistisch signifikant ist. Es könnte ja sein, dass wir diesen Unterschied nur zufällig in unserer Stichprobe messen, in Wahrheit aber gar kein Unterschied besteht. Um dies zu prüfen, führen wir im folgenden einen t-Test für unabhängige Stichproben durch."
+  },
+  {
+    "objectID": "ttest.html#levene-test-zur-voraussetzungsprüfung",
+    "href": "ttest.html#levene-test-zur-voraussetzungsprüfung",
+    "title": "T-Test mit R",
+    "section": "Levene-Test zur Voraussetzungsprüfung",
+    "text": "Levene-Test zur Voraussetzungsprüfung\nZunächst müssen wir aber eine wichtige Voraussetzung prüfen: Varianzhomogenität. Wir wollen wissen, ob sich die Varianzen in den beiden Gruppen (Dramen vs. Komödien) signifikant unterscheiden. Hierzu führen wir den Levene-Test durch. Abhängig von diesem Ergebnis wählen wir das weitere Testverfahren.\nZunächst rufen wir den Datensatz “df” auf. Da wir im Folgenden gleich mehrere Verarbeitungsschritte aneinander hängen werden, arbeiten wir mit dem %&gt;%-Operator, der Pfeife, gelesen als “und dann”. Wir nehmen also unseren Datensatz “df”, und dann entfernen wir alle fehlenden Werte (Fälle, in denen unserer UV oder AV fehlen) mit der Funktion drop_na() aus dem tidyverse-Paket entfernt; und dann führen wir den Levene-Test durch.\nMit dem Argument av ~ uv definieren wir die Variablen, für die die Varianzhomogenität geprüft werden.\nDa wir zuvor bereits unseren Datensatz festgelegt haben, können wir mit dem Argument “data = .” auf diesen verweisen.\n\ndf %&gt;%\n  drop_na(uv, av) %&gt;%\n  leveneTest(av~uv, data = .)\n\nLevene's Test for Homogeneity of Variance (center = median)\n       Df F value Pr(&gt;F)\ngroup   1   0.078 0.7805\n      124               \n\n\nDer Levene-Test ist nicht signifikant (F(1,124) = 0,08, p = 0,78), denn p ist größer als 0,05. Somit wird die Nullhypothese beibehalten und wir können von Varianzhomogenität ausgehen und mit dem t-Test fortfahren.\nWichtig! Wäre der Levene-Test signifikant, d.h. die Varianzen der Werte in den beiden Gruppen sind ungleich, müssten wir statt dem t-test für unabhängige Stichproben den Welch-Test durchführen, der keine Varianzhomogenität voraussetzt (siehe unten)."
+  },
+  {
+    "objectID": "ttest.html#t-test",
+    "href": "ttest.html#t-test",
+    "title": "T-Test mit R",
+    "section": "t-Test",
+    "text": "t-Test\nWir führen nun den t-Test durch. Die Logik des unten stehenden Codes folgt dem des Levene-Tests oben, nur dass wir nun den “t.test” durchführen, mit der gleichen av und uv wie zuvor. Wir testen “two.sided”, d.h. zweiseitig, auf Signifikanz der Mittelwertunterschiede in beide Richtungen (Drama &gt; Comedy und Drama &lt; Comedy). Die Hypothese, die wir testen, ist also ungerichtet:\nH1: Filme vom Genre Drama werden signifikant unterschiedlich bewertet als Filme vom Genre Comedy. H0: Die Bewertungen der beiden Genres unterscheiden sich nicht.\nFrage: Können Sie auch eine gerichtete Hypothese formulieren? Wie würden Sie diese begründen?\nDas Argument “var.equal = T” wird genutzt, wenn der Levene-Test nicht signifikant ist und somit Varianzhomogenität vorliegt. Ist dies nicht der Fall, müssen wir “var.equal = F” setzen. Dann wird der Welch-Test berechnet.\n\ndf %&gt;%\n  drop_na(uv, av) %&gt;%\n  t.test(av~uv, \n         alternative = \"two.sided\",\n         var.equal = T,\n         data = .)\n\n\n    Two Sample t-test\n\ndata:  av by uv\nt = -5.9272, df = 124, p-value = 2.846e-08\nalternative hypothesis: true difference in means between group Comedy and group Drama is not equal to 0\n95 percent confidence interval:\n -1.116146 -0.557323\nsample estimates:\nmean in group Comedy  mean in group Drama \n            5.506122             6.342857 \n\n\nIm Output wird uns in der ersten Zeile ausgegeben, für welche AV und UV der t-Test berechnet wurde. Es folgen die Angaben zur Teststatistik (t = -5,9272, df=124, p-value=2.846e-08). Der T-Wert beträgt -5,9272 bei 124 Freiheitsgraden. Das negative Vorzeichen weist daraufhin, dass der Mittelwert der Gruppe Comedy kleiner ist als der Mittelwert der Gruppe Drama. Der p-Wert (p-value) beträgt p=2.846e-08 oder umgerechnet p=0,00000002846. Das ist deutlich kleiner als 0,05 und sogar deutlich kleiner als 0,001, d.h. p &lt; 0,001 und damit höchst signifikant.\nWir berichten das Ergebnis wie folgt: Filme vom Genre Comedy (M = 5,51, SD = 0,79) werden signifikant schlechter bewertet als Filme vom Genre Drama (M = 6,34, SD = 0,76, t = -5,9272, df=124, p &lt; 0,001)."
+  },
+  {
+    "objectID": "ttest.html#zum-nachlesen",
+    "href": "ttest.html#zum-nachlesen",
+    "title": "T-Test mit R",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\nDieses Skript folgt in weiten Teilen Kapitel 12.3 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R."
+  },
+  {
+    "objectID": "ttest.html#hausübung-2",
+    "href": "ttest.html#hausübung-2",
+    "title": "T-Test mit R",
+    "section": "Hausübung 2",
+    "text": "Hausübung 2\nJetzt sind Sie dran! Prüfen Sie, ob sich Dokumentarfilme und Dramen signifikant in ihrer Länge unterscheiden.\n\nWählen Sie die Fälle nach den nun gewünschten Genres aus und speichern Sie sie in einem neuen Dataframe.\n\n\n#wählen Sie die Fälle nach den gewünschten Genres aus und speichern Sie sie in einem neuem Dataframe.\n\n\nIdentifizieren Sie unabhängige und abhängige Variable und legen Sie diese fest. Vergessen Sie nicht, die UV in einen Faktor umzuwandeln.\n\n\n#UV und AV definieren; UV dabei in Faktor umwandeln\n#Unabhängige und abhängige Variable definieren\n#die UV wandeln wir in einen Faktor um\n\n\nWelches Skalenniveau haben die beiden Variablen?\n\nAntwort: Ordinal (Score) und Nominal (Genre)\n\nFühren Sie nun den Levene-Test durch. Was ergibt er?\n\nAntwort: Das Ergebnis ist nicht signifikant ((F=1,234, p=0,74%), denn p ist größer als 0,05. Die Nullhypothese wird somit beibehalten, Varianz ist homogen und der T-Test kann berechnet werden.\n\n#Levene-Test durchführen\n\n\nWas für ein statistischer Test muss nun für den Mittelwertvergleich gerechnet werden? Begründen Sie Ihre Wahl kurz.\n\n\n\nFormulieren Sie Nullhypothese und Alternativhypothese für den Mittelwertvergleich:\nBerechnen und interpretieren Sie nun den Test. Was ergibt der Test?\n\nTipp! Sie müssen den Code nicht komplett selbst eintippen. Suchen Sie die entsprechenden Code-Chunks oben und übertragen Sie sie per Copy-Paste in die Platzhalter hier unten. In der Regel müssen Sie nur die Variablennamen und ggf. weitere Parameter anpassen. Bitte fügen Sie auch nur die Befehle und Berechnungen an, die jeweils in der Aufgabenstellung gefragt sind, d.h. löschen Sie Befehle, die nicht zur Aufgabenstellung gehören.\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung2.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
+  }
+]
