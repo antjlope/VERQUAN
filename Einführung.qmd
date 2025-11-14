@@ -1,0 +1,123 @@
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+---
+title: "Übung 0: Erste Schritte mit R"
+author: "Annie Waldherr"
+output:
+html_document: default
+date: "2023-10-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Lernziele und Überblick
+
+In diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie
+
+-   Markdown-Skripte verwenden und anzeigen können
+-   Ihr Arbeitsverzeichnis prüfen und einstellen
+-   Pakete installieren und laden
+-   die Hilfefunktion verwenden
+-   das Konzept der R-Objekte und -Funktionen verstehen
+-   mit Fehlermeldungen umgehen.
+
+## R Markdown
+
+Dies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche **Knit** klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument.
+
+## Das Arbeitsverzeichnis
+
+Zunächst prüfen wir mit "getwd()", unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.
+
+```{r working directory}
+##Check working directory
+getwd()
+```
+
+Wenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -\> Set Working Directory -\> Choose Directory, oder wir verwenden die Funktion "setwd()" und geben in Klammern den genauen Pfad zum gewünschten Ordner an.
+
+## Hilfefunktion
+
+Mit der Funktion "help" kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion "setwd()":
+
+```{r Help}
+help(setwd)
+```
+
+Alternativ können Sie auch auf den Tab "Hilfe" im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen.
+
+## Pakete installieren
+
+Im Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:
+
+```{r install packages}
+##Pakete installieren
+if (!require(tidyverse)) {install.packages("tidyverse")}
+if (!require(rmarkdown)) {install.packages("rmarkdown")}
+```
+
+Alternativ können wir auf "Packages -\> Install" auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf "Install" und das Paket wird installiert. Wenn Sie auf "Update" klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren.
+
+## Pakete laden
+
+Jedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:
+
+```{r load packages}
+##load packages
+library(tidyverse)
+library(rmarkdown)
+```
+
+The installed packages are listed under "Packages" in the bottom right area. Loaded packages are shown with a tick.
+
+## Objekte
+
+Ein Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator "\<-" verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt "lieblingszahl" und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.
+
+```{r Objects}
+##Objects
+lieblingszahl <- 9
+lieblingszahl
+
+lieblingswort <- "Zeitgeist"
+lieblingswort
+```
+
+Zum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden.
+
+## Funktionen
+
+Mit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion "sqrt", die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.
+
+```{r Functions, eval = F}
+##Functions
+sqrt(9)
+sqrt(lieblingszahl)
+sqrt(lieblingswort) #what's wrong?
+```
+
+## Datentypen
+
+Wenn wir die Funktion "sqrt" mit unserem Objekt "lieblingswort" verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von "lieblingswort" herausfinden wollen, fragen wir nach seiner Klasse:
+
+```{r Data types}
+##Data types
+class(lieblingswort)
+class(lieblingszahl)
+is.numeric(lieblingswort)
+```
+
+Dies sind die wichtigsten Datentypen:
+
+-   integers: ganze Zahlen z.B., -1,0,1,2,3,...100,... 1000...
+-   doubles/numerics: Dezimalzahlen wie -4.6 und 40.8
+-   logicals: logische Zahlen wie TRUE or FALSE
+-   characters: Text wie "mein Lieblingswort"
+
+##Further reading
+
+Ismay & Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) <https://moderndive.netlify.app/index.html>

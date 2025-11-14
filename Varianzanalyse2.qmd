@@ -1,0 +1,655 @@
+---
+title: "Übung 4: Mehrfaktorielle Varianzanalyse"
+author: "Annie Waldherr und Antje Sader"
+output:
+html_document: default
+date: "2024-04-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999) # Falls die Werte klein sind, wird so ein wissenschaftliche Schreibweise verhindert
+```
+
+## Lernziele und Überblick
+
+Diese Übung vermittelt die Grundlagen der mehrfaktoriellen Varianzanalyse (ANOVA). Sie lernen, wie man:
+
+-   eine zweifaktorielle Varianzanalyse durchführt und interpretiert,
+-   Effektgrößen berechnet und interpretiert,
+-   Effektgrößen mit Fehlerbalken darstellt,
+-   Interaktionsdiagramme darstellt und interpretiert.
+
+## Das Arbeitsverzeichnis
+
+Wie immer prüfen wir zunächst mit "getwd()", unter welchem Pfad unser Arbeitsverzeichnis abgelegt ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner gespeichert sein. Sollte dies nicht der Fall sein, definieren wir das Arbeitsverzeichnis neu unter: Session -\> Set Working Directory -\> Choose Directory.
+
+```{r Working Directory}
+##Arbeitsverzeichnis checken
+getwd()
+```
+
+## Pakete installieren und laden
+
+Im Folgenden benötigen wir dieselben Pakete wie bei Übung 3. Diese laden wir wieder mit dem Paket "pacman", welches wir bereits in Übung 2 (t-Test) installiert haben.
+
+```{r Pakete installieren}
+##Pakete installieren und laden
+if (!require("pacman")) {install.packages("pacman"); library(pacman)}
+p_load(mosaic, knitr, tidyverse, effectsize, broom, car, ggpubr)
+```
+
+## Daten einlesen
+
+In einem Experiment von Arendt et al. (2023) (N=827) wurde untersucht, ob Nachrichtenmedien politisches Zuhören gegenüber anderen Meinungen erhöhen können, indem sie die Salienz von Parteihinweisen reduzieren.
+
+Die Studie finden Sie auch auf Moodle:
+
+Arendt, F., Northup, T., Forrai, M., & Scheufele, D. (2023). Why we stopped listening to the other side: How partisan cues in news coverage undermine the deliberative foundations of democracy. Journal of Communication, 73(5), 413–426. <https://doi.org/10.1093/joc/jqad007>
+
+Wir laden den Datensatz "PoliticalListening.csv" aus dem entsprechenden Ordner in Moodle und legen ihn ins Arbeitsverzeichnis.
+
+Er enthält vier Variablen: - SCT ("Senator Choice Task"): Indexwert für selektives politisches Zuhören bei der Auswahl von Reden bekannter Politiker:innen; höhere Werte weisen auf eine größere Bereitschaft hin, politischen Ideen der Republikaner Gehör zu schenken. - HCT ("Headline Choice Task"): wie oben Indexwert für selektives politisches Zuhören, aber bei der Auswahl von Reden unbekannter Politiker:innen - Group: Dies ist die Gruppierungsvariable für die Experimentalbedingung; je nach Gruppe waren die Hinweise auf die Parteizugehörigkeit der Redner:innen mehr oder weniger salient (nicht vorhanden=0; niedrig=1; hoch=2) - ID_dicho: Selbstidentifikation der Teilnehmer:innen mit einer Partei (Demokrat=0; Republikaner=1)
+
+Unsere Aufgabe: Wir überprüfen zunächst, ob selektives politisches Zuhören (Variable „SCT”) von der Salienz der Parteihinweise (Variable „Group”) und der Selbstidentifikation der Teilnehmer:innen mit einer Partei (Variable „ID_dicho”) abhängt.
+
+**Achtung!**: Wenn wir den Datensatz mit einem einfachen Dateneditor öffnen, sehen wir, dass das Semikolon als Trennungszeichen verwendet wird. Deshalb verwenden wir im folgenden Befehl das Argument "sep", mit dem wir das Trennungszeichen festlegen können, wenn es von der Voreinstellung (Komma) abweicht.
+
+```{r}
+#Datensatz laden
+df <- read.csv("PoliticalListening.csv", sep = ";")
+
+
+#Datensatz inspizieren
+glimpse(df)
+class(df)
+head(df)
+
+```
+
+Mit der Funktion "View" können wir uns den Datensatz in einem separaten Fenster anschauen.
+
+```{r, eval = F}
+#Viewer öffnen
+View(df)
+```
+
+## UVs und AVs definieren
+
+Wir möchten eine zweifaktorielle Varianzanalyse durchführen und prüfen, ob sich das selektive politische Zuhören der Befragten nach Salienz der Parteihinweise und nach Parteiidentifikation signifikant unterscheidet.
+
+Die Variablen "Group" und "ID_dicho" sind also unsere UVs und müssen daher ein nominales Skalenniveua haben.
+
+Im obigen Output der Funktion "glimpse()" haben wir gesehen, dass die beiden Variablen numerisch kodiert sind (vom Typ "integer" int), auch wenn sie inhaltlich nominalskaliert sind. Daher müssen wir diese in Faktoren umwandeln mit der Funktion "factor".
+
+Zuerst aber rekodieren wir die Variable "ID_dicho". Diese ist dichotom kodiert mit 0 = Demokrat und 1 = Republikaner. Da R Nullwerte manchmal als fehlende Werte interpretiert, kodieren wir diese Variable so um, dass alle Nullen mit dem Wert 1 und alle Einsen mit dem Wert 2 ersetzt werden. 1 bedeutet dann männlich, 2 weiblich. Ebenso verfahren wir mit der Variable "Group".
+
+```{r Variablen rekodieren}
+#Variable Geschlecht umkodieren
+df$ID_dicho <- Recode((df$ID_dicho), 
+                '0 = 1; 1 = 2')
+df$Group <- Recode((df$Group), 
+                '0 = 1; 1 = 2; 2 = 3')
+glimpse(df)
+```
+
+Nun legen wir UVs und AV fest und wandeln die UVs in Faktoren um. Die Argumente "levels" und "labels" verwenden wir, um die drei Faktorstufen mit ihren zugehörigen Bezeichungen zu speichern.
+
+-   Salienz der Parteihinweise: Der Wert 1 wird damit dem Label "no", der Wert 2 dem Label "low" und der Wert 3 dem Label "high" zugeordnet.
+-   Parteiidentifikation: Wert 1 steht nach der Rekodierung für Demokrat, Wert 2 für Republikaner.
+
+**Achtung**! Bestehen die Werte der UVs bereits aus Text, d.h. sind vom Typ "character" (chr), dann können wir einfach die Funktion "as.factor()" verwenden (siehe Übung 2).
+
+Die Variable "SCT" ist unsere AV und ist bereits wie gewünscht metrisch skaliert.
+
+```{r Variablen auswählen}
+#Unabhängige und abhängige Variablen definieren
+#die UVs wandeln wir in Faktoren um
+
+df$uv1 <- factor(df$Group, 
+                levels = c (1,2, 3), 
+                labels = c("no", "low", "high")) 
+df$uv2 <- factor(df$ID_dicho, 
+                levels = c (1,2), 
+                labels = c("democrat", "republican")) 
+
+df$av <- df$SCT
+
+glimpse(df)
+
+
+```
+
+## Deskriptive Statistiken der AV
+
+Nun lassen wir uns zunächst mit der Funktion "favstats" die wichtigsten deskriptiven Statistiken ausgeben.
+
+```{r Deskriptive Statistiken}
+#Labels vergeben
+label_uv1 <- "Salienz der Parteihinweise"
+label_uv2 <- "Parteiidentifikation"
+label_av <- "selektives politisches Zuhören"
+
+#Deskriptive Statistiken berechnen
+des_stat1 <- favstats(df$av ~ df$uv1)
+des_stat2 <- favstats(df$av ~ df$uv2)
+
+# Tabellen erstellen
+kable (des_stat1,
+       col.names = c(label_uv1,"Minimum", "1.Quartil", 
+                     "Median", "3.Quartil", "Maximum", 
+                     "M", "SD", "N", "Fehlend" ),
+       digits = 2)
+
+kable (des_stat2,
+       col.names = c(label_uv2,"Minimum", "1.Quartil", 
+                     "Median", "3.Quartil", "Maximum", 
+                     "M", "SD", "N", "Fehlend" ),
+       digits = 2)
+
+```
+
+Wir sehen, dass sich die Mittelwerte mit der Salienz der Parteihinweise zunehmen. Auch unterscheiden sie sich deutlich je nach Parteiidentifikation. Das bedeutet jedoch nicht, dass diese Unterschiede auch statistisch signifikant sind. Um dies zu prüfen, führen wir im folgenden eine zweifaktorielle Varianzanalyse durch.
+
+Zunächst gruppieren wir den Datensatz nach den beiden UVs mit der Funktion "group_by" und lassen uns hierfür zusammenfassende Statistiken für unsere AV mit der Funktion "summarize"ausgeben: Mittelwerte (mean = mean (av)), Standardabweichungen (std_dev = sd(av)) und die Anzahl der Werte pro Gruppe (count = n()). Um die verschiedenen Arbeitsschritte aneinanderzuhängen verwenden wir wieder die Pfeife (%\>%). Den neuen Datensatz speichern wir in einem neuen Objekt namens "df_by_group".
+
+```{r Gruppierte Statistiken}
+# Statistiken nach Gruppen
+df_by_group <- df %>% 
+  group_by(uv1, uv2) %>% 
+  summarize(mean = mean(av), std_dev = sd(av), count = n())
+df_by_group
+```
+
+In der Spalte "mean" sehen wir für die Republikaner und Demokraten durchaus Unterschiede im selektiven politischen Zuhören (unserer AV!).
+
+## Levene-Test zur Voraussetzungsprüfung
+
+Prüfen wir zunächst, ob die Voraussetzung der Varianzhomogenität vorliegt. Hierzu verwenden wir wieder den Levene-Test, mit dem wir testen, ob sich die Varianzen in allen sechs Gruppen signifikant voneinander unterscheiden. Die unten stehenden Befehle sind bereits aus der vorigen Übung bekannt. Da wir nun aber zwei UVs haben, kombinieren wir diese in der Form: uv1\*uv2
+
+```{r Levene}
+df %>%
+  drop_na(uv1, uv2, av) %>%
+  leveneTest(av ~ uv1*uv2, data = .)
+```
+
+Der Levene-Test ist gerade nicht signifikant (F(5,821) = 2.19, p = 0.05), denn p \> 0.05. Somit können wir die Nullhypothese beibehalten, von Varianzhomogenität ausgehen und mit der Varianzanalyse fortfahren.
+
+## Mehrfaktorielle Varianzanalyse
+
+Für die Varianzanalyse verwenden wir wieder die Funktion "aov". Auch in dieser Funktion geben wir die beiden UVs mit \* verbunden ein. Dadurch legen wir fest, dass beide Faktoren einzeln auf ihre jeweiligen Haupteffekte sowie in Kombination, d.h. als Interaktionseffekt, getestet werden. Will man die beiden Faktoren getrennt voneinander prüfen, also keinen Interaktionseffekt berechnen, verbindet man sie mit einem +.
+
+```{r ANOVA}
+df <- drop_na(df, uv1, uv2, av)
+model <- aov(av ~ uv1*uv2, data = df)
+summary(model)
+```
+
+Im Output wird nun eine Tabelle mit vier Zeilen angezeigt. Die Spalten entsprechen genau denen der einfaktoriellen Varianzanalyse (siehe Übung 3). Die Zeile "uv1" beinhaltet die Statistiken für den Haupteffekt unserer ersten UV (Salienz der Parteihinweise), die Zeile "uv2" entsprechend die Statistiken für den Haupteffekt unserer zweiten UV (Parteiidentifikation). Der Haupteffekt für Parteiidentifikation ist höchst signifikant mit p \< 0.001. Wir sehen in der letzten Spalte, dass auch der Interaktionseffekt höchst signifikant ist mit p \< 0.001 d.h. die Wirkung von Salienz und Parteiidentifikation ist nicht unabhängig voneinander. Der Haupteffekt für die UV1 ist hingegen nicht signifikant (p = 0.328 und damit \> 0.05).
+
+Die Werte in der vierten Zeile (Residuals) beziehen sich auf die Varianz innerhalb der Gruppen, die nicht durch die UVs und/oder ihren Interaktionseffekt erklärt werden kann (wird auch Fehlervarianz genannt).
+
+## Effektgrößen
+
+Um festzustellen, wie groß der Einfluss der UVs auf die AV genau ist, und um die Größe der verschiedenen signifikanten (!) Effekte miteinander vergleichen zu können, bestimmen wir die Effektgrößen.
+
+```{r Effektgrößen}
+eta_squared(model)
+```
+
+**Wichtig!** Wir interpretieren immer nur die Effektgrößen der signifikanten Effekte, hier also für den Haupteffekt von UV2 und den Interaktionseffekt. Das Eta-Quadrat ist 0.60 für unsere zweite UV und 0.07 für den Interaktionseffekt. Nach Cohen sind dies ein großer bzw ein mittelgroßer Effekt (klein = 0.01; mittel = 0.06; groß = 0.14).
+
+**Anmerkung:** Die partiellen Eta-Quadrate werden hier nach der Typ1-Methode berechnet. Das bedeutet, dass die Effektgrößen jeweils um den Effekt der vorigen Variablen bereinigt werden, d.h. aus dem Effekt von UV2 wurde der Effekt von UV1 herausgerechnet, und aus dem Effekt der Interaktion wurde der Effekt der beiden Haupteffekte herausgerechnet.
+
+## Ergebnisse berichten
+
+Wir berichten die Ergebnisse der zweifaktoriellen Varianzanalyse wie folgt:
+
+Der Haupteffekt der Parteiidentifikation auf das selektive politische Zuhören ist signifikant. Die Befragten wählen eher die Reden der Senator:innen aus, die der Partei angehören, mit der sie sich selbst identifizieren, und diese Unterschiede sind signifikant mit F (1,821) = 1244.23,p \< 0.001, η² = 0.60.
+
+Auch der Interaktionseffekt ist signifikant mit F (2,821) = 28.99, p \< 0.001, η² = 0.07.
+
+Der Haupteffekt der Salienz von Parteihinweisen (p = 0.328) ist hingegen nicht signifikant.
+
+## Visualisierung der Effekte
+
+Wir erstellen nun ein Liniendiagramm mit Fehlerbalken, welches den Haupteffekt unserer UV2 Parteiidentifikation visualisiert. Zuerst erstellen wir eine Variable namens "Titel" und weisen ihr den Titel zu, den wir der Grafik geben wollen: "Effekt für Parteiidentifikation"
+
+Anschließend verwenden wir die ggline-Funktion aus dem ggpubr-Paket, um ein Liniendiagramm zu erstellen. Wir nehmen unseren Datensatz "df" und entfernen mit "drop_na()"zunächst alle Zeilen mit fehlenden Werten für unsere UV2 und AV. Dann geben wir an, welche Variablen für die x-Achse und die y-Achse des Diagramms verwendet werden sollen. Die UV2 setzen wir auf die x-Achse, und die AV auf die y-Achse.
+
+Wir legen mit dem Argument "title = Titel" den oben gewählten Titel als Titel für die Grafik fest und fügen mit "add" die 95%-Konfidenzintervallen als Fehlerbalken hinzu (mean_ci). Schließlich legen wir mit "xlab" und "ylab" die Beschriftungen der Grafikachsen fest, wobei wir auf unsere oben erstellten Labels (siehe Code-Chunk "Deskriptive Statistiken") verweisen.
+
+```{r Fehlerbalken}
+Titel <- "Effekt für Parteiidentifikation"
+
+ggline(df %>% drop_na (av, uv2),
+        x = "uv2", 
+        y = "av",
+        title = Titel,
+        add = "mean_ci",
+        xlab = label_uv2,
+        ylab = label_av)
+```
+
+Als Ergebnis erhalten wir ein Liniendiagramm, das die Mittelwerte des selektiven politischen Zuhörens (AV) nach Parteiidentifikation (UV2) zeigt. Die Konfidenzintervalle zeigen den Werteraum an, in dem die wahren Mittelwerte mit 95% Sicherheit liegen. Diese überlappen sich nicht, die Unterschiede sind also signifikant.
+
+Um beide Haupteffekte und ihre Interaktion zu visualisieren, eignet sich ein Interaktionsdiagramm. Dieses erstellen wir mit der Funktion "interaction.plot" aus dem Paket "stats". Wir legen folgende Argumente fest:
+
+-   df\$uv1: Die Werte von UV1 werden auf der x-Achse dargestellt.
+-   df\$uv2: Die Werte von UV2 werden verwendet, um verschiedene Linien im Plot zu erzeugen.
+-   df\$av: Die Werte unserer AV werden auf der y-Achse dargestellt.
+-   fun = mean: Die Funktion "mean" wird verwendet, um die Mittelwerte von AV für jedes Faktorlevel von UV1 und UV2 zu berechnen. Diese werden verwendet, um die Linien im Plot zu erzeugen.
+-   ylab = label_uv1: Das Label für die y-Achse wird auf "label_uv1" gesetzt, welches wir oben festgelegt haben.
+-   xlab = label_av: Das Label für die x-Achse wird auf "label_av" gesetzt, welches wir ebenfalls breits oben definiert haben.
+-   trace.label = label_uv2: Die Legende für die Linien im Plot wird mit "label_uv2" beschriftet.
+-   col = c("#0198f9", "#f95801"): Die Farben für die Linien werden auf Blau und Orange gesetzt.
+-   lty = 1: Der Linientyp für die Linien wird als volle Linie (lty=1) festgelegt.
+-   lwd = 2: Die Dicke der Linien wird auf 2 gesetzt.
+-   xtick = TRUE: Gitterlinien für die x-Achse werden angezeigt.
+
+```{r Interaktionsdiagramm}
+
+interaction.plot(
+df$uv1, df$uv2, df$av,
+fun = mean,
+ylab = label_av,
+xlab = label_uv1,
+trace.label = label_uv2,
+col = c("#0198f9", "#f95801"),
+lty = 1,
+lwd = 1,
+xtick = T,
+)
+```
+
+Wir sehen, dass es sich hier um eine ordinale Interaktion handelt. Bereits in der Kontrollgruppe gibt es einen signifikanten Unterschied in der Auswahl der Reden von Republikanern und Demokraten je nach Parteiidentifikation. Selektives politisches Zuhören (d. h. die Differenz in der AV zwischen selbstidentifizierten Republikanern und Demokraten) nimmt mit der Salienz der Parteihinweise zu, d. h. die Salienz von Parteihinweisen moderiert die Beziehung zwischen Parteiidentifikation und selektivem politischem Zuhören.
+
+## Zum Nachlesen
+
+Kapitel 12.5 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R. Springer.
+
+Kapitel 10.3.2 in: Manderscheid, K. (2017). Sozialwissenschaftliche Datenanalyse mit R, 2. Aufl. Springer.
+
+## Hausübung 4
+
+Wiederholen Sie nun die Analysen für die "Headline Choice Task" (HTC), in der Reden unbekannter Politiker:innen ausgewählt wurden (die vierte, bisher ungenutzte Variable im Datensatz). Prüfen Sie auch hier, ob das selektive politische Zuhören von der Salienz der Parteihinweise (nicht vorhanden=0; niedrig=1 hoch=2) und der Parteiidentifikation (Demokrat=0; Republikaner=1) abhängt.
+
+1.  Definieren Sie die neue abhängige Variable.
+
+```{r Variablen definieren}
+
+
+```
+
+2.  Lassen Sie sich die deskriptiven Statistiken für die neue abhängige Variable ausgeben, gruppiert nach den UVs.
+
+```{r Statistiken gruppiert}
+
+
+```
+
+3.  Prüfen Sie, ob die Daten die Voraussetzung der Varianzhomogenität erfüllen. Führen Sie den entsprechenden Test durch und interpretieren Sie das Ergebnis.
+
+Antwort:
+
+```{r Test auf Varianzhomogenität}
+
+
+```
+
+4.  Führen Sie nun eine mehrfaktorielle Varianzanalyse durch. Wie interpretieren Sie die Ergebnisse inhaltlich? Gehen Sie dabei auf jeden einzelnen Effekt ein.
+
+Antwort: ...
+
+```{r AOV}
+#Varianzanalyse durchführen
+
+```
+
+5.  Berechnen Sie die Effektgrößen und machen Sie eine Aussage zur Stärke der signifikanten Effekte.
+
+Antwort:
+
+```{r Effektgröße}
+#Effektgrößen berechnen
+
+```
+
+6.  Haben Sie eine signifikante Interaktion gefunden? Wenn ja, stellen Sie den Interaktionseffekt graphisch dar und erklären Sie die Art der Interaktion. Wenn nein, dann stellen Sie nur die signifikanten Haupteffekte mit Fehlerbalken graphisch dar.
+
+Antwort:
+
+```{r Visualisierung der Effekte}
+#Interaktionsplot oder Liniendiagramm
+
+```
+
+**Wichtig!** Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung4.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.
+
+---
+title: "Übung 4: Mehrfaktorielle Varianzanalyse"
+author: "Annie Waldherr und Antje Sader"
+output:
+html_document: default
+date: "2024-04-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 999) # Falls die Werte klein sind, wird so ein wissenschaftliche Schreibweise verhindert
+```
+
+## Lernziele und Überblick
+
+Diese Übung vermittelt die Grundlagen der mehrfaktoriellen Varianzanalyse (ANOVA). Sie lernen, wie man:
+
+-   eine zweifaktorielle Varianzanalyse durchführt und interpretiert,
+-   Effektgrößen berechnet und interpretiert,
+-   Effektgrößen mit Fehlerbalken darstellt,
+-   Interaktionsdiagramme darstellt und interpretiert.
+
+## Das Arbeitsverzeichnis
+
+Wie immer prüfen wir zunächst mit "getwd()", unter welchem Pfad unser Arbeitsverzeichnis abgelegt ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner gespeichert sein. Sollte dies nicht der Fall sein, definieren wir das Arbeitsverzeichnis neu unter: Session -\> Set Working Directory -\> Choose Directory.
+
+```{r Working Directory}
+##Arbeitsverzeichnis checken
+getwd()
+```
+
+## Pakete installieren und laden
+
+Im Folgenden benötigen wir dieselben Pakete wie bei Übung 3. Diese laden wir wieder mit dem Paket "pacman", welches wir bereits in Übung 2 (t-Test) installiert haben.
+
+```{r Pakete installieren}
+##Pakete installieren und laden
+if (!require("pacman")) {install.packages("pacman"); library(pacman)}
+p_load(mosaic, knitr, tidyverse, effectsize, broom, car, ggpubr)
+```
+
+## Daten einlesen
+
+In einem Experiment von Arendt et al. (2023) (N=827) wurde untersucht, ob Nachrichtenmedien politisches Zuhören gegenüber anderen Meinungen erhöhen können, indem sie die Salienz von Parteihinweisen reduzieren.
+
+Die Studie finden Sie auch auf Moodle:
+
+Arendt, F., Northup, T., Forrai, M., & Scheufele, D. (2023). Why we stopped listening to the other side: How partisan cues in news coverage undermine the deliberative foundations of democracy. Journal of Communication, 73(5), 413–426. <https://doi.org/10.1093/joc/jqad007>
+
+Wir laden den Datensatz "PoliticalListening.csv" aus dem entsprechenden Ordner in Moodle und legen ihn ins Arbeitsverzeichnis.
+
+Er enthält vier Variablen: - SCT ("Senator Choice Task"): Indexwert für selektives politisches Zuhören bei der Auswahl von Reden bekannter Politiker:innen; höhere Werte weisen auf eine größere Bereitschaft hin, politischen Ideen der Republikaner Gehör zu schenken. - HCT ("Headline Choice Task"): wie oben Indexwert für selektives politisches Zuhören, aber bei der Auswahl von Reden unbekannter Politiker:innen - Group: Dies ist die Gruppierungsvariable für die Experimentalbedingung; je nach Gruppe waren die Hinweise auf die Parteizugehörigkeit der Redner:innen mehr oder weniger salient (nicht vorhanden=0; niedrig=1; hoch=2) - ID_dicho: Selbstidentifikation der Teilnehmer:innen mit einer Partei (Demokrat=0; Republikaner=1)
+
+Unsere Aufgabe: Wir überprüfen zunächst, ob selektives politisches Zuhören (Variable „SCT”) von der Salienz der Parteihinweise (Variable „Group”) und der Selbstidentifikation der Teilnehmer:innen mit einer Partei (Variable „ID_dicho”) abhängt.
+
+**Achtung!**: Wenn wir den Datensatz mit einem einfachen Dateneditor öffnen, sehen wir, dass das Semikolon als Trennungszeichen verwendet wird. Deshalb verwenden wir im folgenden Befehl das Argument "sep", mit dem wir das Trennungszeichen festlegen können, wenn es von der Voreinstellung (Komma) abweicht.
+
+```{r}
+#Datensatz laden
+df <- read.csv("PoliticalListening.csv", sep = ";")
+
+
+#Datensatz inspizieren
+glimpse(df)
+class(df)
+head(df)
+
+```
+
+Mit der Funktion "View" können wir uns den Datensatz in einem separaten Fenster anschauen.
+
+```{r, eval = F}
+#Viewer öffnen
+View(df)
+```
+
+## UVs und AVs definieren
+
+Wir möchten eine zweifaktorielle Varianzanalyse durchführen und prüfen, ob sich das selektive politische Zuhören der Befragten nach Salienz der Parteihinweise und nach Parteiidentifikation signifikant unterscheidet.
+
+Die Variablen "Group" und "ID_dicho" sind also unsere UVs und müssen daher ein nominales Skalenniveua haben.
+
+Im obigen Output der Funktion "glimpse()" haben wir gesehen, dass die beiden Variablen numerisch kodiert sind (vom Typ "integer" int), auch wenn sie inhaltlich nominalskaliert sind. Daher müssen wir diese in Faktoren umwandeln mit der Funktion "factor".
+
+Zuerst aber rekodieren wir die Variable "ID_dicho". Diese ist dichotom kodiert mit 0 = Demokrat und 1 = Republikaner. Da R Nullwerte manchmal als fehlende Werte interpretiert, kodieren wir diese Variable so um, dass alle Nullen mit dem Wert 1 und alle Einsen mit dem Wert 2 ersetzt werden. 1 bedeutet dann männlich, 2 weiblich. Ebenso verfahren wir mit der Variable "Group".
+
+```{r Variablen rekodieren}
+#Variable Geschlecht umkodieren
+df$ID_dicho <- Recode((df$ID_dicho), 
+                '0 = 1; 1 = 2')
+df$Group <- Recode((df$Group), 
+                '0 = 1; 1 = 2; 2 = 3')
+glimpse(df)
+```
+
+Nun legen wir UVs und AV fest und wandeln die UVs in Faktoren um. Die Argumente "levels" und "labels" verwenden wir, um die drei Faktorstufen mit ihren zugehörigen Bezeichungen zu speichern.
+
+-   Salienz der Parteihinweise: Der Wert 1 wird damit dem Label "no", der Wert 2 dem Label "low" und der Wert 3 dem Label "high" zugeordnet.
+-   Parteiidentifikation: Wert 1 steht nach der Rekodierung für Demokrat, Wert 2 für Republikaner.
+
+**Achtung**! Bestehen die Werte der UVs bereits aus Text, d.h. sind vom Typ "character" (chr), dann können wir einfach die Funktion "as.factor()" verwenden (siehe Übung 2).
+
+Die Variable "SCT" ist unsere AV und ist bereits wie gewünscht metrisch skaliert.
+
+```{r Variablen auswählen}
+#Unabhängige und abhängige Variablen definieren
+#die UVs wandeln wir in Faktoren um
+
+df$uv1 <- factor(df$Group, 
+                levels = c (1,2, 3), 
+                labels = c("no", "low", "high")) 
+df$uv2 <- factor(df$ID_dicho, 
+                levels = c (1,2), 
+                labels = c("democrat", "republican")) 
+
+df$av <- df$SCT
+
+glimpse(df)
+
+
+```
+
+## Deskriptive Statistiken der AV
+
+Nun lassen wir uns zunächst mit der Funktion "favstats" die wichtigsten deskriptiven Statistiken ausgeben.
+
+```{r Deskriptive Statistiken}
+#Labels vergeben
+label_uv1 <- "Salienz der Parteihinweise"
+label_uv2 <- "Parteiidentifikation"
+label_av <- "selektives politisches Zuhören"
+
+#Deskriptive Statistiken berechnen
+des_stat1 <- favstats(df$av ~ df$uv1)
+des_stat2 <- favstats(df$av ~ df$uv2)
+
+# Tabellen erstellen
+kable (des_stat1,
+       col.names = c(label_uv1,"Minimum", "1.Quartil", 
+                     "Median", "3.Quartil", "Maximum", 
+                     "M", "SD", "N", "Fehlend" ),
+       digits = 2)
+
+kable (des_stat2,
+       col.names = c(label_uv2,"Minimum", "1.Quartil", 
+                     "Median", "3.Quartil", "Maximum", 
+                     "M", "SD", "N", "Fehlend" ),
+       digits = 2)
+
+```
+
+Wir sehen, dass sich die Mittelwerte mit der Salienz der Parteihinweise zunehmen. Auch unterscheiden sie sich deutlich je nach Parteiidentifikation. Das bedeutet jedoch nicht, dass diese Unterschiede auch statistisch signifikant sind. Um dies zu prüfen, führen wir im folgenden eine zweifaktorielle Varianzanalyse durch.
+
+Zunächst gruppieren wir den Datensatz nach den beiden UVs mit der Funktion "group_by" und lassen uns hierfür zusammenfassende Statistiken für unsere AV mit der Funktion "summarize"ausgeben: Mittelwerte (mean = mean (av)), Standardabweichungen (std_dev = sd(av)) und die Anzahl der Werte pro Gruppe (count = n()). Um die verschiedenen Arbeitsschritte aneinanderzuhängen verwenden wir wieder die Pfeife (%\>%). Den neuen Datensatz speichern wir in einem neuen Objekt namens "df_by_group".
+
+```{r Gruppierte Statistiken}
+# Statistiken nach Gruppen
+df_by_group <- df %>% 
+  group_by(uv1, uv2) %>% 
+  summarize(mean = mean(av), std_dev = sd(av), count = n())
+df_by_group
+```
+
+In der Spalte "mean" sehen wir für die Republikaner und Demokraten durchaus Unterschiede im selektiven politischen Zuhören (unserer AV!).
+
+## Levene-Test zur Voraussetzungsprüfung
+
+Prüfen wir zunächst, ob die Voraussetzung der Varianzhomogenität vorliegt. Hierzu verwenden wir wieder den Levene-Test, mit dem wir testen, ob sich die Varianzen in allen sechs Gruppen signifikant voneinander unterscheiden. Die unten stehenden Befehle sind bereits aus der vorigen Übung bekannt. Da wir nun aber zwei UVs haben, kombinieren wir diese in der Form: uv1\*uv2
+
+```{r Levene}
+df %>%
+  drop_na(uv1, uv2, av) %>%
+  leveneTest(av ~ uv1*uv2, data = .)
+```
+
+Der Levene-Test ist gerade nicht signifikant (F(5,821) = 2.19, p = 0.05), denn p \> 0.05. Somit können wir die Nullhypothese beibehalten, von Varianzhomogenität ausgehen und mit der Varianzanalyse fortfahren.
+
+## Mehrfaktorielle Varianzanalyse
+
+Für die Varianzanalyse verwenden wir wieder die Funktion "aov". Auch in dieser Funktion geben wir die beiden UVs mit \* verbunden ein. Dadurch legen wir fest, dass beide Faktoren einzeln auf ihre jeweiligen Haupteffekte sowie in Kombination, d.h. als Interaktionseffekt, getestet werden. Will man die beiden Faktoren getrennt voneinander prüfen, also keinen Interaktionseffekt berechnen, verbindet man sie mit einem +.
+
+```{r ANOVA}
+df <- drop_na(df, uv1, uv2, av)
+model <- aov(av ~ uv1*uv2, data = df)
+summary(model)
+```
+
+Im Output wird nun eine Tabelle mit vier Zeilen angezeigt. Die Spalten entsprechen genau denen der einfaktoriellen Varianzanalyse (siehe Übung 3). Die Zeile "uv1" beinhaltet die Statistiken für den Haupteffekt unserer ersten UV (Salienz der Parteihinweise), die Zeile "uv2" entsprechend die Statistiken für den Haupteffekt unserer zweiten UV (Parteiidentifikation). Der Haupteffekt für Parteiidentifikation ist höchst signifikant mit p \< 0.001. Wir sehen in der letzten Spalte, dass auch der Interaktionseffekt höchst signifikant ist mit p \< 0.001 d.h. die Wirkung von Salienz und Parteiidentifikation ist nicht unabhängig voneinander. Der Haupteffekt für die UV1 ist hingegen nicht signifikant (p = 0.328 und damit \> 0.05).
+
+Die Werte in der vierten Zeile (Residuals) beziehen sich auf die Varianz innerhalb der Gruppen, die nicht durch die UVs und/oder ihren Interaktionseffekt erklärt werden kann (wird auch Fehlervarianz genannt).
+
+## Effektgrößen
+
+Um festzustellen, wie groß der Einfluss der UVs auf die AV genau ist, und um die Größe der verschiedenen signifikanten (!) Effekte miteinander vergleichen zu können, bestimmen wir die Effektgrößen.
+
+```{r Effektgrößen}
+eta_squared(model)
+```
+
+**Wichtig!** Wir interpretieren immer nur die Effektgrößen der signifikanten Effekte, hier also für den Haupteffekt von UV2 und den Interaktionseffekt. Das Eta-Quadrat ist 0.60 für unsere zweite UV und 0.07 für den Interaktionseffekt. Nach Cohen sind dies ein großer bzw ein mittelgroßer Effekt (klein = 0.01; mittel = 0.06; groß = 0.14).
+
+**Anmerkung:** Die partiellen Eta-Quadrate werden hier nach der Typ1-Methode berechnet. Das bedeutet, dass die Effektgrößen jeweils um den Effekt der vorigen Variablen bereinigt werden, d.h. aus dem Effekt von UV2 wurde der Effekt von UV1 herausgerechnet, und aus dem Effekt der Interaktion wurde der Effekt der beiden Haupteffekte herausgerechnet.
+
+## Ergebnisse berichten
+
+Wir berichten die Ergebnisse der zweifaktoriellen Varianzanalyse wie folgt:
+
+Der Haupteffekt der Parteiidentifikation auf das selektive politische Zuhören ist signifikant. Die Befragten wählen eher die Reden der Senator:innen aus, die der Partei angehören, mit der sie sich selbst identifizieren, und diese Unterschiede sind signifikant mit F (1,821) = 1244.23,p \< 0.001, η² = 0.60.
+
+Auch der Interaktionseffekt ist signifikant mit F (2,821) = 28.99, p \< 0.001, η² = 0.07.
+
+Der Haupteffekt der Salienz von Parteihinweisen (p = 0.328) ist hingegen nicht signifikant.
+
+## Visualisierung der Effekte
+
+Wir erstellen nun ein Liniendiagramm mit Fehlerbalken, welches den Haupteffekt unserer UV2 Parteiidentifikation visualisiert. Zuerst erstellen wir eine Variable namens "Titel" und weisen ihr den Titel zu, den wir der Grafik geben wollen: "Effekt für Parteiidentifikation"
+
+Anschließend verwenden wir die ggline-Funktion aus dem ggpubr-Paket, um ein Liniendiagramm zu erstellen. Wir nehmen unseren Datensatz "df" und entfernen mit "drop_na()"zunächst alle Zeilen mit fehlenden Werten für unsere UV2 und AV. Dann geben wir an, welche Variablen für die x-Achse und die y-Achse des Diagramms verwendet werden sollen. Die UV2 setzen wir auf die x-Achse, und die AV auf die y-Achse.
+
+Wir legen mit dem Argument "title = Titel" den oben gewählten Titel als Titel für die Grafik fest und fügen mit "add" die 95%-Konfidenzintervallen als Fehlerbalken hinzu (mean_ci). Schließlich legen wir mit "xlab" und "ylab" die Beschriftungen der Grafikachsen fest, wobei wir auf unsere oben erstellten Labels (siehe Code-Chunk "Deskriptive Statistiken") verweisen.
+
+```{r Fehlerbalken}
+Titel <- "Effekt für Parteiidentifikation"
+
+ggline(df %>% drop_na (av, uv2),
+        x = "uv2", 
+        y = "av",
+        title = Titel,
+        add = "mean_ci",
+        xlab = label_uv2,
+        ylab = label_av)
+```
+
+Als Ergebnis erhalten wir ein Liniendiagramm, das die Mittelwerte des selektiven politischen Zuhörens (AV) nach Parteiidentifikation (UV2) zeigt. Die Konfidenzintervalle zeigen den Werteraum an, in dem die wahren Mittelwerte mit 95% Sicherheit liegen. Diese überlappen sich nicht, die Unterschiede sind also signifikant.
+
+Um beide Haupteffekte und ihre Interaktion zu visualisieren, eignet sich ein Interaktionsdiagramm. Dieses erstellen wir mit der Funktion "interaction.plot" aus dem Paket "stats". Wir legen folgende Argumente fest:
+
+-   df\$uv1: Die Werte von UV1 werden auf der x-Achse dargestellt.
+-   df\$uv2: Die Werte von UV2 werden verwendet, um verschiedene Linien im Plot zu erzeugen.
+-   df\$av: Die Werte unserer AV werden auf der y-Achse dargestellt.
+-   fun = mean: Die Funktion "mean" wird verwendet, um die Mittelwerte von AV für jedes Faktorlevel von UV1 und UV2 zu berechnen. Diese werden verwendet, um die Linien im Plot zu erzeugen.
+-   ylab = label_uv1: Das Label für die y-Achse wird auf "label_uv1" gesetzt, welches wir oben festgelegt haben.
+-   xlab = label_av: Das Label für die x-Achse wird auf "label_av" gesetzt, welches wir ebenfalls breits oben definiert haben.
+-   trace.label = label_uv2: Die Legende für die Linien im Plot wird mit "label_uv2" beschriftet.
+-   col = c("#0198f9", "#f95801"): Die Farben für die Linien werden auf Blau und Orange gesetzt.
+-   lty = 1: Der Linientyp für die Linien wird als volle Linie (lty=1) festgelegt.
+-   lwd = 2: Die Dicke der Linien wird auf 2 gesetzt.
+-   xtick = TRUE: Gitterlinien für die x-Achse werden angezeigt.
+
+```{r Interaktionsdiagramm}
+
+interaction.plot(
+df$uv1, df$uv2, df$av,
+fun = mean,
+ylab = label_av,
+xlab = label_uv1,
+trace.label = label_uv2,
+col = c("#0198f9", "#f95801"),
+lty = 1,
+lwd = 1,
+xtick = T,
+)
+```
+
+Wir sehen, dass es sich hier um eine ordinale Interaktion handelt. Bereits in der Kontrollgruppe gibt es einen signifikanten Unterschied in der Auswahl der Reden von Republikanern und Demokraten je nach Parteiidentifikation. Selektives politisches Zuhören (d. h. die Differenz in der AV zwischen selbstidentifizierten Republikanern und Demokraten) nimmt mit der Salienz der Parteihinweise zu, d. h. die Salienz von Parteihinweisen moderiert die Beziehung zwischen Parteiidentifikation und selektivem politischem Zuhören.
+
+## Zum Nachlesen
+
+Kapitel 12.5 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R. Springer.
+
+Kapitel 10.3.2 in: Manderscheid, K. (2017). Sozialwissenschaftliche Datenanalyse mit R, 2. Aufl. Springer.
+
+## Hausübung 4
+
+Wiederholen Sie nun die Analysen für die "Headline Choice Task" (HTC), in der Reden unbekannter Politiker:innen ausgewählt wurden (die vierte, bisher ungenutzte Variable im Datensatz). Prüfen Sie auch hier, ob das selektive politische Zuhören von der Salienz der Parteihinweise (nicht vorhanden=0; niedrig=1 hoch=2) und der Parteiidentifikation (Demokrat=0; Republikaner=1) abhängt.
+
+1.  Definieren Sie die neue abhängige Variable.
+
+```{r Variablen definieren}
+
+
+```
+
+2.  Lassen Sie sich die deskriptiven Statistiken für die neue abhängige Variable ausgeben, gruppiert nach den UVs.
+
+```{r Statistiken gruppiert}
+
+
+```
+
+3.  Prüfen Sie, ob die Daten die Voraussetzung der Varianzhomogenität erfüllen. Führen Sie den entsprechenden Test durch und interpretieren Sie das Ergebnis.
+
+Antwort:
+
+```{r Test auf Varianzhomogenität}
+
+
+```
+
+4.  Führen Sie nun eine mehrfaktorielle Varianzanalyse durch. Wie interpretieren Sie die Ergebnisse inhaltlich? Gehen Sie dabei auf jeden einzelnen Effekt ein.
+
+Antwort: ...
+
+```{r AOV}
+#Varianzanalyse durchführen
+
+```
+
+5.  Berechnen Sie die Effektgrößen und machen Sie eine Aussage zur Stärke der signifikanten Effekte.
+
+Antwort:
+
+```{r Effektgröße}
+#Effektgrößen berechnen
+
+```
+
+6.  Haben Sie eine signifikante Interaktion gefunden? Wenn ja, stellen Sie den Interaktionseffekt graphisch dar und erklären Sie die Art der Interaktion. Wenn nein, dann stellen Sie nur die signifikanten Haupteffekte mit Fehlerbalken graphisch dar.
+
+Antwort:
+
+```{r Visualisierung der Effekte}
+#Interaktionsplot oder Liniendiagramm
+
+```
+
+**Wichtig!** Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung4.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.
