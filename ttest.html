@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Annie Waldherr">
+<meta name="dcterms.date" content="2024-04-15">
+
+<title>T-Test mit R – R Tutorials</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R Tutorials</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ttest.html" aria-current="page"> 
+<span class="menu-text">T-Test</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lernziele-und-überblick" id="toc-lernziele-und-überblick" class="nav-link active" data-scroll-target="#lernziele-und-überblick">Lernziele und Überblick</a></li>
+  <li><a href="#das-arbeitsverzeichnis" id="toc-das-arbeitsverzeichnis" class="nav-link" data-scroll-target="#das-arbeitsverzeichnis">Das Arbeitsverzeichnis</a></li>
+  <li><a href="#pakete-installieren-und-laden" id="toc-pakete-installieren-und-laden" class="nav-link" data-scroll-target="#pakete-installieren-und-laden">Pakete installieren und laden</a></li>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen">Daten einlesen</a></li>
+  <li><a href="#unabhängige-und-abhängige-variable-definieren" id="toc-unabhängige-und-abhängige-variable-definieren" class="nav-link" data-scroll-target="#unabhängige-und-abhängige-variable-definieren">Unabhängige und abhängige Variable definieren</a></li>
+  <li><a href="#deskriptive-statistiken-der-av" id="toc-deskriptive-statistiken-der-av" class="nav-link" data-scroll-target="#deskriptive-statistiken-der-av">Deskriptive Statistiken der AV</a></li>
+  <li><a href="#levene-test-zur-voraussetzungsprüfung" id="toc-levene-test-zur-voraussetzungsprüfung" class="nav-link" data-scroll-target="#levene-test-zur-voraussetzungsprüfung">Levene-Test zur Voraussetzungsprüfung</a></li>
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test">t-Test</a></li>
+  <li><a href="#zum-nachlesen" id="toc-zum-nachlesen" class="nav-link" data-scroll-target="#zum-nachlesen">Zum Nachlesen</a></li>
+  <li><a href="#hausübung-2" id="toc-hausübung-2" class="nav-link" data-scroll-target="#hausübung-2">Hausübung 2</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">T-Test mit R</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Annie Waldherr </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 15, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lernziele-und-überblick" class="level2">
+<h2 class="anchored" data-anchor-id="lernziele-und-überblick">Lernziele und Überblick</h2>
+<p>In diesem Tutorium lernen Sie, wie Sie Mittelwertunterschiede zwischen zwei unabhängigen Stichproben mit Hilfe eines t-Tests vergleichen können. Sie lernen, wie man:</p>
+<ul>
+<li>die Daten für einen t-Test vorbereitet,</li>
+<li>die Annahme der Varianzhomogenität mit dem Levene-Test prüft,</li>
+<li>die Ergebnisse eines t-Tests berechnet, interpretiert und berichtet.</li>
+</ul>
+</section>
+<section id="das-arbeitsverzeichnis" class="level2">
+<h2 class="anchored" data-anchor-id="das-arbeitsverzeichnis">Das Arbeitsverzeichnis</h2>
+<p>Wie immer prüfen wir zunächst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis ist. Dies ist der Ordner, in den R alle in diesem Projekt erstellten Dokumente ablegt, und aus dem es auch Dokumente einliest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein. Wenn wir ein Projekt angelegt haben, wird dieses automatisch als Working Directory (Arbeitsverzeichnis) angelegt.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Arbeitsverzeichnis checken</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial"</code></pre>
+</div>
+</div>
+<p>Wollen wir einen anderen Ordner als Arbeitsverzeichnis festlegen, dann können wir das am besten händisch unter: Session -&gt; Set Working Directory -&gt; Choose Directory.</p>
+<p>Oder wir verwenden die Funktion “setwd()” und geben in den Klammern den genauen Pfad zum gewünschten Ordner an.</p>
+</section>
+<section id="pakete-installieren-und-laden" class="level2">
+<h2 class="anchored" data-anchor-id="pakete-installieren-und-laden">Pakete installieren und laden</h2>
+<p>Im Folgenden benötigen wir eine Reihe von R-Paketen, die nicht bereits in der Basisversion enthalten sind. Hierzu arbeiten wir dieses Mal mit dem Package “pacman”. Das eignet sich gut, um gleich mehrere Pakete zu installieren und zu laden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Pakete installieren und laden</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) {<span class="fu">install.packages</span>(<span class="st">"pacman"</span>); <span class="fu">library</span>(pacman)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(mosaic, knitr, tidyverse, car)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-einlesen" class="level2">
+<h2 class="anchored" data-anchor-id="daten-einlesen">Daten einlesen</h2>
+<p>Der nächste Schritt ist wieder das Einlesen der Daten. Wir verwenden wie in der letzten Übung den Netflixdatensatz. Der Datensatz müsste noch in Ihrem Arbeitsverzeichnis liegen. Wenn nicht, dann kopieren Sie ihn nochmals dorthin.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Datensatz laden</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>netflix_films <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/NetflixOriginals.csv"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Datensatz inspizieren</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(netflix_films)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 584
+Columns: 6
+$ Title      &lt;chr&gt; "Enter the Anime", "Dark Forces", "The App", "The Open Hous…
+$ Genre      &lt;chr&gt; "Documentary", "Thriller", "Science fiction/Drama", "Horror…
+$ Premiere   &lt;chr&gt; "August 5, 2019", "August 21, 2020", "December 26, 2019", "…
+$ Runtime    &lt;int&gt; 58, 81, 79, 94, 90, 147, 112, 149, 73, 139, 58, 112, 97, 10…
+$ IMDB.Score &lt;dbl&gt; 2.5, 2.6, 2.6, 3.2, 3.4, 3.5, 3.7, 3.7, 3.9, 4.1, 4.1, 4.1,…
+$ Language   &lt;chr&gt; "English/Japanese", "Spanish", "Italian", "English", "Hindi…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(netflix_films)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netflix_films)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Title                 Genre          Premiere Runtime IMDB.Score
+1 Enter the Anime           Documentary    August 5, 2019      58        2.5
+2     Dark Forces              Thriller   August 21, 2020      81        2.6
+3         The App Science fiction/Drama December 26, 2019      79        2.6
+4  The Open House       Horror thriller  January 19, 2018      94        3.2
+5     Kaali Khuhi               Mystery  October 30, 2020      90        3.4
+6           Drive                Action  November 1, 2019     147        3.5
+          Language
+1 English/Japanese
+2          Spanish
+3          Italian
+4          English
+5            Hindi
+6            Hindi</code></pre>
+</div>
+</div>
+</section>
+<section id="unabhängige-und-abhängige-variable-definieren" class="level2">
+<h2 class="anchored" data-anchor-id="unabhängige-und-abhängige-variable-definieren">Unabhängige und abhängige Variable definieren</h2>
+<p>Wir möchten prüfen, ob sich die Bewertung von Komödien oder Dramen signifikant unterscheidet. Hierzu wählen wir zunächst mit filter() die Fälle aus, in denen das Genre entweder “Comedy” oder “Drama” entspricht. Wir speichern diesen reduzierten Datensatz als neues Objekt der Klasse Dataframe mit Namen “df”.</p>
+<p>Dann definieren wir die Variable “Genre” als unabhängige Variable und die Variable “IMDB.Score” als abhängige Variable. Eine wichtige Voraussetzung für den t-Test ist, dass das Skalenniveua der UV nominal ist und nur zwei Ausprägungen hat (dichotom). Das Skalenniveu der AV muss metrisch sein. Wir prüfen mit glimpse(), ob dies der Fall ist.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Fälle auswählen und in neuem Dataframe speichern</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">filter</span>(netflix_films, Genre <span class="sc">==</span> <span class="st">"Comedy"</span> <span class="sc">|</span> Genre <span class="sc">==</span> <span class="st">"Drama"</span> )</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 126
+Columns: 6
+$ Title      &lt;chr&gt; "Leyla Everlasting", "Sardar Ka Grandson", "The Call", "Wha…
+$ Genre      &lt;chr&gt; "Comedy", "Comedy", "Drama", "Comedy", "Comedy", "Comedy", …
+$ Premiere   &lt;chr&gt; "December 4, 2020", "May 18, 2021", "November 27, 2020", "J…
+$ Runtime    &lt;int&gt; 112, 139, 112, 102, 99, 107, 99, 95, 46, 88, 105, 93, 80, 1…
+$ IMDB.Score &lt;dbl&gt; 3.7, 4.1, 4.1, 4.3, 4.4, 4.5, 4.5, 4.6, 4.6, 4.6, 4.7, 4.7,…
+$ Language   &lt;chr&gt; "Turkish", "Hindi", "Korean", "Korean", "English", "English…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Title  Genre          Premiere Runtime IMDB.Score
+1         Leyla Everlasting Comedy  December 4, 2020     112        3.7
+2        Sardar Ka Grandson Comedy      May 18, 2021     139        4.1
+3                  The Call  Drama November 27, 2020     112        4.1
+4 What Happened to Mr. Cha? Comedy   January 1, 2021     102        4.3
+5                Sextuplets Comedy   August 16, 2019      99        4.4
+6          Seriously Single Comedy     July 31, 2020     107        4.5
+  Language
+1  Turkish
+2    Hindi
+3   Korean
+4   Korean
+5  English
+6  English</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unabhängige und abhängige Variable definieren</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>uv <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(df<span class="sc">$</span>Genre) <span class="co">#die UV wandeln wir in einen Faktor um</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>av <span class="ot">&lt;-</span> df<span class="sc">$</span>IMDB.Score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="deskriptive-statistiken-der-av" class="level2">
+<h2 class="anchored" data-anchor-id="deskriptive-statistiken-der-av">Deskriptive Statistiken der AV</h2>
+<p>Nun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken ausgeben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Label UV vergeben</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>label_uv <span class="ot">&lt;-</span> <span class="st">"Genre"</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Deskriptive Statistiken berechnen</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>des_stat <span class="ot">&lt;-</span> <span class="fu">favstats</span>(df<span class="sc">$</span>av <span class="sc">~</span> df<span class="sc">$</span>uv)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabelle erstellen</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span> (des_stat,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.names =</span> <span class="fu">c</span>(label_uv,<span class="st">"Minimum"</span>, <span class="st">"1.Quartil"</span>, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Median"</span>, <span class="st">"3.Quartil"</span>, <span class="st">"Maximum"</span>, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"N"</span>, <span class="st">"Fehlend"</span> ),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 9%">
+<col style="width: 14%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Genre</th>
+<th style="text-align: right;">Minimum</th>
+<th style="text-align: right;">1.Quartil</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">3.Quartil</th>
+<th style="text-align: right;">Maximum</th>
+<th style="text-align: right;">M</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">Fehlend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Comedy</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">5.5</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: right;">7.2</td>
+<td style="text-align: right;">5.51</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Drama</td>
+<td style="text-align: right;">4.1</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: right;">6.8</td>
+<td style="text-align: right;">7.9</td>
+<td style="text-align: right;">6.34</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Wir sehen, dass Dramen durchschnittlich höher bewertet werden als Komödien. Das bedeutet aber noch nicht, dass dieser Unterschied auch statistisch signifikant ist. Es könnte ja sein, dass wir diesen Unterschied nur zufällig in unserer Stichprobe messen, in Wahrheit aber gar kein Unterschied besteht. Um dies zu prüfen, führen wir im folgenden einen t-Test für unabhängige Stichproben durch.</p>
+</section>
+<section id="levene-test-zur-voraussetzungsprüfung" class="level2">
+<h2 class="anchored" data-anchor-id="levene-test-zur-voraussetzungsprüfung">Levene-Test zur Voraussetzungsprüfung</h2>
+<p>Zunächst müssen wir aber eine wichtige Voraussetzung prüfen: Varianzhomogenität. Wir wollen wissen, ob sich die Varianzen in den beiden Gruppen (Dramen vs.&nbsp;Komödien) signifikant unterscheiden. Hierzu führen wir den Levene-Test durch. Abhängig von diesem Ergebnis wählen wir das weitere Testverfahren.</p>
+<p>Zunächst rufen wir den Datensatz “df” auf. Da wir im Folgenden gleich mehrere Verarbeitungsschritte aneinander hängen werden, arbeiten wir mit dem %&gt;%-Operator, der Pfeife, gelesen als “und dann”. Wir nehmen also unseren Datensatz “df”, und dann entfernen wir alle fehlenden Werte (Fälle, in denen unserer UV oder AV fehlen) mit der Funktion drop_na() aus dem tidyverse-Paket entfernt; und dann führen wir den Levene-Test durch.</p>
+<p>Mit dem Argument av ~ uv definieren wir die Variablen, für die die Varianzhomogenität geprüft werden.</p>
+<p>Da wir zuvor bereits unseren Datensatz festgelegt haben, können wir mit dem Argument “data = .” auf diesen verweisen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(uv, av) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leveneTest</span>(av<span class="sc">~</span>uv, <span class="at">data =</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+       Df F value Pr(&gt;F)
+group   1   0.078 0.7805
+      124               </code></pre>
+</div>
+</div>
+<p>Der Levene-Test ist nicht signifikant (F(1,124) = 0,08, p = 0,78), denn p ist größer als 0,05. Somit wird die Nullhypothese beibehalten und wir können von Varianzhomogenität ausgehen und mit dem t-Test fortfahren.</p>
+<p><strong>Wichtig!</strong> Wäre der Levene-Test signifikant, d.h. die Varianzen der Werte in den beiden Gruppen sind ungleich, müssten wir statt dem t-test für unabhängige Stichproben den Welch-Test durchführen, der keine Varianzhomogenität voraussetzt (siehe unten).</p>
+</section>
+<section id="t-test" class="level2">
+<h2 class="anchored" data-anchor-id="t-test">t-Test</h2>
+<p>Wir führen nun den t-Test durch. Die Logik des unten stehenden Codes folgt dem des Levene-Tests oben, nur dass wir nun den “t.test” durchführen, mit der gleichen av und uv wie zuvor. Wir testen “two.sided”, d.h. zweiseitig, auf Signifikanz der Mittelwertunterschiede in beide Richtungen (Drama &gt; Comedy und Drama &lt; Comedy). Die Hypothese, die wir testen, ist also ungerichtet:</p>
+<p>H1: Filme vom Genre Drama werden signifikant unterschiedlich bewertet als Filme vom Genre Comedy. H0: Die Bewertungen der beiden Genres unterscheiden sich nicht.</p>
+<p><em>Frage</em>: Können Sie auch eine gerichtete Hypothese formulieren? Wie würden Sie diese begründen?</p>
+<p>Das Argument “var.equal = T” wird genutzt, wenn der Levene-Test nicht signifikant ist und somit Varianzhomogenität vorliegt. Ist dies nicht der Fall, müssen wir “var.equal = F” setzen. Dann wird der Welch-Test berechnet.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(uv, av) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t.test</span>(av<span class="sc">~</span>uv, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">var.equal =</span> T,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  av by uv
+t = -5.9272, df = 124, p-value = 2.846e-08
+alternative hypothesis: true difference in means between group Comedy and group Drama is not equal to 0
+95 percent confidence interval:
+ -1.116146 -0.557323
+sample estimates:
+mean in group Comedy  mean in group Drama 
+            5.506122             6.342857 </code></pre>
+</div>
+</div>
+<p>Im Output wird uns in der ersten Zeile ausgegeben, für welche AV und UV der t-Test berechnet wurde. Es folgen die Angaben zur Teststatistik (t = -5,9272, df=124, p-value=2.846e-08). Der T-Wert beträgt -5,9272 bei 124 Freiheitsgraden. Das negative Vorzeichen weist daraufhin, dass der Mittelwert der Gruppe Comedy kleiner ist als der Mittelwert der Gruppe Drama. Der p-Wert (p-value) beträgt p=2.846e-08 oder umgerechnet p=0,00000002846. Das ist deutlich kleiner als 0,05 und sogar deutlich kleiner als 0,001, d.h. p &lt; 0,001 und damit höchst signifikant.</p>
+<p>Wir berichten das Ergebnis wie folgt: Filme vom Genre Comedy (M = 5,51, SD = 0,79) werden signifikant schlechter bewertet als Filme vom Genre Drama (M = 6,34, SD = 0,76, t = -5,9272, df=124, p &lt; 0,001).</p>
+</section>
+<section id="zum-nachlesen" class="level2">
+<h2 class="anchored" data-anchor-id="zum-nachlesen">Zum Nachlesen</h2>
+<p>Dieses Skript folgt in weiten Teilen Kapitel 12.3 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R.</p>
+</section>
+<section id="hausübung-2" class="level2">
+<h2 class="anchored" data-anchor-id="hausübung-2">Hausübung 2</h2>
+<p>Jetzt sind Sie dran! Prüfen Sie, ob sich Dokumentarfilme und Dramen signifikant in ihrer Länge unterscheiden.</p>
+<ol type="1">
+<li>Wählen Sie die Fälle nach den nun gewünschten Genres aus und speichern Sie sie in einem neuen Dataframe.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#wählen Sie die Fälle nach den gewünschten Genres aus und speichern Sie sie in einem neuem Dataframe.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Identifizieren Sie unabhängige und abhängige Variable und legen Sie diese fest. Vergessen Sie nicht, die UV in einen Faktor umzuwandeln.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#UV und AV definieren; UV dabei in Faktor umwandeln</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Unabhängige und abhängige Variable definieren</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#die UV wandeln wir in einen Faktor um</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Welches Skalenniveau haben die beiden Variablen?</li>
+</ol>
+<p>Antwort: Ordinal (Score) und Nominal (Genre)</p>
+<ol start="4" type="1">
+<li>Führen Sie nun den Levene-Test durch. Was ergibt er?</li>
+</ol>
+<p>Antwort: Das Ergebnis ist nicht signifikant ((F=1,234, p=0,74%), denn p ist größer als 0,05. Die Nullhypothese wird somit beibehalten, Varianz ist homogen und der T-Test kann berechnet werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Levene-Test durchführen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Was für ein statistischer Test muss nun für den Mittelwertvergleich gerechnet werden? Begründen Sie Ihre Wahl kurz.</li>
+</ol>
+<!-- -->
+<ol start="6" type="1">
+<li><p>Formulieren Sie Nullhypothese und Alternativhypothese für den Mittelwertvergleich:</p></li>
+<li><p>Berechnen und interpretieren Sie nun den Test. Was ergibt der Test?</p></li>
+</ol>
+<p><strong>Tipp!</strong> Sie müssen den Code nicht komplett selbst eintippen. Suchen Sie die entsprechenden Code-Chunks oben und übertragen Sie sie per Copy-Paste in die Platzhalter hier unten. In der Regel müssen Sie nur die Variablennamen und ggf. weitere Parameter anpassen. Bitte fügen Sie auch nur die Befehle und Berechnungen an, die jeweils in der Aufgabenstellung gefragt sind, d.h. löschen Sie Befehle, die nicht zur Aufgabenstellung gehören.</p>
+<p><strong>Wichtig!</strong> Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung2.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

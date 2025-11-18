@@ -1,0 +1,485 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#einführung-und-datenmanagement",
+    "href": "index.html#einführung-und-datenmanagement",
+    "title": "Datenanalyse mit R",
+    "section": "",
+    "text": "Erste Schritte mit R."
+  },
+  {
+    "objectID": "index.html#t-test",
+    "href": "index.html#t-test",
+    "title": "Datenanalyse mit R",
+    "section": "2. T-Test",
+    "text": "2. T-Test\nTutorial und Übung T-Test."
+  },
+  {
+    "objectID": "index.html#varianzanalyse",
+    "href": "index.html#varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "3. Varianzanalyse",
+    "text": "3. Varianzanalyse\nTutorial und Übung Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#multiple-varianzanalyse",
+    "href": "index.html#multiple-varianzanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "4. Multiple Varianzanalyse",
+    "text": "4. Multiple Varianzanalyse\nTutorial und Übung Multiple Varianzanalyse."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse",
+    "href": "index.html#regressionsanalyse",
+    "title": "Datenanalyse mit R",
+    "section": "5. Regressionsanalyse",
+    "text": "5. Regressionsanalyse\nEinführung in die Regressionsanalyse mit R."
+  },
+  {
+    "objectID": "index.html#regressionsanalyse-2",
+    "href": "index.html#regressionsanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "6. Regressionsanalyse 2",
+    "text": "6. Regressionsanalyse 2\nTutorial und Übung multivariate Regression mit R"
+  },
+  {
+    "objectID": "index.html#conditional-process-modeling",
+    "href": "index.html#conditional-process-modeling",
+    "title": "Datenanalyse mit R",
+    "section": "7. Conditional Process Modeling",
+    "text": "7. Conditional Process Modeling\nTutorial und Übung Conditional Process Modeling"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-1",
+    "href": "index.html#faktorenanalyse-1",
+    "title": "Datenanalyse mit R",
+    "section": "8. Faktorenanalyse 1",
+    "text": "8. Faktorenanalyse 1\nTutorial und Übung Faktorenanalyse"
+  },
+  {
+    "objectID": "index.html#faktorenanalyse-2",
+    "href": "index.html#faktorenanalyse-2",
+    "title": "Datenanalyse mit R",
+    "section": "9. Faktorenanalyse 2",
+    "text": "9. Faktorenanalyse 2\nTutorial und Übung Faktorenanalyse 2"
+  },
+  {
+    "objectID": "index.html#clusteranalyse",
+    "href": "index.html#clusteranalyse",
+    "title": "Datenanalyse mit R",
+    "section": "8. Clusteranalyse",
+    "text": "8. Clusteranalyse\nTutorial und Übung Clusteranalyse"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Einführung.html#lernziele-und-überblick",
+    "href": "Einführung.html#lernziele-und-überblick",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Lernziele und Überblick",
+    "text": "Lernziele und Überblick\nIn diesem Tutorium werden Sie in die Grundlagen von R und RStudio eingeführt. Sie lernen, wie Sie\n\nMarkdown-Skripte verwenden und anzeigen können\nIhr Arbeitsverzeichnis prüfen und einstellen\nPakete installieren und laden\ndie Hilfefunktion verwenden\ndas Konzept der R-Objekte und -Funktionen verstehen\nmit Fehlermeldungen umgehen."
+  },
+  {
+    "objectID": "Einführung.html#r-markdown",
+    "href": "Einführung.html#r-markdown",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "R Markdown",
+    "text": "R Markdown\nDies ist ein R Markdown-Dokument. Markdown ist eine einfache Formatierungssyntax, die zur Erstellung von HTML-, PDF- und MS Word-Dokumenten verwendet werden kann. Wenn Sie auf die Schaltfläche Knit klicken, wird ein Dokument erstellt, das sowohl den Inhalt als auch die Ausgabe aller eingebetteten R-Codefragmente im Dokument enthält. Im Folgenden finden Sie den R-Code und die Ausgabe für das Skript der Übung 0 in diesem Dokument."
+  },
+  {
+    "objectID": "Einführung.html#das-arbeitsverzeichnis",
+    "href": "Einführung.html#das-arbeitsverzeichnis",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nZunächst prüfen wir mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Das ist der Ordner, in dem R alle Dokumente ablegt, die in diesem Projekt erstellt werden, und aus dem es auch Dokumente liest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten sich in diesem Ordner befinden. Wenn wir ein Projekt erstellen, wird dieses automatisch als Arbeitsverzeichnis angelegt.\n\n##Check working directory\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWenn wir einen anderen Ordner als Arbeitsverzeichnis festlegen wollen, können wir dies am besten manuell über die Tabs im oberen Menü tun: Session -&gt; Set Working Directory -&gt; Choose Directory, oder wir verwenden die Funktion “setwd()” und geben in Klammern den genauen Pfad zum gewünschten Ordner an."
+  },
+  {
+    "objectID": "Einführung.html#hilfefunktion",
+    "href": "Einführung.html#hilfefunktion",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Hilfefunktion",
+    "text": "Hilfefunktion\nMit der Funktion “help” kann die jeweilige Hilfeseite für alle Funktionen, Pakete usw. aufgerufen werden. Zum Beispiel öffnet dieser Code die Hilfeseite für die Funktion “setwd()”:\n\nhelp(setwd)\n\nstarte den http Server für die Hilfe fertig\n\n\nAlternativ können Sie auch auf den Tab “Hilfe” im unteren rechten Bereich klicken und dann den Befehl in das Suchfeld eingeben. Es öffnet sich dann ein Fenster mit detaillierten Informationen."
+  },
+  {
+    "objectID": "Einführung.html#pakete-installieren",
+    "href": "Einführung.html#pakete-installieren",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete installieren",
+    "text": "Pakete installieren\nIm Folgenden benötigen wir zwei R-Pakete, die nicht bereits in der Basisversion enthalten sind. Ein R-Paket ist eine Sammlung von R-Funktionen, Daten und Dokumentation, die speziell für einen bestimmten Zweck oder eine bestimmte Anwendung entwickelt wurde. R-Pakete werden in der Regel von der R-Community erstellt und bereitgestellt. Die R-Pakete, die wir benötigen, können über CRAN (Comprehensive R Archive Network) heruntergeladen und installiert werden. Wir können die Pakete mit dem folgenden Code installieren:\n\n##Pakete installieren\nif (!require(tidyverse)) {install.packages(\"tidyverse\")}\n\nLade nötiges Paket: tidyverse\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nif (!require(rmarkdown)) {install.packages(\"rmarkdown\")}\n\nLade nötiges Paket: rmarkdown\n\n\nWarning: Paket 'rmarkdown' wurde unter R Version 4.4.3 erstellt\n\n\nAlternativ können wir auf “Packages -&gt; Install” auf den Tabs im Fenster unten rechts klicken. Dann öffnet sich ein weiteres Fenster, in dem wir den Namen des Pakets eingeben können. Klicken Sie dann auf “Install” und das Paket wird installiert. Wenn Sie auf “Update” klicken, prüft R Studio, ob es Updates für die installierten Pakete gibt, und fragt Sie, ob es diese installieren soll. Sie brauchen die Pakete nur einmal zu installieren und sie gelegentlich zu aktualisieren."
+  },
+  {
+    "objectID": "Einführung.html#pakete-laden",
+    "href": "Einführung.html#pakete-laden",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Pakete laden",
+    "text": "Pakete laden\nJedes Mal, wenn wir ein Paket in einer Sitzung für ein Projekt verwenden wollen, müssen wir es zuerst laden:\n\n##load packages\nlibrary(tidyverse)\nlibrary(rmarkdown)\n\nThe installed packages are listed under “Packages” in the bottom right area. Loaded packages are shown with a tick."
+  },
+  {
+    "objectID": "Einführung.html#objekte",
+    "href": "Einführung.html#objekte",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Objekte",
+    "text": "Objekte\nEin Objekt ist eine Variable, die einen Wert oder eine Menge an Werten speichert. Um ein Objekt in R zu erstellen, können Sie den Zuweisungsoperator “&lt;-” verwenden. Der linke Teil des Operators gibt den Namen des Objekts an, während der rechte Teil den Wert oder die Werte enthält, die in dem Objekt gespeichert werden sollen. Der folgende Befehl erzeugt zum Beispiel ein Objekt “lieblingszahl” und speichert darin die Zahl 9. Im Folgenden können wir dieses Objekt durch einfache Eingabe seines Namens aufrufen und auch für weitere Operationen verwenden.\n\n##Objects\nlieblingszahl &lt;- 9\nlieblingszahl\n\n[1] 9\n\nlieblingswort &lt;- \"Zeitgeist\"\nlieblingswort\n\n[1] \"Zeitgeist\"\n\n\nZum Beispiel können wir jetzt unsere Objekte in einer Funktion verwenden."
+  },
+  {
+    "objectID": "Einführung.html#funktionen",
+    "href": "Einführung.html#funktionen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Funktionen",
+    "text": "Funktionen\nMit Hilfe von Funktionen können wir mit unseren Objekten interagieren und etwas mit ihnen machen. Wir rufen eine Funktion mit ihrem Namen auf. Zum Beispiel gibt es eine Funktion “sqrt”, die die Quadratwurzel aus einem Eingabewert berechnet. Wir geben den Eingabewert in Klammern hinter dem Funktionsnamen an. Wenn wir diese Funktion ausführen, gibt uns R das Ergebnis als Ausgabe.\n\n##Functions\nsqrt(9)\nsqrt(lieblingszahl)\nsqrt(lieblingswort) #what's wrong?"
+  },
+  {
+    "objectID": "Einführung.html#datentypen",
+    "href": "Einführung.html#datentypen",
+    "title": "Übung 0: Erste Schritte mit R",
+    "section": "Datentypen",
+    "text": "Datentypen\nWenn wir die Funktion “sqrt” mit unserem Objekt “lieblingswort” verwenden wollen, erhalten wir eine Fehlermeldung. Woran liegt das? Wir haben versucht, eine numerische Funktion auf ein nicht-numerisches Objekt anzuwenden. Für jedes Objekt ist eine Klasse bzw. ein Datentyp definiert, der festlegt, was wir mit dem Objekt tun können. Wenn wir den Datentyp von “lieblingswort” herausfinden wollen, fragen wir nach seiner Klasse:\n\n##Data types\nclass(lieblingswort)\n\n[1] \"character\"\n\nclass(lieblingszahl)\n\n[1] \"numeric\"\n\nis.numeric(lieblingswort)\n\n[1] FALSE\n\n\nDies sind die wichtigsten Datentypen:\n\nintegers: ganze Zahlen z.B., -1,0,1,2,3,…100,… 1000…\ndoubles/numerics: Dezimalzahlen wie -4.6 und 40.8\nlogicals: logische Zahlen wie TRUE or FALSE\ncharacters: Text wie “mein Lieblingswort”\n\n##Further reading\nIsmay & Kim (2020). A modern dive into R and the Tidyverse. Chapter 1 (Getting started with data in R) https://moderndive.netlify.app/index.html"
+  },
+  {
+    "objectID": "ttest.html",
+    "href": "ttest.html",
+    "title": "T-Test mit R",
+    "section": "",
+    "text": "In diesem Tutorium lernen Sie, wie Sie Mittelwertunterschiede zwischen zwei unabhängigen Stichproben mit Hilfe eines t-Tests vergleichen können. Sie lernen, wie man:\n\ndie Daten für einen t-Test vorbereitet,\ndie Annahme der Varianzhomogenität mit dem Levene-Test prüft,\ndie Ergebnisse eines t-Tests berechnet, interpretiert und berichtet."
+  },
+  {
+    "objectID": "ttest.html#lernziele-und-überblick",
+    "href": "ttest.html#lernziele-und-überblick",
+    "title": "T-Test mit R",
+    "section": "",
+    "text": "In diesem Tutorium lernen Sie, wie Sie Mittelwertunterschiede zwischen zwei unabhängigen Stichproben mit Hilfe eines t-Tests vergleichen können. Sie lernen, wie man:\n\ndie Daten für einen t-Test vorbereitet,\ndie Annahme der Varianzhomogenität mit dem Levene-Test prüft,\ndie Ergebnisse eines t-Tests berechnet, interpretiert und berichtet."
+  },
+  {
+    "objectID": "ttest.html#das-arbeitsverzeichnis",
+    "href": "ttest.html#das-arbeitsverzeichnis",
+    "title": "T-Test mit R",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nWie immer prüfen wir zunächst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis ist. Dies ist der Ordner, in den R alle in diesem Projekt erstellten Dokumente ablegt, und aus dem es auch Dokumente einliest. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein. Wenn wir ein Projekt angelegt haben, wird dieses automatisch als Working Directory (Arbeitsverzeichnis) angelegt.\n\n##Arbeitsverzeichnis checken\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\"\n\n\nWollen wir einen anderen Ordner als Arbeitsverzeichnis festlegen, dann können wir das am besten händisch unter: Session -&gt; Set Working Directory -&gt; Choose Directory.\nOder wir verwenden die Funktion “setwd()” und geben in den Klammern den genauen Pfad zum gewünschten Ordner an."
+  },
+  {
+    "objectID": "ttest.html#pakete-installieren-und-laden",
+    "href": "ttest.html#pakete-installieren-und-laden",
+    "title": "T-Test mit R",
+    "section": "Pakete installieren und laden",
+    "text": "Pakete installieren und laden\nIm Folgenden benötigen wir eine Reihe von R-Paketen, die nicht bereits in der Basisversion enthalten sind. Hierzu arbeiten wir dieses Mal mit dem Package “pacman”. Das eignet sich gut, um gleich mehrere Pakete zu installieren und zu laden.\n\n##Pakete installieren und laden\nif (!require(\"pacman\")) {install.packages(\"pacman\"); library(pacman)}\n\nLade nötiges Paket: pacman\n\np_load(mosaic, knitr, tidyverse, car)\nlibrary(dplyr)"
+  },
+  {
+    "objectID": "ttest.html#daten-einlesen",
+    "href": "ttest.html#daten-einlesen",
+    "title": "T-Test mit R",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nDer nächste Schritt ist wieder das Einlesen der Daten. Wir verwenden wie in der letzten Übung den Netflixdatensatz. Der Datensatz müsste noch in Ihrem Arbeitsverzeichnis liegen. Wenn nicht, dann kopieren Sie ihn nochmals dorthin.\n\n#Datensatz laden\nnetflix_films &lt;- read.csv(\"data/NetflixOriginals.csv\")\n\n#Datensatz inspizieren\n\nglimpse(netflix_films)\n\nRows: 584\nColumns: 6\n$ Title      &lt;chr&gt; \"Enter the Anime\", \"Dark Forces\", \"The App\", \"The Open Hous…\n$ Genre      &lt;chr&gt; \"Documentary\", \"Thriller\", \"Science fiction/Drama\", \"Horror…\n$ Premiere   &lt;chr&gt; \"August 5, 2019\", \"August 21, 2020\", \"December 26, 2019\", \"…\n$ Runtime    &lt;int&gt; 58, 81, 79, 94, 90, 147, 112, 149, 73, 139, 58, 112, 97, 10…\n$ IMDB.Score &lt;dbl&gt; 2.5, 2.6, 2.6, 3.2, 3.4, 3.5, 3.7, 3.7, 3.9, 4.1, 4.1, 4.1,…\n$ Language   &lt;chr&gt; \"English/Japanese\", \"Spanish\", \"Italian\", \"English\", \"Hindi…\n\nclass(netflix_films)\n\n[1] \"data.frame\"\n\nhead(netflix_films)\n\n            Title                 Genre          Premiere Runtime IMDB.Score\n1 Enter the Anime           Documentary    August 5, 2019      58        2.5\n2     Dark Forces              Thriller   August 21, 2020      81        2.6\n3         The App Science fiction/Drama December 26, 2019      79        2.6\n4  The Open House       Horror thriller  January 19, 2018      94        3.2\n5     Kaali Khuhi               Mystery  October 30, 2020      90        3.4\n6           Drive                Action  November 1, 2019     147        3.5\n          Language\n1 English/Japanese\n2          Spanish\n3          Italian\n4          English\n5            Hindi\n6            Hindi"
+  },
+  {
+    "objectID": "ttest.html#unabhängige-und-abhängige-variable-definieren",
+    "href": "ttest.html#unabhängige-und-abhängige-variable-definieren",
+    "title": "T-Test mit R",
+    "section": "Unabhängige und abhängige Variable definieren",
+    "text": "Unabhängige und abhängige Variable definieren\nWir möchten prüfen, ob sich die Bewertung von Komödien oder Dramen signifikant unterscheidet. Hierzu wählen wir zunächst mit filter() die Fälle aus, in denen das Genre entweder “Comedy” oder “Drama” entspricht. Wir speichern diesen reduzierten Datensatz als neues Objekt der Klasse Dataframe mit Namen “df”.\nDann definieren wir die Variable “Genre” als unabhängige Variable und die Variable “IMDB.Score” als abhängige Variable. Eine wichtige Voraussetzung für den t-Test ist, dass das Skalenniveua der UV nominal ist und nur zwei Ausprägungen hat (dichotom). Das Skalenniveu der AV muss metrisch sein. Wir prüfen mit glimpse(), ob dies der Fall ist.\n\n#Fälle auswählen und in neuem Dataframe speichern\ndf &lt;- filter(netflix_films, Genre == \"Comedy\" | Genre == \"Drama\" )\nglimpse(df)\n\nRows: 126\nColumns: 6\n$ Title      &lt;chr&gt; \"Leyla Everlasting\", \"Sardar Ka Grandson\", \"The Call\", \"Wha…\n$ Genre      &lt;chr&gt; \"Comedy\", \"Comedy\", \"Drama\", \"Comedy\", \"Comedy\", \"Comedy\", …\n$ Premiere   &lt;chr&gt; \"December 4, 2020\", \"May 18, 2021\", \"November 27, 2020\", \"J…\n$ Runtime    &lt;int&gt; 112, 139, 112, 102, 99, 107, 99, 95, 46, 88, 105, 93, 80, 1…\n$ IMDB.Score &lt;dbl&gt; 3.7, 4.1, 4.1, 4.3, 4.4, 4.5, 4.5, 4.6, 4.6, 4.6, 4.7, 4.7,…\n$ Language   &lt;chr&gt; \"Turkish\", \"Hindi\", \"Korean\", \"Korean\", \"English\", \"English…\n\nhead(df)\n\n                      Title  Genre          Premiere Runtime IMDB.Score\n1         Leyla Everlasting Comedy  December 4, 2020     112        3.7\n2        Sardar Ka Grandson Comedy      May 18, 2021     139        4.1\n3                  The Call  Drama November 27, 2020     112        4.1\n4 What Happened to Mr. Cha? Comedy   January 1, 2021     102        4.3\n5                Sextuplets Comedy   August 16, 2019      99        4.4\n6          Seriously Single Comedy     July 31, 2020     107        4.5\n  Language\n1  Turkish\n2    Hindi\n3   Korean\n4   Korean\n5  English\n6  English\n\nclass(df)\n\n[1] \"data.frame\"\n\n#Unabhängige und abhängige Variable definieren\ndf$uv &lt;- as.factor(df$Genre) #die UV wandeln wir in einen Faktor um\ndf$av &lt;- df$IMDB.Score"
+  },
+  {
+    "objectID": "ttest.html#deskriptive-statistiken-der-av",
+    "href": "ttest.html#deskriptive-statistiken-der-av",
+    "title": "T-Test mit R",
+    "section": "Deskriptive Statistiken der AV",
+    "text": "Deskriptive Statistiken der AV\nNun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken ausgeben.\n\n#Label UV vergeben\nlabel_uv &lt;- \"Genre\"\n\n#Deskriptive Statistiken berechnen\ndes_stat &lt;- favstats(df$av ~ df$uv)\n\n# Tabelle erstellen\nkable (des_stat,\n       col.names = c(label_uv,\"Minimum\", \"1.Quartil\", \n                     \"Median\", \"3.Quartil\", \"Maximum\", \n                     \"M\", \"SD\", \"N\", \"Fehlend\" ),\n       digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGenre\nMinimum\n1.Quartil\nMedian\n3.Quartil\nMaximum\nM\nSD\nN\nFehlend\n\n\n\n\nComedy\n3.7\n5.2\n5.5\n6.1\n7.2\n5.51\n0.79\n49\n0\n\n\nDrama\n4.1\n5.9\n6.4\n6.8\n7.9\n6.34\n0.76\n77\n0\n\n\n\n\n\nWir sehen, dass Dramen durchschnittlich höher bewertet werden als Komödien. Das bedeutet aber noch nicht, dass dieser Unterschied auch statistisch signifikant ist. Es könnte ja sein, dass wir diesen Unterschied nur zufällig in unserer Stichprobe messen, in Wahrheit aber gar kein Unterschied besteht. Um dies zu prüfen, führen wir im folgenden einen t-Test für unabhängige Stichproben durch."
+  },
+  {
+    "objectID": "ttest.html#levene-test-zur-voraussetzungsprüfung",
+    "href": "ttest.html#levene-test-zur-voraussetzungsprüfung",
+    "title": "T-Test mit R",
+    "section": "Levene-Test zur Voraussetzungsprüfung",
+    "text": "Levene-Test zur Voraussetzungsprüfung\nZunächst müssen wir aber eine wichtige Voraussetzung prüfen: Varianzhomogenität. Wir wollen wissen, ob sich die Varianzen in den beiden Gruppen (Dramen vs. Komödien) signifikant unterscheiden. Hierzu führen wir den Levene-Test durch. Abhängig von diesem Ergebnis wählen wir das weitere Testverfahren.\nZunächst rufen wir den Datensatz “df” auf. Da wir im Folgenden gleich mehrere Verarbeitungsschritte aneinander hängen werden, arbeiten wir mit dem %&gt;%-Operator, der Pfeife, gelesen als “und dann”. Wir nehmen also unseren Datensatz “df”, und dann entfernen wir alle fehlenden Werte (Fälle, in denen unserer UV oder AV fehlen) mit der Funktion drop_na() aus dem tidyverse-Paket entfernt; und dann führen wir den Levene-Test durch.\nMit dem Argument av ~ uv definieren wir die Variablen, für die die Varianzhomogenität geprüft werden.\nDa wir zuvor bereits unseren Datensatz festgelegt haben, können wir mit dem Argument “data = .” auf diesen verweisen.\n\ndf %&gt;%\n  drop_na(uv, av) %&gt;%\n  leveneTest(av~uv, data = .)\n\nLevene's Test for Homogeneity of Variance (center = median)\n       Df F value Pr(&gt;F)\ngroup   1   0.078 0.7805\n      124               \n\n\nDer Levene-Test ist nicht signifikant (F(1,124) = 0,08, p = 0,78), denn p ist größer als 0,05. Somit wird die Nullhypothese beibehalten und wir können von Varianzhomogenität ausgehen und mit dem t-Test fortfahren.\nWichtig! Wäre der Levene-Test signifikant, d.h. die Varianzen der Werte in den beiden Gruppen sind ungleich, müssten wir statt dem t-test für unabhängige Stichproben den Welch-Test durchführen, der keine Varianzhomogenität voraussetzt (siehe unten)."
+  },
+  {
+    "objectID": "ttest.html#t-test",
+    "href": "ttest.html#t-test",
+    "title": "T-Test mit R",
+    "section": "t-Test",
+    "text": "t-Test\nWir führen nun den t-Test durch. Die Logik des unten stehenden Codes folgt dem des Levene-Tests oben, nur dass wir nun den “t.test” durchführen, mit der gleichen av und uv wie zuvor. Wir testen “two.sided”, d.h. zweiseitig, auf Signifikanz der Mittelwertunterschiede in beide Richtungen (Drama &gt; Comedy und Drama &lt; Comedy). Die Hypothese, die wir testen, ist also ungerichtet:\nH1: Filme vom Genre Drama werden signifikant unterschiedlich bewertet als Filme vom Genre Comedy. H0: Die Bewertungen der beiden Genres unterscheiden sich nicht.\nFrage: Können Sie auch eine gerichtete Hypothese formulieren? Wie würden Sie diese begründen?\nDas Argument “var.equal = T” wird genutzt, wenn der Levene-Test nicht signifikant ist und somit Varianzhomogenität vorliegt. Ist dies nicht der Fall, müssen wir “var.equal = F” setzen. Dann wird der Welch-Test berechnet.\n\ndf %&gt;%\n  drop_na(uv, av) %&gt;%\n  t.test(av~uv, \n         alternative = \"two.sided\",\n         var.equal = T,\n         data = .)\n\n\n    Two Sample t-test\n\ndata:  av by uv\nt = -5.9272, df = 124, p-value = 2.846e-08\nalternative hypothesis: true difference in means between group Comedy and group Drama is not equal to 0\n95 percent confidence interval:\n -1.116146 -0.557323\nsample estimates:\nmean in group Comedy  mean in group Drama \n            5.506122             6.342857 \n\n\nIm Output wird uns in der ersten Zeile ausgegeben, für welche AV und UV der t-Test berechnet wurde. Es folgen die Angaben zur Teststatistik (t = -5,9272, df=124, p-value=2.846e-08). Der T-Wert beträgt -5,9272 bei 124 Freiheitsgraden. Das negative Vorzeichen weist daraufhin, dass der Mittelwert der Gruppe Comedy kleiner ist als der Mittelwert der Gruppe Drama. Der p-Wert (p-value) beträgt p=2.846e-08 oder umgerechnet p=0,00000002846. Das ist deutlich kleiner als 0,05 und sogar deutlich kleiner als 0,001, d.h. p &lt; 0,001 und damit höchst signifikant.\nWir berichten das Ergebnis wie folgt: Filme vom Genre Comedy (M = 5,51, SD = 0,79) werden signifikant schlechter bewertet als Filme vom Genre Drama (M = 6,34, SD = 0,76, t = -5,9272, df=124, p &lt; 0,001)."
+  },
+  {
+    "objectID": "ttest.html#zum-nachlesen",
+    "href": "ttest.html#zum-nachlesen",
+    "title": "T-Test mit R",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\nDieses Skript folgt in weiten Teilen Kapitel 12.3 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R."
+  },
+  {
+    "objectID": "ttest.html#hausübung-2",
+    "href": "ttest.html#hausübung-2",
+    "title": "T-Test mit R",
+    "section": "Hausübung 2",
+    "text": "Hausübung 2\nJetzt sind Sie dran! Prüfen Sie, ob sich Dokumentarfilme und Dramen signifikant in ihrer Länge unterscheiden.\n\nWählen Sie die Fälle nach den nun gewünschten Genres aus und speichern Sie sie in einem neuen Dataframe.\n\n\n#wählen Sie die Fälle nach den gewünschten Genres aus und speichern Sie sie in einem neuem Dataframe.\n\n\nIdentifizieren Sie unabhängige und abhängige Variable und legen Sie diese fest. Vergessen Sie nicht, die UV in einen Faktor umzuwandeln.\n\n\n#UV und AV definieren; UV dabei in Faktor umwandeln\n#Unabhängige und abhängige Variable definieren\n#die UV wandeln wir in einen Faktor um\n\n\nWelches Skalenniveau haben die beiden Variablen?\n\nAntwort: Ordinal (Score) und Nominal (Genre)\n\nFühren Sie nun den Levene-Test durch. Was ergibt er?\n\nAntwort: Das Ergebnis ist nicht signifikant ((F=1,234, p=0,74%), denn p ist größer als 0,05. Die Nullhypothese wird somit beibehalten, Varianz ist homogen und der T-Test kann berechnet werden.\n\n#Levene-Test durchführen\n\n\nWas für ein statistischer Test muss nun für den Mittelwertvergleich gerechnet werden? Begründen Sie Ihre Wahl kurz.\n\n\n\nFormulieren Sie Nullhypothese und Alternativhypothese für den Mittelwertvergleich:\nBerechnen und interpretieren Sie nun den Test. Was ergibt der Test?\n\nTipp! Sie müssen den Code nicht komplett selbst eintippen. Suchen Sie die entsprechenden Code-Chunks oben und übertragen Sie sie per Copy-Paste in die Platzhalter hier unten. In der Regel müssen Sie nur die Variablennamen und ggf. weitere Parameter anpassen. Bitte fügen Sie auch nur die Befehle und Berechnungen an, die jeweils in der Aufgabenstellung gefragt sind, d.h. löschen Sie Befehle, die nicht zur Aufgabenstellung gehören.\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung2.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
+  },
+  {
+    "objectID": "Varianzanalyse2.html",
+    "href": "Varianzanalyse2.html",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "",
+    "text": "Diese Übung vermittelt die Grundlagen der mehrfaktoriellen Varianzanalyse (ANOVA). Sie lernen, wie man:\n\neine zweifaktorielle Varianzanalyse durchführt und interpretiert,\nEffektgrößen berechnet und interpretiert,\nEffektgrößen mit Fehlerbalken darstellt,\nInteraktionsdiagramme darstellt und interpretiert."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#lernziele-und-überblick",
+    "href": "Varianzanalyse2.html#lernziele-und-überblick",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "",
+    "text": "Diese Übung vermittelt die Grundlagen der mehrfaktoriellen Varianzanalyse (ANOVA). Sie lernen, wie man:\n\neine zweifaktorielle Varianzanalyse durchführt und interpretiert,\nEffektgrößen berechnet und interpretiert,\nEffektgrößen mit Fehlerbalken darstellt,\nInteraktionsdiagramme darstellt und interpretiert."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#das-arbeitsverzeichnis",
+    "href": "Varianzanalyse2.html#das-arbeitsverzeichnis",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nWie immer prüfen wir zunächst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis abgelegt ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner gespeichert sein. Sollte dies nicht der Fall sein, definieren wir das Arbeitsverzeichnis neu unter: Session -&gt; Set Working Directory -&gt; Choose Directory.\n\n##Arbeitsverzeichnis checken\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\""
+  },
+  {
+    "objectID": "Varianzanalyse2.html#pakete-installieren-und-laden",
+    "href": "Varianzanalyse2.html#pakete-installieren-und-laden",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Pakete installieren und laden",
+    "text": "Pakete installieren und laden\nIm Folgenden benötigen wir dieselben Pakete wie bei Übung 3. Diese laden wir wieder mit dem Paket “pacman”, welches wir bereits in Übung 2 (t-Test) installiert haben.\n\n##Pakete installieren und laden\nif (!require(\"pacman\")) {install.packages(\"pacman\"); library(pacman)}\n\nLade nötiges Paket: pacman\n\np_load(mosaic, knitr, tidyverse, effectsize, broom, car, ggpubr)"
+  },
+  {
+    "objectID": "Varianzanalyse2.html#daten-einlesen",
+    "href": "Varianzanalyse2.html#daten-einlesen",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nIn einem Experiment von Arendt et al. (2023) (N=827) wurde untersucht, ob Nachrichtenmedien politisches Zuhören gegenüber anderen Meinungen erhöhen können, indem sie die Salienz von Parteihinweisen reduzieren.\nDie Studie finden Sie auch auf Moodle:\nArendt, F., Northup, T., Forrai, M., & Scheufele, D. (2023). Why we stopped listening to the other side: How partisan cues in news coverage undermine the deliberative foundations of democracy. Journal of Communication, 73(5), 413–426. https://doi.org/10.1093/joc/jqad007\nWir laden den Datensatz “PoliticalListening.csv” aus dem entsprechenden Ordner in Moodle und legen ihn ins Arbeitsverzeichnis.\nEr enthält vier Variablen: - SCT (“Senator Choice Task”): Indexwert für selektives politisches Zuhören bei der Auswahl von Reden bekannter Politiker:innen; höhere Werte weisen auf eine größere Bereitschaft hin, politischen Ideen der Republikaner Gehör zu schenken. - HCT (“Headline Choice Task”): wie oben Indexwert für selektives politisches Zuhören, aber bei der Auswahl von Reden unbekannter Politiker:innen - Group: Dies ist die Gruppierungsvariable für die Experimentalbedingung; je nach Gruppe waren die Hinweise auf die Parteizugehörigkeit der Redner:innen mehr oder weniger salient (nicht vorhanden=0; niedrig=1; hoch=2) - ID_dicho: Selbstidentifikation der Teilnehmer:innen mit einer Partei (Demokrat=0; Republikaner=1)\nUnsere Aufgabe: Wir überprüfen zunächst, ob selektives politisches Zuhören (Variable „SCT”) von der Salienz der Parteihinweise (Variable „Group”) und der Selbstidentifikation der Teilnehmer:innen mit einer Partei (Variable „ID_dicho”) abhängt.\nAchtung!: Wenn wir den Datensatz mit einem einfachen Dateneditor öffnen, sehen wir, dass das Semikolon als Trennungszeichen verwendet wird. Deshalb verwenden wir im folgenden Befehl das Argument “sep”, mit dem wir das Trennungszeichen festlegen können, wenn es von der Voreinstellung (Komma) abweicht.\n\n#Datensatz laden\ndf &lt;- read.csv(\"data/PoliticalListening.csv\", sep = \";\")\n\n\n#Datensatz inspizieren\nglimpse(df)\n\nRows: 827\nColumns: 4\n$ Group    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ ID_dicho &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…\n$ HCT      &lt;int&gt; 5, 5, 4, 6, 5, 5, 3, 3, 5, 5, 5, 5, 5, 4, 4, 4, 4, 3, 6, 6, 5…\n$ SCT      &lt;int&gt; 6, 6, 6, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3…\n\nclass(df)\n\n[1] \"data.frame\"\n\nhead(df)\n\n  Group ID_dicho HCT SCT\n1     0        0   5   6\n2     0        0   5   6\n3     0        0   4   6\n4     0        0   6   5\n5     0        0   5   5\n6     0        0   5   5\n\n\nMit der Funktion “View” können wir uns den Datensatz in einem separaten Fenster anschauen.\n\n#Viewer öffnen\nView(df)"
+  },
+  {
+    "objectID": "Varianzanalyse2.html#uvs-und-avs-definieren",
+    "href": "Varianzanalyse2.html#uvs-und-avs-definieren",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "UVs und AVs definieren",
+    "text": "UVs und AVs definieren\nWir möchten eine zweifaktorielle Varianzanalyse durchführen und prüfen, ob sich das selektive politische Zuhören der Befragten nach Salienz der Parteihinweise und nach Parteiidentifikation signifikant unterscheidet.\nDie Variablen “Group” und “ID_dicho” sind also unsere UVs und müssen daher ein nominales Skalenniveua haben.\nIm obigen Output der Funktion “glimpse()” haben wir gesehen, dass die beiden Variablen numerisch kodiert sind (vom Typ “integer” int), auch wenn sie inhaltlich nominalskaliert sind. Daher müssen wir diese in Faktoren umwandeln mit der Funktion “factor”.\nZuerst aber rekodieren wir die Variable “ID_dicho”. Diese ist dichotom kodiert mit 0 = Demokrat und 1 = Republikaner. Da R Nullwerte manchmal als fehlende Werte interpretiert, kodieren wir diese Variable so um, dass alle Nullen mit dem Wert 1 und alle Einsen mit dem Wert 2 ersetzt werden. 1 bedeutet dann männlich, 2 weiblich. Ebenso verfahren wir mit der Variable “Group”.\n\n#Variable Geschlecht umkodieren\ndf$ID_dicho &lt;- Recode((df$ID_dicho), \n                '0 = 1; 1 = 2')\ndf$Group &lt;- Recode((df$Group), \n                '0 = 1; 1 = 2; 2 = 3')\nglimpse(df)\n\nRows: 827\nColumns: 4\n$ Group    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ ID_dicho &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ HCT      &lt;int&gt; 5, 5, 4, 6, 5, 5, 3, 3, 5, 5, 5, 5, 5, 4, 4, 4, 4, 3, 6, 6, 5…\n$ SCT      &lt;int&gt; 6, 6, 6, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3…\n\n\nNun legen wir UVs und AV fest und wandeln die UVs in Faktoren um. Die Argumente “levels” und “labels” verwenden wir, um die drei Faktorstufen mit ihren zugehörigen Bezeichungen zu speichern.\n\nSalienz der Parteihinweise: Der Wert 1 wird damit dem Label “no”, der Wert 2 dem Label “low” und der Wert 3 dem Label “high” zugeordnet.\nParteiidentifikation: Wert 1 steht nach der Rekodierung für Demokrat, Wert 2 für Republikaner.\n\nAchtung! Bestehen die Werte der UVs bereits aus Text, d.h. sind vom Typ “character” (chr), dann können wir einfach die Funktion “as.factor()” verwenden (siehe Übung 2).\nDie Variable “SCT” ist unsere AV und ist bereits wie gewünscht metrisch skaliert.\n\n#Unabhängige und abhängige Variablen definieren\n#die UVs wandeln wir in Faktoren um\n\ndf$uv1 &lt;- factor(df$Group, \n                levels = c (1,2, 3), \n                labels = c(\"no\", \"low\", \"high\")) \ndf$uv2 &lt;- factor(df$ID_dicho, \n                levels = c (1,2), \n                labels = c(\"democrat\", \"republican\")) \n\ndf$av &lt;- df$SCT\n\nglimpse(df)\n\nRows: 827\nColumns: 7\n$ Group    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ ID_dicho &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…\n$ HCT      &lt;int&gt; 5, 5, 4, 6, 5, 5, 3, 3, 5, 5, 5, 5, 5, 4, 4, 4, 4, 3, 6, 6, 5…\n$ SCT      &lt;int&gt; 6, 6, 6, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3…\n$ uv1      &lt;fct&gt; no, no, no, no, no, no, no, no, no, no, no, no, no, no, no, n…\n$ uv2      &lt;fct&gt; democrat, democrat, democrat, democrat, democrat, democrat, d…\n$ av       &lt;int&gt; 6, 6, 6, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3…"
+  },
+  {
+    "objectID": "Varianzanalyse2.html#deskriptive-statistiken-der-av",
+    "href": "Varianzanalyse2.html#deskriptive-statistiken-der-av",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Deskriptive Statistiken der AV",
+    "text": "Deskriptive Statistiken der AV\nNun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken ausgeben.\n\n#Labels vergeben\nlabel_uv1 &lt;- \"Salienz der Parteihinweise\"\nlabel_uv2 &lt;- \"Parteiidentifikation\"\nlabel_av &lt;- \"selektives politisches Zuhören\"\n\n#Deskriptive Statistiken berechnen\ndes_stat1 &lt;- favstats(df$av ~ df$uv1)\ndes_stat2 &lt;- favstats(df$av ~ df$uv2)\n\n# Tabellen erstellen\nkable (des_stat1,\n       col.names = c(label_uv1,\"Minimum\", \"1.Quartil\", \n                     \"Median\", \"3.Quartil\", \"Maximum\", \n                     \"M\", \"SD\", \"N\", \"Fehlend\" ),\n       digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSalienz der Parteihinweise\nMinimum\n1.Quartil\nMedian\n3.Quartil\nMaximum\nM\nSD\nN\nFehlend\n\n\n\n\nno\n0\n2\n3.0\n5.0\n8\n3.60\n2.20\n276\n0\n\n\nlow\n0\n1\n3.0\n6.5\n8\n3.71\n2.89\n295\n0\n\n\nhigh\n0\n1\n3.5\n7.0\n8\n3.82\n2.98\n256\n0\n\n\n\n\nkable (des_stat2,\n       col.names = c(label_uv2,\"Minimum\", \"1.Quartil\", \n                     \"Median\", \"3.Quartil\", \"Maximum\", \n                     \"M\", \"SD\", \"N\", \"Fehlend\" ),\n       digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nParteiidentifikation\nMinimum\n1.Quartil\nMedian\n3.Quartil\nMaximum\nM\nSD\nN\nFehlend\n\n\n\n\ndemocrat\n0\n0\n2\n3\n7\n1.84\n1.62\n456\n0\n\n\nrepublican\n0\n5\n6\n8\n8\n6.01\n1.89\n371\n0\n\n\n\n\n\nWir sehen, dass sich die Mittelwerte mit der Salienz der Parteihinweise zunehmen. Auch unterscheiden sie sich deutlich je nach Parteiidentifikation. Das bedeutet jedoch nicht, dass diese Unterschiede auch statistisch signifikant sind. Um dies zu prüfen, führen wir im folgenden eine zweifaktorielle Varianzanalyse durch.\nZunächst gruppieren wir den Datensatz nach den beiden UVs mit der Funktion “group_by” und lassen uns hierfür zusammenfassende Statistiken für unsere AV mit der Funktion “summarize”ausgeben: Mittelwerte (mean = mean (av)), Standardabweichungen (std_dev = sd(av)) und die Anzahl der Werte pro Gruppe (count = n()). Um die verschiedenen Arbeitsschritte aneinanderzuhängen verwenden wir wieder die Pfeife (%&gt;%). Den neuen Datensatz speichern wir in einem neuen Objekt namens “df_by_group”.\n\n# Statistiken nach Gruppen\ndf_by_group &lt;- df %&gt;% \n  group_by(uv1, uv2) %&gt;% \n  summarize(mean = mean(av), std_dev = sd(av), count = n())\n\n`summarise()` has grouped output by 'uv1'. You can override using the `.groups`\nargument.\n\ndf_by_group\n\n# A tibble: 6 × 5\n# Groups:   uv1 [3]\n  uv1   uv2         mean std_dev count\n  &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;\n1 no    democrat    2.34    1.53   156\n2 no    republican  5.24    1.82   120\n3 low   democrat    1.67    1.66   166\n4 low   republican  6.33    1.82   129\n5 high  democrat    1.46    1.53   134\n6 high  republican  6.41    1.80   122\n\n\nIn der Spalte “mean” sehen wir für die Republikaner und Demokraten durchaus Unterschiede im selektiven politischen Zuhören (unserer AV!)."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#levene-test-zur-voraussetzungsprüfung",
+    "href": "Varianzanalyse2.html#levene-test-zur-voraussetzungsprüfung",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Levene-Test zur Voraussetzungsprüfung",
+    "text": "Levene-Test zur Voraussetzungsprüfung\nPrüfen wir zunächst, ob die Voraussetzung der Varianzhomogenität vorliegt. Hierzu verwenden wir wieder den Levene-Test, mit dem wir testen, ob sich die Varianzen in allen sechs Gruppen signifikant voneinander unterscheiden. Die unten stehenden Befehle sind bereits aus der vorigen Übung bekannt. Da wir nun aber zwei UVs haben, kombinieren wir diese in der Form: uv1*uv2\n\ndf %&gt;%\n  drop_na(uv1, uv2, av) %&gt;%\n  leveneTest(av ~ uv1*uv2, data = .)\n\nLevene's Test for Homogeneity of Variance (center = median)\n       Df F value  Pr(&gt;F)  \ngroup   5  2.1921 0.05324 .\n      821                  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nDer Levene-Test ist gerade nicht signifikant (F(5,821) = 2.19, p = 0.05), denn p &gt; 0.05. Somit können wir die Nullhypothese beibehalten, von Varianzhomogenität ausgehen und mit der Varianzanalyse fortfahren."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#mehrfaktorielle-varianzanalyse",
+    "href": "Varianzanalyse2.html#mehrfaktorielle-varianzanalyse",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Mehrfaktorielle Varianzanalyse",
+    "text": "Mehrfaktorielle Varianzanalyse\nFür die Varianzanalyse verwenden wir wieder die Funktion “aov”. Auch in dieser Funktion geben wir die beiden UVs mit * verbunden ein. Dadurch legen wir fest, dass beide Faktoren einzeln auf ihre jeweiligen Haupteffekte sowie in Kombination, d.h. als Interaktionseffekt, getestet werden. Will man die beiden Faktoren getrennt voneinander prüfen, also keinen Interaktionseffekt berechnen, verbindet man sie mit einem +.\n\ndf &lt;- drop_na(df, uv1, uv2, av)\nmodel &lt;- aov(av ~ uv1*uv2, data = df)\nsummary(model)\n\n             Df Sum Sq Mean Sq  F value               Pr(&gt;F)    \nuv1           2      6       3    1.116                0.328    \nuv2           1   3548    3548 1244.230 &lt; 0.0000000000000002 ***\nuv1:uv2       2    165      83   28.999    0.000000000000677 ***\nResiduals   821   2341       3                                  \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nIm Output wird nun eine Tabelle mit vier Zeilen angezeigt. Die Spalten entsprechen genau denen der einfaktoriellen Varianzanalyse (siehe Übung 3). Die Zeile “uv1” beinhaltet die Statistiken für den Haupteffekt unserer ersten UV (Salienz der Parteihinweise), die Zeile “uv2” entsprechend die Statistiken für den Haupteffekt unserer zweiten UV (Parteiidentifikation). Der Haupteffekt für Parteiidentifikation ist höchst signifikant mit p &lt; 0.001. Wir sehen in der letzten Spalte, dass auch der Interaktionseffekt höchst signifikant ist mit p &lt; 0.001 d.h. die Wirkung von Salienz und Parteiidentifikation ist nicht unabhängig voneinander. Der Haupteffekt für die UV1 ist hingegen nicht signifikant (p = 0.328 und damit &gt; 0.05).\nDie Werte in der vierten Zeile (Residuals) beziehen sich auf die Varianz innerhalb der Gruppen, die nicht durch die UVs und/oder ihren Interaktionseffekt erklärt werden kann (wird auch Fehlervarianz genannt)."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#effektgrößen",
+    "href": "Varianzanalyse2.html#effektgrößen",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Effektgrößen",
+    "text": "Effektgrößen\nUm festzustellen, wie groß der Einfluss der UVs auf die AV genau ist, und um die Größe der verschiedenen signifikanten (!) Effekte miteinander vergleichen zu können, bestimmen wir die Effektgrößen.\n\neta_squared(model)\n\n# Effect Size for ANOVA (Type I)\n\nParameter | Eta2 (partial) |       95% CI\n-----------------------------------------\nuv1       |       2.71e-03 | [0.00, 1.00]\nuv2       |           0.60 | [0.57, 1.00]\nuv1:uv2   |           0.07 | [0.04, 1.00]\n\n- One-sided CIs: upper bound fixed at [1.00].\n\n\nWichtig! Wir interpretieren immer nur die Effektgrößen der signifikanten Effekte, hier also für den Haupteffekt von UV2 und den Interaktionseffekt. Das Eta-Quadrat ist 0.60 für unsere zweite UV und 0.07 für den Interaktionseffekt. Nach Cohen sind dies ein großer bzw ein mittelgroßer Effekt (klein = 0.01; mittel = 0.06; groß = 0.14).\nAnmerkung: Die partiellen Eta-Quadrate werden hier nach der Typ1-Methode berechnet. Das bedeutet, dass die Effektgrößen jeweils um den Effekt der vorigen Variablen bereinigt werden, d.h. aus dem Effekt von UV2 wurde der Effekt von UV1 herausgerechnet, und aus dem Effekt der Interaktion wurde der Effekt der beiden Haupteffekte herausgerechnet."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#ergebnisse-berichten",
+    "href": "Varianzanalyse2.html#ergebnisse-berichten",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Ergebnisse berichten",
+    "text": "Ergebnisse berichten\nWir berichten die Ergebnisse der zweifaktoriellen Varianzanalyse wie folgt:\nDer Haupteffekt der Parteiidentifikation auf das selektive politische Zuhören ist signifikant. Die Befragten wählen eher die Reden der Senator:innen aus, die der Partei angehören, mit der sie sich selbst identifizieren, und diese Unterschiede sind signifikant mit F (1,821) = 1244.23,p &lt; 0.001, η² = 0.60.\nAuch der Interaktionseffekt ist signifikant mit F (2,821) = 28.99, p &lt; 0.001, η² = 0.07.\nDer Haupteffekt der Salienz von Parteihinweisen (p = 0.328) ist hingegen nicht signifikant."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#visualisierung-der-effekte",
+    "href": "Varianzanalyse2.html#visualisierung-der-effekte",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Visualisierung der Effekte",
+    "text": "Visualisierung der Effekte\nWir erstellen nun ein Liniendiagramm mit Fehlerbalken, welches den Haupteffekt unserer UV2 Parteiidentifikation visualisiert. Zuerst erstellen wir eine Variable namens “Titel” und weisen ihr den Titel zu, den wir der Grafik geben wollen: “Effekt für Parteiidentifikation”\nAnschließend verwenden wir die ggline-Funktion aus dem ggpubr-Paket, um ein Liniendiagramm zu erstellen. Wir nehmen unseren Datensatz “df” und entfernen mit “drop_na()”zunächst alle Zeilen mit fehlenden Werten für unsere UV2 und AV. Dann geben wir an, welche Variablen für die x-Achse und die y-Achse des Diagramms verwendet werden sollen. Die UV2 setzen wir auf die x-Achse, und die AV auf die y-Achse.\nWir legen mit dem Argument “title = Titel” den oben gewählten Titel als Titel für die Grafik fest und fügen mit “add” die 95%-Konfidenzintervallen als Fehlerbalken hinzu (mean_ci). Schließlich legen wir mit “xlab” und “ylab” die Beschriftungen der Grafikachsen fest, wobei wir auf unsere oben erstellten Labels (siehe Code-Chunk “Deskriptive Statistiken”) verweisen.\n\nTitel &lt;- \"Effekt für Parteiidentifikation\"\n\nggline(df %&gt;% drop_na (av, uv2),\n        x = \"uv2\", \n        y = \"av\",\n        title = Titel,\n        add = \"mean_ci\",\n        xlab = label_uv2,\n        ylab = label_av)\n\n\n\n\n\n\n\n\nAls Ergebnis erhalten wir ein Liniendiagramm, das die Mittelwerte des selektiven politischen Zuhörens (AV) nach Parteiidentifikation (UV2) zeigt. Die Konfidenzintervalle zeigen den Werteraum an, in dem die wahren Mittelwerte mit 95% Sicherheit liegen. Diese überlappen sich nicht, die Unterschiede sind also signifikant.\nUm beide Haupteffekte und ihre Interaktion zu visualisieren, eignet sich ein Interaktionsdiagramm. Dieses erstellen wir mit der Funktion “interaction.plot” aus dem Paket “stats”. Wir legen folgende Argumente fest:\n\ndf$uv1: Die Werte von UV1 werden auf der x-Achse dargestellt.\ndf$uv2: Die Werte von UV2 werden verwendet, um verschiedene Linien im Plot zu erzeugen.\ndf$av: Die Werte unserer AV werden auf der y-Achse dargestellt.\nfun = mean: Die Funktion “mean” wird verwendet, um die Mittelwerte von AV für jedes Faktorlevel von UV1 und UV2 zu berechnen. Diese werden verwendet, um die Linien im Plot zu erzeugen.\nylab = label_uv1: Das Label für die y-Achse wird auf “label_uv1” gesetzt, welches wir oben festgelegt haben.\nxlab = label_av: Das Label für die x-Achse wird auf “label_av” gesetzt, welches wir ebenfalls breits oben definiert haben.\ntrace.label = label_uv2: Die Legende für die Linien im Plot wird mit “label_uv2” beschriftet.\ncol = c(“#0198f9”, “#f95801”): Die Farben für die Linien werden auf Blau und Orange gesetzt.\nlty = 1: Der Linientyp für die Linien wird als volle Linie (lty=1) festgelegt.\nlwd = 2: Die Dicke der Linien wird auf 2 gesetzt.\nxtick = TRUE: Gitterlinien für die x-Achse werden angezeigt.\n\n\ninteraction.plot(\ndf$uv1, df$uv2, df$av,\nfun = mean,\nylab = label_av,\nxlab = label_uv1,\ntrace.label = label_uv2,\ncol = c(\"#0198f9\", \"#f95801\"),\nlty = 1,\nlwd = 1,\nxtick = T,\n)\n\n\n\n\n\n\n\n\nWir sehen, dass es sich hier um eine ordinale Interaktion handelt. Bereits in der Kontrollgruppe gibt es einen signifikanten Unterschied in der Auswahl der Reden von Republikanern und Demokraten je nach Parteiidentifikation. Selektives politisches Zuhören (d. h. die Differenz in der AV zwischen selbstidentifizierten Republikanern und Demokraten) nimmt mit der Salienz der Parteihinweise zu, d. h. die Salienz von Parteihinweisen moderiert die Beziehung zwischen Parteiidentifikation und selektivem politischem Zuhören."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#zum-nachlesen",
+    "href": "Varianzanalyse2.html#zum-nachlesen",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\nKapitel 12.5 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R. Springer.\nKapitel 10.3.2 in: Manderscheid, K. (2017). Sozialwissenschaftliche Datenanalyse mit R, 2. Aufl. Springer."
+  },
+  {
+    "objectID": "Varianzanalyse2.html#hausübung-4",
+    "href": "Varianzanalyse2.html#hausübung-4",
+    "title": "Übung 4: Mehrfaktorielle Varianzanalyse",
+    "section": "Hausübung 4",
+    "text": "Hausübung 4\nWiederholen Sie nun die Analysen für die “Headline Choice Task” (HTC), in der Reden unbekannter Politiker:innen ausgewählt wurden (die vierte, bisher ungenutzte Variable im Datensatz). Prüfen Sie auch hier, ob das selektive politische Zuhören von der Salienz der Parteihinweise (nicht vorhanden=0; niedrig=1 hoch=2) und der Parteiidentifikation (Demokrat=0; Republikaner=1) abhängt.\n\nDefinieren Sie die neue abhängige Variable.\n\n\nLassen Sie sich die deskriptiven Statistiken für die neue abhängige Variable ausgeben, gruppiert nach den UVs.\n\n\nPrüfen Sie, ob die Daten die Voraussetzung der Varianzhomogenität erfüllen. Führen Sie den entsprechenden Test durch und interpretieren Sie das Ergebnis.\n\nAntwort:\n\nFühren Sie nun eine mehrfaktorielle Varianzanalyse durch. Wie interpretieren Sie die Ergebnisse inhaltlich? Gehen Sie dabei auf jeden einzelnen Effekt ein.\n\nAntwort: …\n\n#Varianzanalyse durchführen\n\n\nBerechnen Sie die Effektgrößen und machen Sie eine Aussage zur Stärke der signifikanten Effekte.\n\nAntwort:\n\n#Effektgrößen berechnen\n\n\nHaben Sie eine signifikante Interaktion gefunden? Wenn ja, stellen Sie den Interaktionseffekt graphisch dar und erklären Sie die Art der Interaktion. Wenn nein, dann stellen Sie nur die signifikanten Haupteffekte mit Fehlerbalken graphisch dar.\n\nAntwort:\n\n#Interaktionsplot oder Liniendiagramm\n\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung4.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
+  },
+  {
+    "objectID": "Regressionsanalyse.html",
+    "href": "Regressionsanalyse.html",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "",
+    "text": "Dieses Tutorial gibt eine Einführung in die bivariate lineare Regressionsanalyse. Sie lernen, wie man:\n\nDaten für eine Regressionsanalyse vorbereitet,\neine lineare Beziehung visualisiert,\nein Regressionsmodell berechnet und interpretiert,\ndie Voraussetzungen einer linearen Regression überprüft,\neine Regression mit Bootstrapping durchführt."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#überblick-und-lernziele",
+    "href": "Regressionsanalyse.html#überblick-und-lernziele",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "",
+    "text": "Dieses Tutorial gibt eine Einführung in die bivariate lineare Regressionsanalyse. Sie lernen, wie man:\n\nDaten für eine Regressionsanalyse vorbereitet,\neine lineare Beziehung visualisiert,\nein Regressionsmodell berechnet und interpretiert,\ndie Voraussetzungen einer linearen Regression überprüft,\neine Regression mit Bootstrapping durchführt."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#das-arbeitsverzeichnis",
+    "href": "Regressionsanalyse.html#das-arbeitsverzeichnis",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nWie immer prüfen wir zuerst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein.\n\n##Arbeitsverzeichnis checken\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\""
+  },
+  {
+    "objectID": "Regressionsanalyse.html#pakete-installieren-und-laden",
+    "href": "Regressionsanalyse.html#pakete-installieren-und-laden",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Pakete installieren und laden",
+    "text": "Pakete installieren und laden\nDann laden wir wieder mit dem Paket “pacman” die nötigen R-Pakete.\n\n##Pakete installieren und laden\nif (!require(\"pacman\")) {install.packages(\"pacman\"); library(pacman)}\n\nLade nötiges Paket: pacman\n\np_load(mosaic, knitr, tidyverse, broom, car, ggplot2, lmtest)"
+  },
+  {
+    "objectID": "Regressionsanalyse.html#daten-einlesen",
+    "href": "Regressionsanalyse.html#daten-einlesen",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nFür diese Übung verwenden wir einen echten empirischen Datensatz aus dem European Social Survey: ESS Round 8 (2016): integrated file, edition 2.3, zu finden unter: https://ess-search.nsd.no/en/study/f8e11f55-0c14-4ab3-abde-96d3f14d3c76\nDer ESS ist eine wissenschaftlich begleitete länderübergreifende Umfrage, die seit 2001 in ganz Europa durchgeführt wird. Alle zwei Jahre werden Face-to-Face-Interviews mit neu ausgewählten Querschnittsstichproben durchgeführt. Nähere Informationen über die Variablen und ihre Kodierung finden sich im zugehörigen Codebuch, welches mit den Daten zur Verfügung gestellt wird.\n\n#Datensatz laden\ndf &lt;- read.csv(\"data/ESS8e02_3.csv\")\n\n\n#Datensatz inspizieren\nclass(df)\ndim(df)\nhead(df)\nglimpse(df)\n\nDer Datensatz ist sehr groß, weshalb wir ihn im nächsten Schritt filtern. Uns interessieren nur die Datensätze von österreichischen Befragten (cntry==AT). Außerdem verwenden wir für die weitere Analyse nur die Auswahl folgender Variablen/Spalten: Gender (gndr), Age of respondent calculated (agea), News about politics and current affairs (nwspol), Internet use (netustm), Confident in own ability to participate (cptppola).\nWir legen mit dem Operator %&gt;% eine Pfeife an und nutzen hier nacheinander die Funktionen “filter” für die Auswahl der Fälle/Zeilen und “select” für die Auswahl der Variablen/Spalten aus dem tidyverse-Paket. Da der Name der Funktion “select” nicht eindeutig ist, müssen wir R mit “dplyr::select” einen konkreten Hinweis geben, damit es die select-Funktion aus dem Paket “dplyr” (welches Teil des tidyverse ist) verwendet. Ansonsten kann es zu Fehlermeldungen aufgrund von Konflikten mit anderen Paketen kommen.\n\n#Fälle filtern und Variablen auswählen\ndf_at &lt;- df %&gt;% \n  filter(cntry == \"AT\") %&gt;%\n  dplyr::select(idno, gndr, agea, nwspol, netustm, cptppola)\n\nglimpse(df_at)\n\nRows: 2,010\nColumns: 6\n$ idno     &lt;int&gt; 1, 2, 4, 6, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 2…\n$ gndr     &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ agea     &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ nwspol   &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ netustm  &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ cptppola &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n\nhead(df_at)\n\n  idno gndr agea nwspol netustm cptppola\n1    1    2   34    120     180        3\n2    2    1   52    120     120        3\n3    4    2   68     30    6666        2\n4    6    1   54     30     120        4\n5   10    2   20     30     180        1\n6   11    2   65     60     120        2\n\n\nMit View() können wir uns den gefilterten Datensatz im Dateneditor anschauen. Damit wir in zukünftigen Übungen direkt mit dem österreichischen Teildatensatz arbeiten können, schreiben wir den Dataframe “df_at” mit dem folgenden Befehl in einen csv-File. Dieser wird autmatisch im Arbeitsverzeichnis abgelegt.\n\nView(df_at)\nwrite.csv(df_at, file = \"data/ESS8e02_3_AT.csv\")"
+  },
+  {
+    "objectID": "Regressionsanalyse.html#uv-und-av-definieren",
+    "href": "Regressionsanalyse.html#uv-und-av-definieren",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "UV und AV definieren",
+    "text": "UV und AV definieren\nWir wollen prüfen, welchen Einfluss die Internetnutzung der Befragten (netustm) auf ihre politische Nachrichtennutzung (nwspol) hat. Die Variable “netustm” ist also unsere unabhängige Variable (UV,Prädiktor), die Variable “nwspol” unsere abhängige Variable (AV, Kriterium). Beide Variablen sind metrisch, was den Voraussetzungen für eine Regressionsanalyse entspricht. Sowohl Internetnutzung (UV) als auch der politische Nachrichtenkonsum (AV) wurde in Minuten gemessen.\nNullhypothese H0: Die Internetnutzung der Befragten hat keinen Einfluss auf ihren politischen Nachrichtenkonsum.\nAlternativhypothese H1: Je länger die Befragen das Internet nutzen, desto mehr politische Nachrichten konsumieren sie.\nMit dem unten stehenden Code, der Ihnen aus den vorigen Übungen bekannt ist, definieren wir unsere UV und AV und vergeben die zugehörigen Labels.\nUV Internetnutzung (netustm) und AV politische Nachrichtennutzung (nwspol)\n\n#UV und AV definieren\ndf_at$uv &lt;- df_at$netustm\ndf_at$av &lt;- df_at$nwspol\n\n#Labels vergeben\nlabel_av &lt;- \"Politischer Nachrichtenkonsum\"\nlabel_uv &lt;- \"Internetnutzung\"\n\nglimpse(df_at)\n\nRows: 2,010\nColumns: 8\n$ idno     &lt;int&gt; 1, 2, 4, 6, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 2…\n$ gndr     &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ agea     &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ nwspol   &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ netustm  &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ cptppola &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n$ uv       &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ av       &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n\n\nWenn wir den Datensatz genauer inspizieren (z.B. indem wir “View()” in die Konsole eingeben), sehen wir, dass unsere Variablen teils sehr hohe Werte außerhalb des gültigen Wertebereichs enthalten, wie z.B. 7777, 8888 oder 9999. Solche Werte werden üblicherweise verwendet, um fehlende Werte zu kennzeichnen. Ein Blick ins Codebuch zeigt uns auch, was diese Werte für die UV “nwspol” bedeuten: 7777 = Refusal, 8888 = Don’t know, 9999 = No answer. Alle werden als “missing values” gekennzeichnet. Für die AV “netustm” sind die die fehlenden Werte: 66666 = not applicable 7777 = Refusal, 8888 = Don’t know und 9999 = No answer.\nDiese Information geben wir nun R, indem wir die UV und die AV so umkodieren, dass für die fehlenden Werte jeweils “NA” eingetragen wird.\n\n#Fehlende Werte umkodieren\ndf_at$uv &lt;- Recode((df_at$uv), \n                '6666 = NA; 7777 = NA; 8888 = NA; 9999 = NA')\n\ndf_at$av &lt;- Recode((df_at$av), \n                '7777 = NA; 8888 = NA; 9999 = NA')"
+  },
+  {
+    "objectID": "Regressionsanalyse.html#datenexploration-und-erste-voraussetzungsprüfung",
+    "href": "Regressionsanalyse.html#datenexploration-und-erste-voraussetzungsprüfung",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Datenexploration und erste Voraussetzungsprüfung",
+    "text": "Datenexploration und erste Voraussetzungsprüfung\nNun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken für die UV und die AV ausgeben.\n\n#Deskriptive Statistiken\n\ndes_stats &lt;- rbind(\"Internetnutzung\" = favstats(df_at$uv, na.rm = T), \"Politischer Nachrichtenkonsum\" = favstats(df_at$av, na.rm = T))\n\nkable(des_stats, digits=2, col.names = c(\"Minimum\", \"Q1\", \"Median\",\"Q3\", \"Maximum\", \"Mittelwert\", \"SD\", \"n\", \"Fehlend\"))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMinimum\nQ1\nMedian\nQ3\nMaximum\nMittelwert\nSD\nn\nFehlend\n\n\n\n\nInternetnutzung\n2\n60\n120\n180\n600\n138.98\n109.18\n1266\n744\n\n\nPolitischer Nachrichtenkonsum\n0\n20\n30\n60\n630\n48.73\n54.66\n1973\n37\n\n\n\n\n\nIn der Statistik werden uns auch für beide Variablen die Zahl der jeweils gültigen (n) und fehlenden Werte angegeben.\nFür die weiteren Analysen wollen wir die Fälle mit fehlenden Werten ausschließen. Dies erreichen wir wieder mit der Funktion “drop_na”, die wir auf beide Variablen, UV und AV, anwenden. Es werden also alle Fälle ausgeschlossen, die fehlende Werte in der UV oder AV aufweisen.\n\n#Fälle mit fehlenden Werten ausschließen\n\ndf_at &lt;- drop_na(df_at, uv, av)\n\nUm einen ersten Eindruck über die Verteilungen der Daten zu gewinnen, erstellen wir Boxplots für die AV und die UV.\n\nboxplot(df_at$av, main = label_av)\n\n\n\n\n\n\n\nboxplot(df_at$uv, main = label_uv)\n\n\n\n\n\n\n\n\nEine wichtige Voraussetzung für die Regressionsanalyse ist eine lineare Beziehung zwischen UV und AV. Um dies zu beurteilen, erstellen wir mit der Funktion “ggplot” aus dem Paket “ggplot2” ein Streudiagramm (Scatterplot), mit dem der Zusammenhang zwischen zwei Variablen visualisiert wird. In diesem werden alle Fälle als Punkte in einem zweidimensionalen Koordinatensystem dargestellt. Auf der x-Achse tragen wir die Werte der AV, auf der y-Achse die Werte der UV ab (andersherum ist es genauso möglich). Jeder Datenpunkt repräsentiert also ein Wertepaar der beiden Variablen.\nZunächst legen wir mit “ggplot” das Grafikobjekt “scatter” an und weisen diesem die wichtigsten Informationen über die verwendeten Daten (df_at) und die Variablen für den Plot zu. Das Argument “aes” steht für “aesthetic mapping”. Mit ihm ordnen wir die AV der x-Achse und die UV der y-Achse zu.\nDann verwenden wir dieses Objekt und fügen ihm weitere Elemente hinzu:\n\ngeom_point(): Dies fügt die Punkte im Koordinatensystem ein.\ngeom_smooth(method = “lm”): Hiermit fügen wir eine lineare Regressionsgerade hinzu.\nlabs(x = label_av, y = label_uv): Wir legen die Beschriftung der Achsen gemäß der oben definierten Labels fest.\n\n\nscatter &lt;- ggplot(df_at, aes(av, uv))\nscatter + geom_point() + geom_smooth(method = \"lm\") + labs(x = label_av, y = label_uv)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nWir können durchaus einen, wenn auch schwachen, linearen Trend in den Daten erkennen. Es macht also Sinn mit der linearen Regressionsanalyse fortzufahren."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#einfache-regression",
+    "href": "Regressionsanalyse.html#einfache-regression",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Einfache Regression",
+    "text": "Einfache Regression\nUm die Regression durchzuführen, verwenden wir die Funktion “lm” (linear model) und weisen sie einem Objekt zu, welches wir “model” nennen. Die AV fügen wir vor der Tilde, die UV hinter der Tilde ein. Als Datensatz verwenden wir wieder “df_at”. Anschließend wenden wir die Funktion “summary” auf das Objekt “model” an. Damit erhalten wir die Zusammenfassung der Ergebnisse.\n\nmodel &lt;- lm(av ~ uv, data = df_at)\nsummary(model)\n\n\nCall:\nlm(formula = av ~ uv, data = df_at)\n\nResiduals:\n   Min     1Q Median     3Q    Max \n-48.14 -29.81 -14.81  15.19 555.96 \n\nCoefficients:\n             Estimate Std. Error t value            Pr(&gt;|t|)    \n(Intercept) 43.972100   2.509002  17.526 &lt;0.0000000000000002 ***\nuv           0.006946   0.014156   0.491               0.624    \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 54.85 on 1246 degrees of freedom\nMultiple R-squared:  0.0001932, Adjusted R-squared:  -0.0006093 \nF-statistic: 0.2407 on 1 and 1246 DF,  p-value: 0.6238\n\n\nIm Output sehen wir zuerst noch einmal unseren Aufruf (Call), dann deskriptive Statistiken über die Residuen (Residuals) und danach die Koeffizienten und die zugehörigen Statistiken (Coefficients). In der Tabelle der Koeffizienten finden wir in der ersten Spalte (Estimate) die unstandardisierten Regressionskoeffizienten, dann die Standardfehler, t-Werte und die korrespondierenden p-Werte, die uns sagen, ob die Regressionskoeffizienten signifikant sind.\nMit der Information in der ersten Spalte können wir unsere Regressionsgerade zusammenstellen.\ny = 43.972100 + 0.006946x\nInhaltlich bedeutet dies, dass mit jeder Minute Internetnutzung der politische Nachrichtenkonsum um einen Skalenpunkt steigt. Dieser Effekt ist aber mit p&lt;0.001 höchst signifikant.\nUnter der Tabelle fügt R weitere Informationen zum Standardfehler der Residuen, zur Güte des Modells (R-Quadrat) und die F-Statistik zum zugehörigen Regressionsmodell bei. Hier interessieren uns v.a. die Informationen zum R-Quadrat.\nWir erhalten beides, das (multiple) R-Quadrat sowie das korrigierte R-Quadrat. Wir berichten immer das korrigierte R-Quadrat! Es gibt uns an, wieviel der Varianz in der AV durch unser Regressionsmodell erklärt wird. Unser Modell erklärt nur fast 100% der Gesamtvarianz in unseren Daten. Das ist sehr wenig."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#residuenanalyse-zur-voraussetzungsprüfung",
+    "href": "Regressionsanalyse.html#residuenanalyse-zur-voraussetzungsprüfung",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Residuenanalyse zur Voraussetzungsprüfung",
+    "text": "Residuenanalyse zur Voraussetzungsprüfung\nDie Regressionsanalyse ist einerseits voraussetzungsreich, andererseits aber auch sehr robust gegen Verletzungen ihrer Voraussetzungen. Dies bedeutet, dass es meist nicht weiter schlimm ist, wenn einige der Voraussetzungen zumindest etwas verletzt werden. Die Prüfung sollte aber vorgenommen und berichtet werden.\n\nSkalenniveau: Eine wichtige Voraussetzung, die unbedingt erfüllt sein muss, ist, dass die AV metrisch ist. Die UV kann metrisch oder nominal (dichotom) sein. Dies ist in unserem Beispiel, wie oben bereits erläutert, der Fall.\nLinearität: Ein Regressionsmodell wird nur zuverlässige Ergebnisse bringen, wenn auch eine lineare Beziehung zwischen den Variablen besteht. Dies haben wir oben mit Sichtprüfung des Streudiagramms bereits festgestellt.\n\nEs gibt drei weitere Voraussetzungen, die wir anhand einer Analyse der Residuen überprüfen. Dies sind jeweils die Abweichungen unserer Beobachtungen zur Regressionsgerade, also die Fehlervarianz, die nicht durch unser Regressionsmodell erklärt wird. Hierzu stellt uns R vier Plots zur Verfügung, die wir ganz einfach mit der Funktion “plot” aufrufen können, wenn wir sie auf unserem zuvor berechneten Modell “model” ausführen.\n\nplot(model)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHomoskedastizität: Wie bei der Varianzanalyse soll es keine systematischen Unterschiede in der Varianz geben. Dies prüfen wir bei der Regressionsanalyse anhand der Residuen. Diese sollen keine systematische Varianz mehr aufweisen. Dies prüfen wir anhand der Plots 1 und 3, die jeweils die Residuen gegenüber den vorhergesagten Werten (fitted values) abtragen. Idealerweise verteilen sich die Punkte in beiden Plots gleichmäßig um die rote Linie. In Plot 1 sollen die Residuen zudem einen Mittelwert von 0 aufweisen. In unserem Beispiel sehen wir leider Abweichungen gerade im höheren Wertebereich.\nNormalverteilung der Residuen: Auch sollen die Residuen möglichst normalverteilt sein. Dies prüfen wir anhand des Q-Q-Plots (Plot 2), der die Quartile der standardisierten Residuen gegenüber den Quartilen der Normalverteilung abträgt. Hier sollen die Punkte möglichst nah an der roten Linie bleiben. Für unsere Daten sehen wir, dass die Daten im Großen und Ganzen dem Trend der roten Linie folgen, teilweise jedoch deutlich davon abweichen.\nAusreißeranalyse: Ausreißer können die Ausrichtung der Regressionsgerade übermäßig verschieben. Es ist wichtig zu prüfen, ob Ausreißer bestehen und ob diese inhaltlich Sinn machen. Wenn es sich um fehlerhafte Werte handelt, sind diese zu löschen. Ausreißer haben wir bereits mit Hilfe der Boxplots identifizieren können. Zusätzlich gibt uns Plot 4 Informationen über den Einfluss möglicher Ausreißer auf das Regressionsmodell: zum einen gibt der Leverage-Wert auf der x-Achse des Plots Information über die Hebelwirkung einzelner Werte und bestimmt sich danach, wie weit der Wert einer UV von anderen Werten entfernt liegt. Ein hoher Hebelwert bedeutet, dass sich in der Nähe dieses Falls keine weiteren Fälle befinden und dieser daher potenziell großen Einfluss auf das gesamte Regressionsmodell hat. Plot 4 hebt jweils die drei Datenpunkte mit der höchsten Hebelwirkung hervor. Ein weiterer Anhaltspunkt ist Cook’s Distance: diese bezieht sich auf das Ausmaß, in dem sich die Koeffizienten im Modell ändern würden, wenn ein bestimmter Fall aus dem Datensatz entfernt würde. Problematisch sind Werte, die außerhalb (hier unterhalb) der grauen gestrichelten Linie liegen, in unserem Beispiel bei 3 Standardabweichungen. In unserem Beispiel liegen alle Werte oberhalb der gestrichelten Linie und sind daher nicht problematisch.\n\nUm die Sichtprüfung der Plots abzusichern, lassen sich zusätzlich Tests auf Homoskedastizität (Breusch-Pagan Test) und Normalverteilung (Shapiro-Wilk) der Residuen durchführen.\n\nbptest(model)\n\n\n    studentized Breusch-Pagan test\n\ndata:  model\nBP = 2.0285, df = 1, p-value = 0.1544\n\n#Breusch-Pagan Test auf Homoskedastizität\n\nshapiro.test(residuals(model))\n\n\n    Shapiro-Wilk normality test\n\ndata:  residuals(model)\nW = 0.58191, p-value &lt; 0.00000000000000022\n\n#Test auf Normalverteilung der Residuen\n\nBeide Tests werden in unserem Fall signifikant, d.h. die beiden Annahmen der Homoskedastizität und der Normalverteilung der Residuen werden verletzt. Nun kann man entweder mit dem Hinweis auf die Robustheit der Regressionsanalyse auf Verletzung ihrer Annahmen dennoch die Ergebnisse der Regressionsanalyse berichten, oder man sichert die Analyse zusätzlich durch Bootstrapping ab.\nBeim Bootstrapping werden aus den vorhandenen Daten Zufallsstichproben gezogen, und zwar viele tausend Male. Basierend auf diesen Bootstrap-Samples erhalten wir eine Verteilung der Schätzungen für jeden Parameter unseres Regressionsmodells und können dafür die Konfidenzintervalle berechnen. Damit erhalten wir Informationen über die Streuung und Unsicherheit unserer Schätzwerte.\nIn R können wir Bootstrapping mit der Funktion “Boot” aus dem Paket “car” anwenden. Diese Funktion erzeugt die Bootstrap-Samples aus den Originaldaten und berechnet zu jedem dieser Samples eine Regression. Wir müssen lediglich in den Argumenten zum Befehl “Boot” unser Orginalmodell (“model”) spezifizieren und die Zahl der gewünschten Wiederholungen (R = 2000) angeben. Alle erzeugten Bootstraps speichern wir in einem Objekt mit dem Namen “bootReg”.\nDie Funktion “summary” gibt uns dann eine Zusammenfassung über das Bootstrapping. Zusätzlich berechnen wir mit der Funktion “confint()” die Konfidenzintervalle für die Bootstrap-Regressionskoeffizienten. Wir geben zwei Argumente an: das Objekt “bootReg”, für das die Koeffizienten berechnet werden sollen und das gewünschte Konfidenzniveau “level = 0.95”.\n\n#Alternativ: Bootstrapping!\nbootReg &lt;- Boot(model, R=2000)\n\nLade nötigen Namensraum: boot\n\nsummary(bootReg)\n\n\nNumber of bootstrap replications R = 2000 \n              original   bootBias   bootSE    bootMed\n(Intercept) 43.9721000 -0.0423167 2.983652 43.8387510\nuv           0.0069455  0.0001328 0.014793  0.0075961\n\nconfint(bootReg, level = 0.95)\n\nBootstrap bca confidence intervals\n\n                  2.5 %      97.5 %\n(Intercept) 38.98228978 51.12155187\nuv          -0.02339719  0.03526465\n\n\nIn der Interpretation konzentrieren wir uns auf die Konfidenzintervalle des Bootstrappings. Im ausgegebenen Dataframe sehen wir die unteren und oberen Grenzen der Konfidenzintervalle für jeden Koeffizienten. Dies zeigt den Bereich an, in den der jeweilige Parameter mit großer Sicherheit fällt. Wenn ein 95%-Konfidenzintervall 0 nicht mit einschließt, können wir davon ausgehen, dass der Koeffizient auf einem Signifikanzniveau von .05 signifikant ist. Dies ist bei unserem Beispiel der Fall. Wir haben also unsere Regressionsanalyse zusätzlich mit Bootstrapping abgesichert."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#zum-nachlesen",
+    "href": "Regressionsanalyse.html#zum-nachlesen",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\nKapitel 7 in: Fields, A. (2012). Discovering Statistics Using R. Sage."
+  },
+  {
+    "objectID": "Regressionsanalyse.html#hausübung-5",
+    "href": "Regressionsanalyse.html#hausübung-5",
+    "title": "Übung 5: Regressionsanalyse",
+    "section": "Hausübung 5",
+    "text": "Hausübung 5\nJetzt sind Sie dran! Prüfen Sie mit einer einfachen Regressionsanalyse anhand desselben Datensatzes, ob die Internetnutzung der Befragten (netustm) einen Einfluss auf das Vertrauen in ihre eigenen Fähigkeiten zur politischen Partizipation hat (cptppola).\n\nLegen Sie unabhängige und abhängige Variablen fest. Denken Sie daran ggfs. fehlende Werte umzukodieren. Tipp: Prüfen Sie die Codes für fehlende Werte im Codebuch!\n\n\n#UVs und AV definieren\n\n\nWie lauten die Null- und die Alternativhypothese?\n\nAntwort: …\n\nBerechnen Sie die deskriptiven Statistiken für UV und AV. Schließen Sie ggfs. fehlende Werte für die weiteren Analysen aus.\n\n\n#Deskriptive Statistiken\n\n#Ausschluss von Fällen mit fehlenden Werten\n\n\nBesteht ein linearer Zusammenhang zwischen UV und AV? Stellen Sie diesen graphisch dar.\n\nAntwort:…\n\n#Streudiagramm erstellen\n\n\nFühren Sie nun die Regressionsanalyse durch. Wie interpretieren Sie die Ergebnisse inhaltlich? Gehen Sie dabei auf alle wichtigen Koeffizienten ein.\n\nAntwort: …\n\n#Regressionsanalyse durchführen\n\n\nPrüfen Sie die weiteren Voraussetzungen der Regressionsanalyse anhand der diagnostischen Plots und ggfs. weiterer Tests. Beurteilen Sie, wie die Voraussetzungen erfüllt werden und welche Konsequenzen ggfs. gezogen werden müssen.\n\nAntwort: …\n\n#\n\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung5.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html",
+    "href": "Regressionsanalyse2.html",
+    "title": "Übung 6: Multiple Regression",
+    "section": "",
+    "text": "Dieses Tutorial gibt eine Einführung in die multiple Regressionsanalyse. Sie lernen, wie man:\n\nDaten für eine multiple Regressionsanalyse vorbereitet,\neine multiple Regression inklusive der Beta-Koeffizienten berechnet und interpretiert,\ndie Voraussetzungen einer multiplen Regression prüft."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#überblick-und-lernziele",
+    "href": "Regressionsanalyse2.html#überblick-und-lernziele",
+    "title": "Übung 6: Multiple Regression",
+    "section": "",
+    "text": "Dieses Tutorial gibt eine Einführung in die multiple Regressionsanalyse. Sie lernen, wie man:\n\nDaten für eine multiple Regressionsanalyse vorbereitet,\neine multiple Regression inklusive der Beta-Koeffizienten berechnet und interpretiert,\ndie Voraussetzungen einer multiplen Regression prüft."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#das-arbeitsverzeichnis",
+    "href": "Regressionsanalyse2.html#das-arbeitsverzeichnis",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Das Arbeitsverzeichnis",
+    "text": "Das Arbeitsverzeichnis\nWie immer prüfen wir zuerst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein.\n\n##Arbeitsverzeichnis checken\ngetwd()\n\n[1] \"C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial\""
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#pakete-installieren-und-laden",
+    "href": "Regressionsanalyse2.html#pakete-installieren-und-laden",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Pakete installieren und laden",
+    "text": "Pakete installieren und laden\nDann laden wir wieder mit dem Paket “pacman” die nötigen R-Pakete.\n\n##Pakete installieren und laden\nif (!require(\"pacman\")) {install.packages(\"pacman\"); library(pacman)}\n\nLade nötiges Paket: pacman\n\np_load(tidyverse, car, lmtest, QuantPsyc)"
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#daten-einlesen",
+    "href": "Regressionsanalyse2.html#daten-einlesen",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Daten einlesen",
+    "text": "Daten einlesen\nFür diese Übung verwenden wir wieder den Datensatz aus dem European Social Survey: ESS Round 8 (2016): integrated file, edition 2.3, zu finden unter: https://ess-search.nsd.no/en/study/f8e11f55-0c14-4ab3-abde-96d3f14d3c76\nWir arbeiten mit dem gefilterten Datensatz aus Übung 5 weiter, der die folgenden Variablen für die österreichischen Befragten enthält: Gender (gndr), Age of respondent calculated (agea), News about politics and current affairs (nwspol), Internet use (netustm), Confident in own ability to participate (cptppola).\n\n#Datensatz laden\ndf &lt;- read.csv(\"data/ESS8e02_3_AT.csv\")\n\n\n#Datensatz inspizieren\nglimpse(df)\nclass(df)\nhead(df)\nView(df)"
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#uv-und-av-definieren",
+    "href": "Regressionsanalyse2.html#uv-und-av-definieren",
+    "title": "Übung 6: Multiple Regression",
+    "section": "UV und AV definieren",
+    "text": "UV und AV definieren\nWir rechnen eine Regressionsanalyse mit den folgenden UVs: Gender (gndr), Age of respondent calculated (agea), News about politics and current affairs (nwspol), Internet use (netustm) und der AV: Confident in own ability to participate (cptppola).\nMit dem unten stehenden Code, der Ihnen aus den vorigen Übungen bekannt ist, definieren wir unsere UV und AV und vergeben die zugehörigen Labels.\n\n#UV und AV definieren\ndf$uv1 &lt;- df$nwspol\ndf$uv2 &lt;- df$netustm\ndf$uv3 &lt;- df$gndr\ndf$uv4 &lt;- df$agea\n\ndf$av &lt;- df$cptppola\n\n#Labels vergeben\nlabel_uv1 &lt;- \"Politischer Nachrichtenkonsum\"\nlabel_uv2 &lt;- \"Internetnutzung\"\nlabel_uv3 &lt;- \"Geschlecht\"\nlabel_uv4 &lt;- \"Alter\"\n\nlabel_av &lt;- \"Partizipationsfähigkeit\"\n\nglimpse(df)\n\nRows: 2,010\nColumns: 13\n$ X        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…\n$ idno     &lt;int&gt; 1, 2, 4, 6, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 2…\n$ gndr     &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ agea     &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ nwspol   &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ netustm  &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ cptppola &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n$ netusoft &lt;int&gt; 4, 5, 2, 5, 5, 5, 2, 4, 5, 4, 1, 4, 4, 4, 1, 5, 5, 5, 4, 5, 1…\n$ uv1      &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ uv2      &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ uv3      &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ uv4      &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ av       &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n\n\nAls nächstes definieren wir mit der Funktion “Recode” wieder die fehlenden/ungültigen Werte als “NA”. Um diese Werte zu indentifizieren, hilft uns wieder ein Blick ins zugehörige Codebuch.\n\n#Fehlende Werte umkodieren\ndf$uv1 &lt;- Recode((df$uv1), \n                '7777 = NA; 8888 = NA; 9999 = NA')\ndf$uv2 &lt;- Recode((df$uv2), \n                '6666= NA; 7777 = NA; 8888 = NA; 9999 = NA')\ndf$uv3 &lt;- Recode((df$uv3), \n                '9 = NA')\ndf$uv4 &lt;- Recode((df$uv4), \n                '999 = NA')\n\ndf$av &lt;- Recode((df$av), \n                '7 = NA; 8 = NA; 9 = NA')\n\nglimpse(df)\n\nRows: 2,010\nColumns: 13\n$ X        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…\n$ idno     &lt;int&gt; 1, 2, 4, 6, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 2…\n$ gndr     &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ agea     &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ nwspol   &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ netustm  &lt;int&gt; 180, 120, 6666, 120, 180, 120, 6666, 30, 120, 120, 6666, 90, …\n$ cptppola &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n$ netusoft &lt;int&gt; 4, 5, 2, 5, 5, 5, 2, 4, 5, 4, 1, 4, 4, 4, 1, 5, 5, 5, 4, 5, 1…\n$ uv1      &lt;int&gt; 120, 120, 30, 30, 30, 60, 15, 45, 10, 60, 30, 90, 15, 30, 20,…\n$ uv2      &lt;int&gt; 180, 120, NA, 120, 180, 120, NA, 30, 120, 120, NA, 90, 90, 18…\n$ uv3      &lt;int&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2…\n$ uv4      &lt;int&gt; 34, 52, 68, 54, 20, 65, 52, 44, 22, 41, 57, 61, 50, 31, 58, 2…\n$ av       &lt;int&gt; 3, 3, 2, 4, 1, 2, 1, 2, 2, 2, 1, 3, 1, 2, 1, 2, 4, 3, 1, 2, 1…\n\n\nFür die weiteren Analysen schließen wir die Fälle mit fehlenden Werten aus. Dies erreichen wir wieder mit der Funktion “drop_na”, die wir auf beide Variablen, UV und AV, anwenden. Es werden also alle Fälle ausgeschlossen, die fehlende Werte in einer der UVs oder der AV aufweisen.\n\n#Fälle mit fehlenden Werten ausschließen\n\ndf &lt;- drop_na(df, uv1, uv2, uv3, uv4, av)"
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#datenexploration",
+    "href": "Regressionsanalyse2.html#datenexploration",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Datenexploration",
+    "text": "Datenexploration\nUm einen ersten Eindruck über die Verteilungen der Daten zu gewinnen, erstellen wir Boxplots für die AV und die metrischen UVs.\nHaben alle Variablen das nötige Skalenniveau?\n\nboxplot(df$av, main = label_av)\n\n\n\n\n\n\n\nboxplot(df$uv1, main = label_uv1)\n\n\n\n\n\n\n\nboxplot(df$uv2, main = label_uv2)\n\n\n\n\n\n\n\nboxplot(df$uv4, main = label_uv4)"
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#multiple-regression",
+    "href": "Regressionsanalyse2.html#multiple-regression",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Multiple Regression",
+    "text": "Multiple Regression\nUm die Regression durchzuführen, verwenden wir wieder die Funktion “lm” (linear model) und weisen sie einem Objekt zu, welches wir “model” nennen. Die AV fügen wir vor der Tilde, die UVs hinter der Tilde ein. Mehrere UVs kombinieren wir mit einem Pluszeichen. Als Datensatz verwenden wir wieder “df”. Anschließend wenden wir die Funktion “summary” auf das Objekt “model” an. Damit erhalten wir die Zusammenfassung der Ergebnisse.\n\nmodel &lt;- lm(av ~ uv1 + uv2 + uv3 + uv4, data = df)\nsummary(model)\n\n\nCall:\nlm(formula = av ~ uv1 + uv2 + uv3 + uv4, data = df)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-2.9877 -0.7257 -0.2478  0.5919  2.9247 \n\nCoefficients:\n              Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept)  2.4163172  0.1580430  15.289  &lt; 2e-16 ***\nuv1          0.0028113  0.0005986   4.696 2.96e-06 ***\nuv2          0.0010902  0.0002993   3.642 0.000282 ***\nuv3         -0.2232765  0.0648992  -3.440 0.000601 ***\nuv4          0.0057773  0.0022382   2.581 0.009964 ** \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 1.117 on 1202 degrees of freedom\nMultiple R-squared:  0.051, Adjusted R-squared:  0.04784 \nF-statistic: 16.15 on 4 and 1202 DF,  p-value: 6.878e-13\n\n\nDer Output entspricht dem der einfachen Regressionsanalyse. In der Tabelle der Koeffizienten finden wir nun die entsprechenden Werte für alle unsere UVs gelistet: in der ersten Spalte die unstandardisierten B-Koeffizienten, dann die Standardfehler, t-Werte und die korrespondierenden p-Werte, die uns sagen, ob die Regressionskoeffizienten signifikant sind.\nUnter der Tabelle finden wir wieder die weiteren Informationen zum Standardfehler der Residuen, zur Güte des Modells (R-Quadrat) und die F-Statistik zum zugehörigen Regressionsmodell. Hier interessieren uns v.a. die Informationen zum R-Quadrat, das uns angibt wieviel der Varianz in der AV durch unser Regressionsmodell erklärt wird. Zur Erinnerung: wir berichten immer das korrigierte R-Quadrat!\nWie interpretieren Sie die Ergebnisse der multiplen Regression?\nUm mehrere Regressionskoeffizienten sinnvoll vergleichen zu können, müssen wir sie standardisieren. Standardisierte Regressionskoeffizienten (Beta-Koeffizienten) erhalten wir mit der Funktion “lm.beta” aus dem QuantPsyc-Paket. Wir wenden diese auf unser Regressionsmodell an.\n\nlm.beta(model)\n\n        uv1         uv2         uv3         uv4 \n 0.13614745  0.10445170 -0.09737764  0.07636543 \n\n\nDie Beta-Koeffizienten geben Veränderungen in Standardabweichungen an und liegen meist zwischen -1 und +1. Sie geben den Einfluss der UV auf unsere AV an, bereinigt um den Einfluss der weiteren UVs. Wir können sie interpretieren wie Korrelationskoeffizienten (&lt; 0.1 kein Einfluss, 0.1 - 0.3 schwach, 0.3 - 0.5 moderat, &gt; 0.5 stark).\nUV1 ist unser stärkster Prädiktor mit β = 0.14, p &lt; 0.001. Politischer Nachrichtenkonsum hat also einen schwach positiven Einfluss auf das Vertrauen in die eigene Partizipationsfähigkeit. Darauf folgt UV2 (Internetnutzung) mit β = 0.10, p &lt; 0.001. Die beiden demographischen Variablen Geschlecht (UV3) und Alter (UV4) haben ebenfalls einen signifikanten, aber schwächeren Einfluss.\nAchtung! Da Geschlecht eine dichotome Variable ist, müssen wir das bei der Interpretation berücksichtigen. Dem Codebuch zum Datensatz entnehmen wir, dass 1 = männlich und 2 = weiblich. Das negative Vorzeichen bedeutet also, dass Männer ihre eigene Partizipationsfähigkeit ein kleines bisschen höher einschätzen, wenn man alle anderen Faktoren konstant hält."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#residuenanalyse-zur-voraussetzungsprüfung",
+    "href": "Regressionsanalyse2.html#residuenanalyse-zur-voraussetzungsprüfung",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Residuenanalyse zur Voraussetzungsprüfung",
+    "text": "Residuenanalyse zur Voraussetzungsprüfung\nWir prüfen nun die Voraussetzungen mit Hilfe der diagnostischen Plots wie in Übung 5.\nWie interpretieren Sie die Plots in Bezug auf: -Homoskedastizität? -Normalverteilung der Residuen? -Ausreißer?\n\nplot(model)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nZusätzlich können wir die Tests auf Homoskedastizität (Breuch-Pagan Test) und Normalverteilung (Shapiro-Wilk) der Residuen durchführen.\n\nbptest(model)\n\n\n    studentized Breusch-Pagan test\n\ndata:  model\nBP = 44.743, df = 4, p-value = 4.497e-09\n\n#Breusch-Pagan Test auf Homoskedastizität\n\nshapiro.test(residuals(model))\n\n\n    Shapiro-Wilk normality test\n\ndata:  residuals(model)\nW = 0.97109, p-value = 8.488e-15\n\n#Test auf Normalverteilung der Residuen\n\nBeide Tests sind signifikant, d.h. die beiden Annahmen der Homoskedastizität und der Normalverteilung der Residuen werden verletzt. Nun kann man entweder mit dem Hinweis auf die Robustheit der Regressionsanalyse auf Verletzung ihrer Annahmen dennoch die Ergebnisse der Regressionsanalyse berichten, oder man sichert die Analyse zusätzlich durch Bootstrapping ab (für eine ausführliche Erläuterung des unten folgenden Codes und die Interpretation des Outputs siehe Übung 5).\n\n#Alternative: Bootstrapping!\nbootReg &lt;- Boot(model, R=2000)\nsummary(bootReg)\n\n\nNumber of bootstrap replications R = 2000 \n              original    bootBias     bootSE    bootMed\n(Intercept)  2.4163172 -1.9618e-03 0.15703556  2.4158531\nuv1          0.0028113  1.5888e-04 0.00112422  0.0028160\nuv2          0.0010902  4.6330e-06 0.00030627  0.0010891\nuv3         -0.2232765 -9.5590e-04 0.06521136 -0.2241633\nuv4          0.0057773 -6.6720e-05 0.00230489  0.0057078\n\nconfint(bootReg, level = 0.95)\n\nBootstrap bca confidence intervals\n\n                    2.5 %       97.5 %\n(Intercept)  2.1100239662  2.719030367\nuv1          0.0011305567  0.005489734\nuv2          0.0005091703  0.001700418\nuv3         -0.3529022429 -0.093974590\nuv4          0.0013754321  0.010527825\n\n\nIn der Interpretation konzentrieren wir uns auf die Konfidenzintervalle des Bootstrappings. Was fällt Ihnen auf?"
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#multikollinearität",
+    "href": "Regressionsanalyse2.html#multikollinearität",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Multikollinearität",
+    "text": "Multikollinearität\nBei der multiplen Regression gibt es noch eine weitere Voraussetzung, die wir prüfen müssen, und zwar sollten die UVs möglichst unabhängig voneinander sein, d.h. nicht hoch miteinander korrelieren.\nMultikollinearität nennt man das Auftreten einer hohen Korrelation zwischen zwei oder mehreren unabhängigen Variablen in einem multiplen Regressionsmodell. Dies ist nicht erwünscht, denn es erschwert es, die Effekte der verschiedenen Variablen voneinander zu unterscheiden. Dies führt zu unsicheren und verzerrten Schätzungen der Regressionskoeffizienten.\nUm zu testen, ob Multikollinearität vorliegt, berechnen wir den Variance Inflation Factor (VIF) für die UVs. Wir verwenden dazu die Funktion “vif” aus dem Paket “car”.\n\nvif(model)\n\n     uv1      uv2      uv3      uv4 \n1.064572 1.041535 1.014727 1.108661 \n\n\nDer VIF-Wert gibt an, ob ein Prädiktor einen starken linearen Zusammenhang mit den anderen Prädiktoren aufweist. Der kleinstmögliche VIF-Wert ist 1 (keine Multikollinearität). Als Faustregel gilt, dass ein VIF-Wert von über 5 oder 10 problematisch ist.\nUnsere VIF-Werte liegen alle nah bei 1, d.h. es liegt keine Multikollinearität vor."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#zum-nachlesen",
+    "href": "Regressionsanalyse2.html#zum-nachlesen",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Zum Nachlesen",
+    "text": "Zum Nachlesen\nKapitel 7 in: Fields, A. (2012). Discovering Statistics Using R. Sage."
+  },
+  {
+    "objectID": "Regressionsanalyse2.html#hausübung-6",
+    "href": "Regressionsanalyse2.html#hausübung-6",
+    "title": "Übung 6: Multiple Regression",
+    "section": "Hausübung 6",
+    "text": "Hausübung 6\nJetzt sind Sie dran!\n\nErstellen Sie aus dem Ursprungsdatensatz “ESS8e02_3.csv” (Sie finden ihn auch im Moodle-Ordner zu Übung 6) einen neuen gefilterten Datensatz für die österreichischen Befragten, der außer den bisherigen Variablen (gndr, agea, nwspol, netustm, cptppola) auch die UV politisches Interesse (polintr; how interested in politics) enthält.\n\n\n#Daten filtern und Variablen auswählen\n\n\nRekodieren und entfernen Sie die ungültigen/fehlenden Werte für alle Variablen und legen Sie UVs (gndr, agea, nwspol, netustm, polintr) und AV (cptppola) fest.\n\n\n#Fehlende Werte rekodieren\n\n#Fehlende Werte entfernen\n\n#UVs und AV definieren\n\n\nBerechnen Sie nun ein Regressionsmodell mit den UVs gndr, agea und polintr, inklusive der standardisierten Regressionskoeffizienten. Wie interpretieren Sie die Ergebnisse?\n\nAntwort: …\n\n#Multiple Regression\n\n#Standardisierte Regressionskoeffizienten\n\n\nBerechnen Sie nun ein weiteres Regressionsmodell mit allen UVs (gendr, agea, polintr, nwspol, netustm). Wie verändern sich die Ergebnisse im Vergleich zu Modell 1?\n\nAntwort: …\n\n#Multiple Regression\n\n#Standardisierte Regressionskoeffizienten\n\n\nErstellen und interpretieren Sie die diagnostischen Plots für das zweite Modell mit allen UVs.\n\nAntwort:…\n\n#Analyse der Residuen\n\n\nPrüfen Sie, ob Multikollinearität im zweiten, vollständigen Modell ein Problem ist.\n\nAntwort: …\n\n#Multikollinearität prüfen\n\nWichtig! Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung6.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle."
+  }
+]
