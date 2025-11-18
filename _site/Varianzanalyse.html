@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Annie Waldherr und Jula Lühring">
+<meta name="dcterms.date" content="2024-11-07">
 
-<title>Varianzanalyse – R Tutorials</title>
+<title>Übung 3: Varianzanalyse 1 – R Tutorials</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -92,10 +128,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ttest.html"> 
-<span class="menu-text">T-Test</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -107,22 +139,51 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lernziele-und-überblick" id="toc-lernziele-und-überblick" class="nav-link active" data-scroll-target="#lernziele-und-überblick">Lernziele und Überblick</a></li>
+  <li><a href="#das-arbeitsverzeichnis" id="toc-das-arbeitsverzeichnis" class="nav-link" data-scroll-target="#das-arbeitsverzeichnis">Das Arbeitsverzeichnis</a></li>
+  <li><a href="#pakete-installieren-und-laden" id="toc-pakete-installieren-und-laden" class="nav-link" data-scroll-target="#pakete-installieren-und-laden">Pakete installieren und laden</a></li>
+  <li><a href="#daten-einlesen" id="toc-daten-einlesen" class="nav-link" data-scroll-target="#daten-einlesen">Daten einlesen</a></li>
+  <li><a href="#unabhängige-und-abhängige-variable-definieren" id="toc-unabhängige-und-abhängige-variable-definieren" class="nav-link" data-scroll-target="#unabhängige-und-abhängige-variable-definieren">Unabhängige und abhängige Variable definieren</a></li>
+  <li><a href="#deskriptive-statistiken-der-av" id="toc-deskriptive-statistiken-der-av" class="nav-link" data-scroll-target="#deskriptive-statistiken-der-av">Deskriptive Statistiken der AV</a></li>
+  <li><a href="#levene-test-zur-voraussetzungsprüfung" id="toc-levene-test-zur-voraussetzungsprüfung" class="nav-link" data-scroll-target="#levene-test-zur-voraussetzungsprüfung">Levene-Test zur Voraussetzungsprüfung</a></li>
+  <li><a href="#einfaktorielle-varianzanalyse-anova" id="toc-einfaktorielle-varianzanalyse-anova" class="nav-link" data-scroll-target="#einfaktorielle-varianzanalyse-anova">Einfaktorielle Varianzanalyse (ANOVA)</a></li>
+  <li><a href="#post-hoc-tests" id="toc-post-hoc-tests" class="nav-link" data-scroll-target="#post-hoc-tests">Post-Hoc Tests</a></li>
+  <li><a href="#ergebniszusammenfassung" id="toc-ergebniszusammenfassung" class="nav-link" data-scroll-target="#ergebniszusammenfassung">Ergebniszusammenfassung</a></li>
+  <li><a href="#zum-nachlesen" id="toc-zum-nachlesen" class="nav-link" data-scroll-target="#zum-nachlesen">Zum Nachlesen</a></li>
+  <li><a href="#hausübung-3" id="toc-hausübung-3" class="nav-link" data-scroll-target="#hausübung-3">Hausübung 3</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Varianzanalyse</h1>
+<h1 class="title">Übung 3: Varianzanalyse 1</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Annie Waldherr und Jula Lühring </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 7, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -132,8 +193,453 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="lernziele-und-überblick" class="level2">
+<h2 class="anchored" data-anchor-id="lernziele-und-überblick">Lernziele und Überblick</h2>
+<p>Diese Übung gibt eine Einführung in die Varianzanalyse (ANOVA), mit der wir Mittelwertunterschiede zwischen mehr als zwei Gruppen untersuchen. Sie lernen, wie man</p>
+<ul>
+<li>einen Datensatz für eine Varianzanalyse vorbereitet,</li>
+<li>die Voraussetzung der Varianzhomogenität prüft,</li>
+<li>eine einfaktorielle Varianzanalyse berechnet und interpretiert,</li>
+<li>Post-hoc-Tests durchführt und interpretiert.</li>
+</ul>
+</section>
+<section id="das-arbeitsverzeichnis" class="level2">
+<h2 class="anchored" data-anchor-id="das-arbeitsverzeichnis">Das Arbeitsverzeichnis</h2>
+<p>Wie immer prüfen wir zunächst mit “getwd()”, unter welchem Pfad unser Arbeitsverzeichnis abgelegt ist. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Arbeitsverzeichnis checken</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial"</code></pre>
+</div>
+</div>
+</section>
+<section id="pakete-installieren-und-laden" class="level2">
+<h2 class="anchored" data-anchor-id="pakete-installieren-und-laden">Pakete installieren und laden</h2>
+<p>Im Folgenden benötigen wir wieder einige Pakete, die nicht bereits in der Basisversion enthalten sind und installieren/laden diese mit dem Paket “pacman”, welches wir bereits in Übung 2 (t-Test) installiert haben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pakete installieren und laden</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) {<span class="fu">install.packages</span>(<span class="st">"pacman"</span>); <span class="fu">library</span>(pacman)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(mosaic, knitr, tidyverse, effectsize, broom, car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-einlesen" class="level2">
+<h2 class="anchored" data-anchor-id="daten-einlesen">Daten einlesen</h2>
+<p>Der nächste Schritt ist wieder das Einlesen der Daten. Für unsere erste Varianzanalyse verwenden wir einen fiktiven Datensatz zu einem Experiment, bei dem verschiedenen Gruppen von Proband:innen Werbebotschaften entweder als Radio-, Print- oder TV-Werbung präsentiert wurden. Anschließend wurde erfasst, an wie viele Werbebotschaften die Proband:innen sich erinnern. Laden Sie diesen Datensatz aus dem entsprechenden Ordner in Moodle und legen Sie ihn in Ihr Arbeitsverzeichnis.</p>
+<p><strong>Achtung!</strong>: In diesem Fall sind die Werte nicht mit Komma, sondern Semikolon getrennt. Das sehen wir, wenn wir den Datensatz zunächst mit einem einfachen Dateneditor öffnen. Deshalb verwenden wir zusätzlich das Argument “sep”, mit dem wir das Trennungszeichen festlegen können, wenn es von der Voreinstellung (Komma) abweicht.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz laden</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/Werbeformen.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz inspizieren</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 15
+Columns: 2
+$ werbeform  &lt;int&gt; 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3
+$ erinnerung &lt;int&gt; 5, 7, 3, 4, 6, 12, 7, 8, 10, 13, 12, 11, 12, 12, 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  werbeform erinnerung
+1         1          5
+2         1          7
+3         1          3
+4         1          4
+5         1          6
+6         2         12</code></pre>
+</div>
+</div>
+<p>Mit der Funktion “View” können wir uns den Datensatz in einem separaten Fenster anschauen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Viewer öffnen</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="unabhängige-und-abhängige-variable-definieren" class="level2">
+<h2 class="anchored" data-anchor-id="unabhängige-und-abhängige-variable-definieren">Unabhängige und abhängige Variable definieren</h2>
+<p>Wir möchten prüfen, ob sich die Erinnerungsleistung der Proband:innen je nach Werbeform signifikant unterscheidet. Die Variable “werbeform” ist also unsere unabhängige Variable (UV). Diese definieren wir mit der Funktion “factor” als Faktor. Die Argumente “levels” und “labels” verwenden wir, um die drei Faktorstufen mit ihren zugehörigen Bezeichungen zu speichern. Der Wert 1 wird damit dem Label Radio, der Wert 2 dem Label Print und der Wert 3 dem Label TV zugeordnet.</p>
+<p>Dann definieren wir die Variable “erinnerung” als abhängige Variable. Wie beim t-Test muss das Skalenniveua der UV nominal und das Skalenniveu der AV metrisch sein. Wir prüfen mit glimpse(), ob dies der Fall ist.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unabhängige und abhängige Variablen definieren</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>uv <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>werbeform, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Radio"</span>, <span class="st">"Print"</span>, <span class="st">"TV"</span>)) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#die AV ist schon numerisch, daher bennen wir sie nur um </span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>av <span class="ot">&lt;-</span> df<span class="sc">$</span>erinnerung</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 15
+Columns: 4
+$ werbeform  &lt;int&gt; 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3
+$ erinnerung &lt;int&gt; 5, 7, 3, 4, 6, 12, 7, 8, 10, 13, 12, 11, 12, 12, 13
+$ uv         &lt;fct&gt; Radio, Radio, Radio, Radio, Radio, Print, Print, Print, Pri…
+$ av         &lt;int&gt; 5, 7, 3, 4, 6, 12, 7, 8, 10, 13, 12, 11, 12, 12, 13</code></pre>
+</div>
+</div>
+<p><strong>Voraussetzung 1 erfüllt: UV ist nominal mit mindestens 3 Kategorien!</strong></p>
+<p><strong>Voraussetzung 2 erfüllt: AV is metrisch!</strong></p>
+</section>
+<section id="deskriptive-statistiken-der-av" class="level2">
+<h2 class="anchored" data-anchor-id="deskriptive-statistiken-der-av">Deskriptive Statistiken der AV</h2>
+<p>Nun lassen wir uns zunächst mit der Funktion “favstats” die wichtigsten deskriptiven Statistiken ausgeben.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Label an UV vergeben für die Tabelle</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>label_uv <span class="ot">&lt;-</span> <span class="st">"Werbeform"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Deskriptive Statistiken berechnen</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>des_stat <span class="ot">&lt;-</span> <span class="fu">favstats</span>(df<span class="sc">$</span>av <span class="sc">~</span> df<span class="sc">$</span>uv)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabelle erstellen</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(des_stat,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.names =</span> <span class="fu">c</span>(label_uv,<span class="st">"Minimum"</span>, <span class="st">"1.Quartil"</span>, </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Median"</span>, <span class="st">"3.Quartil"</span>, <span class="st">"Maximum"</span>, </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"N"</span>, <span class="st">"Fehlend"</span> ),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Werbeform</th>
+<th style="text-align: right;">Minimum</th>
+<th style="text-align: right;">1.Quartil</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">3.Quartil</th>
+<th style="text-align: right;">Maximum</th>
+<th style="text-align: right;">M</th>
+<th style="text-align: right;">SD</th>
+<th style="text-align: right;">N</th>
+<th style="text-align: right;">Fehlend</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Radio</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.58</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Print</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2.55</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TV</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Wir sehen, dass Radiowerbung durchschnittlich deutlich weniger erinnert wird als Print- oder TV-Werbung. Zudem wird TV-Werbung noch etwas besser als Print-Werbung erinnert. Das bedeutet aber noch nicht, dass diese Unterschiede auch statistisch signifikant sind. Es könnte ja sein, dass wir diese Unterschiede nur zufällig in unserer Stichprobe messen, es in Wahrheit aber gar keine Unterschiede gibt (Nullhypothese). Um dies zu prüfen, führen wir unten eine einfaktorielle Varianzanalyse durch. Im Gegensatz zum t-Test können wir hier Mittelwerte von mehr als zwei Gruppen gleichzeitig testen.</p>
+<p>Mit dem hier folgenden Code visualisieren wir zunächst einmal die Mittelwerte und die zugrundeliegenden Verteilungen der drei Gruppen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mittel_gesamt <span class="ot">&lt;-</span> <span class="fu">mean</span>(df<span class="sc">$</span>av, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mittel_gruppen <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(uv) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">m_k =</span> <span class="fu">mean</span>(av, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> av, <span class="at">fill =</span> uv)) <span class="sc">+</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Erinnerung"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Dichte"</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> mittel_gesamt, </span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth=</span><span class="dv">1</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha=</span><span class="fl">0.5</span>,</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> mittel_gesamt, <span class="at">y =</span> <span class="cn">Inf</span>, </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"Gesamtmittelwert"</span>, </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">alpha=</span><span class="fl">0.7</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, </span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">angle =</span> <span class="dv">90</span>, </span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">data =</span> mittel_gruppen, </span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">xintercept =</span> m_k, </span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> uv),</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dotted"</span>, </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size=</span><span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)<span class="sc">+</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Varianzanalyse_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="levene-test-zur-voraussetzungsprüfung" class="level2">
+<h2 class="anchored" data-anchor-id="levene-test-zur-voraussetzungsprüfung">Levene-Test zur Voraussetzungsprüfung</h2>
+<p>Wie beim t-Test müssen wir zunächst prüfen, ob die Voraussetzung der Varianzhomogenität vorliegt. Hierzu verwenden wir wieder den Levene-Test, mit dem wir prüfen, ob sich die Varianzen in den drei Gruppen (Radio, Print, TV) signifikant unterscheiden. Wird dieser Test signifikant, dürfen wir KEINE Varianzhomogenität annehmen, d.h. die Varianzen unterscheiden sich signifikant zwischen den Gruppen. In diesem Fall liegt Varianzheterogenität vor. Um dies zu prüfen, führen wir den Levene-Test durch. Das Vorgehen und der Code entsprechen genau dem in Übung 2: Wir rufen den Datensatz “df” auf, entfernen alle Fälle mit fehlenden Werten und führen dann den Levene-Test für unsere AV und UV durch.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(uv, av) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leveneTest</span>(av<span class="sc">~</span>uv, <span class="at">data =</span> .)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)  
+group  2    3.84 0.0514 .
+      12                 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Wir haben Glück. Der Levene-Test ist in unserem Fall gerade nicht signifikant (F(2,12) = 3.84, p = 0.0514), denn p &gt; 0.05. Somit können wir die Nullhypothese beibehalten, von Varianzhomogenität ausgehen und mit der Varianzanalyse fortfahren.</p>
+<p>Wird der Levene-Test signifikant, sollten wir wieder den robusteren Welch-Test durchführen (siehe unten).</p>
+<p><strong>Voraussetzung 3 erfüllt: Ähnliche Varianzen in allen Gruppen!</strong></p>
+</section>
+<section id="einfaktorielle-varianzanalyse-anova" class="level2">
+<h2 class="anchored" data-anchor-id="einfaktorielle-varianzanalyse-anova">Einfaktorielle Varianzanalyse (ANOVA)</h2>
+<p>Zunächst entfernen wir wieder mit der Funktion “drop_na” Fälle mit fehlenden Werten, damit die Mittelwerte berechnet werden können (falls notwendig). Für die einfaktorielle Varianzanalyse selbst verwenden wir die Funktion “aov” (aus dem Standardpaket “stats”). Mit dieser Funktion wird ein F-Test berechnet, dessen Informationen wir in einem eigenen Objekt speichern. Wir bezeichnen es mit “model”. Mit der “summary”-Funktion lassen wir uns das Ergebnis anzeigen.</p>
+<p>Mit dem F-Test prüfen wir, ob sich mindestens zwei der Gruppenmittelwerte signifikant voneinander unterscheiden. Die Hypothese, die wir testen, ist also ungerichtet:</p>
+<p>H1: Die Werbeform hat einen signifikanten Einfluss auf die Erinnerungsleistung.</p>
+<p>H0: Die Werbeform hat keinen Einfluss auf die Erinnerungsleistung.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(df, uv, av)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(av<span class="sc">~</span>uv, <span class="at">data =</span> df)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+uv           2    130   65.00   20.53 0.000134 ***
+Residuals   12     38    3.17                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>Erklärung</strong></p>
+<p>Im Output wird eine Tabelle mit zwei Zeilen angezeigt: uv und Residuals. Es werden jeweils Freiheitsgrade (Df), Quadratsummen (Sum Sq; SAQ), Mittlere Abweichungsquadrate (Mean Sq; MAQ), F-Werte (F value) sowie p-Werte (Pr) angezeigt. Die Werte in der ersten Zeile (UV) beziehen sich auf die Varianz zwischen den Faktorstufen, also die Varianz, die durch die Gruppenzugehörigkeit (die UV) erklärt werden kann (erklärte Varianz). Die Werte in der zweiten Zeile (Residuals) beziehen sich auf die Varianz innerhalb der Gruppen bzw. Faktorstufen, also die Varianz, die nicht durch die UV erklärt werden kann (nicht erklärte Varianz). Wir sehen, dass die Quadratsummen (Sum Sq) und die mittleren Abweichungsquadrate (Mean Sq) der UV sehr viel größer sind als die der Residuen. Die erklärte Varianz übersteigt die nicht erklärte Varianz um ein Vielfaches.</p>
+<p>Die wichtigsten Werte für die Interpretation der ANOVA sind der F-Wert und der p-Wert, aus denen wir ablesen, ob der Unterschied in den mittleren Abweichungsquadraten signifikant ist. Der F-Wert setzt die erklärte und nicht erklärte Varianz zueinander ins Verhältnis. Er beträgt in unserem Beispiel 20.53 bei einem p-Wert von 0.000134. Der p-Wert ist also deutlich kleiner als unser angestrebtes Signifikanzniveau von p &lt; 0.05. Die drei Sterne *** hinter dem p-Wert bedeuten, dass das Ergebnis sogar höchst signifikant ist, also p &lt; 0.001 (siehe Legende unter der Tabelle); ** bedeuten hoch signifikant mit p &lt; 0.01; * steht für signifikant mit p &lt; 0.05.</p>
+<p>Wir können aus den Ergebnissen also schließen, dass die Werbeform einen signifikanten Einfluss auf die Erinnerungsleistung hat, sich also mindestens zwei Gruppenmittelwerte signifikant voneinander unterscheiden. Wir wissen aber nicht, welche der Mittelwerte das sind.</p>
+<p>Wir berichten das Ergebnis wie folgt: Die Erinnerungsleistung (gemessen durch die Zahl der erinnerten Werbebotschaften) unterschied sich statistisch höchst signifikant nach der Werbeform, F(2,12) = 20.53, p &lt; .001.</p>
+<p><strong>Exkurs: Welch’s F</strong>: Bei signifikantem Levene-Test, d.h. wenn die Voraussetzung der Varianzhomogenität verletzt wird, berechnen wir einen F-Wert nach Welch. Hierzu verwenden wir die Funktion “oneway.test()”, in der standardmäßig der robustere F-Wert nach Welch berechnet wird. Anstatt des Code-Chunks oben verwenden wir also den hier folgenden Code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(df, uv, av)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(av<span class="sc">~</span>uv, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One-way analysis of means (not assuming equal variances)
+
+data:  av and uv
+F = 37.262, num df = 2.0000, denom df = 6.4983, p-value = 0.0002752</code></pre>
+</div>
+</div>
+</section>
+<section id="post-hoc-tests" class="level2">
+<h2 class="anchored" data-anchor-id="post-hoc-tests">Post-Hoc Tests</h2>
+<p>Um genauer zu analysieren, wie viele und welche der Mittelwerte sich signifikant voneinander unterscheiden, führen wir sogenannte Post-Hoc-Tests durch. Damit werden die Mittelwerte paarweise mittels t-Tests miteinander verglichen werden. Mit dem Argument p.adj = “bonf” wählen wir die Bonferroni-Korrekturmethode (korrigiert mit Anzahl der Vergleiche).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">drop_na</span>(uv, av) <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">tidy</span>(<span class="fu">pairwise.t.test</span>(.<span class="sc">$</span>av, .<span class="sc">$</span>uv, <span class="at">p.adj =</span> <span class="st">"bonferroni"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  group1 group2  p.value
+  &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;
+1 Print  Radio  0.00241 
+2 TV     Radio  0.000134
+3 TV     Print  0.303   </code></pre>
+</div>
+</div>
+<p>In der Ergebnistabelle können wir ablesen, dass der Unterschied zwischen Print und Radio signifkant ist (p = 0.0024 und damit p &lt; 0.05). Ebenso ist der Unterschied zwischen TV und Radio signifikant (p = 0.00013 und damit p &lt; 0.05). Der Unterschied zwischen TV und Print ist hingegen nicht signifikant.</p>
+<p>Gemeinsam mit den oben berechneten deskriptiven Statistiken können wir nun also zusammenfassen, dass Radiowerbung zu einer signifikant schlechteren Erinnerung (M = 5, SD = 1.58) der Werbebotschaften als Print- (M = 10, SD = 2.55) und TV-Werbung (M = 12, SD = 0.71) führt. TV-Werbung wird nicht besser als Printwerbung erinnert.</p>
+</section>
+<section id="ergebniszusammenfassung" class="level2">
+<h2 class="anchored" data-anchor-id="ergebniszusammenfassung">Ergebniszusammenfassung</h2>
+<p>Die Erinnerungsleistung (gemessen durch die Zahl der erinnerten Werbebotschaften) unterschied sich statistisch höchst signifikant nach der Werbeform, F(2,12) = 20.53, p &lt; .001. Proband:innen, die Radiowerbung ausgesetzt werden, haben eine signifikant schlechtere Erinnerung an die Werbung (M = 5, SD = 1.58) im Vergleich zu Werbebotschaften als Print- (M = 10, SD = 2.55, p &lt; .05) und TV-Werbung (M = 12, SD = 0.71, p &lt; .05). TV-Werbung wird nicht besser als Printwerbung erinnert.</p>
+<p>Beispiele der Visualisierung:</p>
+<ol type="1">
+<li>Boxplot</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uv, <span class="at">y =</span> av, <span class="at">fill =</span> uv)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width=</span><span class="fl">0.7</span>, <span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span>  </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, </span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Werbeform"</span>,       </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Erinnerung"</span>) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mittel_gesamt, </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha=</span> <span class="fl">0.5</span>,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span>          </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Varianzanalyse_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Weil die Abweichung vom Mittelwert in der Gruppe TV sehr klein ist (die Beobachtungen haben einen sehr ähnlichen Wert), wird der Boxplot hier nicht richtig angezeigt.</p>
+<ol start="2" type="1">
+<li>Violinplot</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> uv, <span class="at">y =</span> av, <span class="at">fill =</span> uv)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span>  </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>,  </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Werbeform"</span>,       </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Erinnerung"</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mittel_gesamt, </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"black"</span>, </span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha=</span> <span class="fl">0.5</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Varianzanalyse_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Mittelwert mit 95% Konfidenzintervallen</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>colors_blind <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#1b9e77"</span>, <span class="st">"#d95f02"</span>, <span class="st">"#7570b3"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>summary_df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(uv) <span class="sc">%&gt;%</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_av =</span> <span class="fu">mean</span>(av, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_lower =</span> mean_av <span class="sc">-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sd</span>(av, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">ci_upper =</span> mean_av <span class="sc">+</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="fu">n</span>() <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sd</span>(av, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>())</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>summary_df <span class="sc">%&gt;%</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> uv,</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> mean_av,</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">color=</span>uv)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">+</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color=</span>colors_blind) <span class="sc">+</span>  </span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> ci_lower, </span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">xmax =</span> ci_upper), </span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.2</span>,</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span>colors_blind) <span class="sc">+</span> </span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Werbeform"</span>,       </span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Erinnerung"</span>,    </span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Mittelwerte mit 95% Konfidenzintervallen"</span>) <span class="sc">+</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span>          </span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Varianzanalyse_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="zum-nachlesen" class="level2">
+<h2 class="anchored" data-anchor-id="zum-nachlesen">Zum Nachlesen</h2>
+<p>Dieses Skript folgt in weiten Teilen Kapitel 12.5 in: Gehrau, V., Maubach, K., Fujarski, S. (2022). Einfache Datenauswertung mit R.</p>
+</section>
+<section id="hausübung-3" class="level2">
+<h2 class="anchored" data-anchor-id="hausübung-3">Hausübung 3</h2>
+<p>Jetzt sind Sie dran! Prüfen Sie anhand des Netflix-Datensatzes aus Übung 2, ob die Nutzerbewertung vom Genre abhängt. Prüfen Sie dies für die Genres Drama, Komödie und Thriller.</p>
+<ol type="1">
+<li>Lesen Sie den Datensatz ein. Filtern Sie zunächst die Fälle im Datensatz nach den gewünschten Genres und speichern Sie den gefilterten Datensatz in einem neuen Dataframe.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Datensatz einlesen</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Fälle auswählen und in Dataframe speichern</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Identifizieren Sie unabhängige und abhängige Variable und legen Sie diese fest. Speichern Sie die UV als Faktor.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#UV und AV definieren; UV dabei als Faktor speichern</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Erfüllen die Daten die Voraussetzung der Varianzhomogenität? Führen Sie den entsprechenden Test durch und interpretieren Sie das Ergebnis.</li>
+</ol>
+<p>Antwort:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Test durchführen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Formulieren Sie Nullhypothese und Alternativhypothese.</li>
+</ol>
+<p>Antwort: …</p>
+<ol start="5" type="1">
+<li>Berechnen Sie nun die einfaktorielle Varianzanalyse. Wie interpretieren Sie die Ergebnisse?</li>
+</ol>
+<p>Antwort: …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Varianzanalyse durchführen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Beschreiben Sie, wie sich die einzelnen Gruppen signifikant voneinander unterscheiden (Post-Hoc-Tests).</li>
+</ol>
+<p>Antwort: …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Post-Hoc-Tests durchführen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Tipp!</strong> Sie müssen den Code nicht komplett selbst eintippen. Suchen Sie die entsprechenden Code-Chunks oben (oder aus vorherigen Übungen) und übertragen Sie diese per Copy-Paste in die Platzhalter-Code-Chunks. In der Regel müssen Sie nur die Variablennamen und ggf. weitere Parameter anpassen. Bitte fügen Sie auch nur die Befehle und Berechnungen an, die jeweils in der Aufgabenstellung gefragt sind, d.h. löschen Sie Befehle, die nicht zur Aufgabenstellung gehören.</p>
+<p><strong>Wichtig!</strong> Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung3.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
