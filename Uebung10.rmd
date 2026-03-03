@@ -1,0 +1,299 @@
+---
+title: "Übung 10: Clusteranalyse"
+author: "Kathrin Karsay und Annie Waldherr"
+output: true
+html_document: default
+date: "2025-01-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Lernziele
+
+Die Clusteranalyse ist eine Analysemethode, mit der Datenpunkte auf der Grundlage ihrer Ähnlichkeit gruppiert werden. In dieser Übung führen Sie ein hierarchisches Clustering nach der Ward-Methode durch. Sie werden lernen, wie man
+
+-   den Datensatz vorbereitet und die entsprechenden Variablen auswählt,
+-   den schrittweisen Prozess des hierarchischen Clusterings durchführt,
+-   die Ergebnisse mit Hilfe von Dendrogrammen, Streudiagrammen, Ellbogendiagrammen und Silhouettediagrammen auswertet,
+-   die Ergebnisse der Clusteranalyse berichtet.
+
+## Das Arbeitsverzeichnis
+
+Wie immer prüfen wir zuerst mit "getwd()", unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein.
+
+```{r Working Directory}
+##Check working directory
+getwd()
+```
+
+## Pakete installieren und laden
+
+Dann laden wir wieder mit dem Paket "pacman" die nötigen R-Pakete.
+
+```{r install packages}
+##Install and load packages
+if (!require("pacman")) {install.packages("pacman"); library(pacman)}
+p_load(tidyverse, car, factoextra)
+```
+
+## Daten einlesen und vorbereiten
+
+Für diese Übung werden wir die Daten (n=1027) einer repräsentativen Stichprobe der niederländischen Bevölkerung verwenden. Die Daten werden in diesem Artikel beschrieben:
+
+Smit, E. S., & Bol, N. (2019). From self-reliers to expert-dependents: identifying classes based on health-related need for autonomy and need for external control among mobile users. Media Psychology, 23(3), 391–414. <https://doi.org/10.1080/15213269.2019.1604235>
+
+Hinweis: Die Autoren verwenden eine etwas andere Methode der Clusteranalyse, nämlich Latent Class Analysis. Wie Sie jedoch sehen werden, wird unsere Clusteranalyse ähnliche Ergebnisse liefern.
+
+```{r load data}
+#load data
+df <- read.csv("HCOS.csv", sep = ";")
+```
+
+Wir werfen einen ersten Blick auf den Datensatz:
+
+```{r inspect data1, eval=F}
+#inspectdataset
+View(df)
+```
+
+Für die weitere Analyse wollen wir fehlende Werte ausschließen. Mit der Funktion "anyNA" bekommen wir zunächst die Information, dass der Datensatz fehlende Werte (NA) enthält. Anschließend nutzen wir, wie in den vorigen Übungen, "drop_na", um diese Fälle auszuschließen.
+
+```{r exclude missing cases1}
+#exclude missing cases
+anyNA(df)
+df <- drop_na(df)
+```
+
+Wir inspizieren den Datensatz nochmals. Er enthält jetzt n=1026 Fälle.
+
+```{r inspect data, eval=F}
+#inspectdataset
+
+dim(df)
+class(df)
+glimpse(df)
+head(df)
+View(df)
+```
+
+## Variablen auswählen
+
+Wir wollen besser verstehen, wie sich Nutzer:innen mobiler Technologien in ihrem Bedürfnis nach Autonomie und ihrem Bedürfnis nach externer Kontrolle in Bezug auf gesundheitsbezogene Entscheidungen voneinander unterscheiden.
+
+Forschungsfrage: Welche Subtypen können wir unter den Nutzern mobiler Technologien in Bezug auf gesundheitsbezogene Entscheidungen identifizieren, und zwar auf Grundlage ihrer Bedürfnisse nach Autonomie und externer Kontrolle?
+
+Wir werden die folgenden drei Variablen für die Clusteranalyse verwenden:
+
+-   HCOS_autonomy: Preference for autonomy (e.g., "How likely are you to: Set your own goals?")
+-   HCOS_control_expert: Preference for expert control(e.g., "How likely are you to: Have an expert set goals for you?")
+-   HCOS_control_peer: Preference for peer control (e.g., "How likely are you to: Ask friends or family to help you set goals?")
+
+```{r select-variables1}
+# Select only the variables of interest
+df1 <- df %>%
+  dplyr::select(HCOS_autonomy, HCOS_control_expert, HCOS_control_peer)
+
+# Inspect data
+head(df1)
+glimpse(df1)
+```
+
+## Daten bereinigen und standardisieren
+
+Bei der Inspektion des Datensatzes fällt uns auf, dass die Variablen nicht numerisch sind. Dies ändern wir mit dem folgenden Code und ersetzen dabei auch gleich Kommas durch Punkte.
+
+```{r clean-variables}
+# Convert variables to numeric by replacing commas with periods
+df1$HCOS_autonomy <- as.numeric(gsub(",", ".", df1$HCOS_autonomy))
+df1$HCOS_control_expert <- as.numeric(gsub(",", ".", df1$HCOS_control_expert))
+df1$HCOS_control_peer <- as.numeric(gsub(",", ".", df1$HCOS_control_peer))
+# Verify the structure of the cleaned dataset
+glimpse(df1)
+```
+
+Wir lassen uns deskriptive Statistiken zu den Variablen ausgeben:
+
+```{r summary}
+summary(df1)#shows range, quartile, median and mean for each variable
+```
+
+Da allen drei Variablen dieselbe Messskala zugrundeliegt (Likert-Skala von 1-7), ist eine Standardisierung der Variablen in diesem Fall nicht notwendig; sie schadet aber auch nicht.
+
+Der Vollständigkeit halber fügen wir deshalb in diesem Tutorial den entsprechenden Code hinzu. Mit dem Befehl "scale" standardisieren wir alle Variablen in unserem Datensatz "df1". Dabei wird von jedem Wert der Mittelwert der jeweiligen Variablen subtrahiert (Zentrierung) und durch ihre Standardabweichung dividiert (Skalierung). Als Resultat erhalten wir nun eine Matrix, weshalb wir unseren Datensatz wieder in einen Dataframe umwandeln müssen.
+
+```{r standardize-data}
+# Standardize the data
+cluster_df1 <- scale(df1)
+class(cluster_df1)
+cluster_df1 <- as.data.frame(cluster_df1)
+
+# Display the summary of the scaled data
+summary(cluster_df1)
+sd(cluster_df1$HCOS_autonomy)
+sd(cluster_df1$HCOS_control_expert)
+sd(cluster_df1$HCOS_control_peer)
+```
+
+Die standardisierten Daten haben für alle Variablen den Mittelwert=0 und die Standardabweichung=1. Nun sind wir endlich bereit für die eigentliche Clusteranalyse.
+
+## Distanzmatrix berechnen
+
+Wir berechnen paarweise Distanzen nach der Euklidischen Distanz.
+
+```{r compute-distance}
+
+# Compute the Euclidean distance matrix
+distance_matrix <- dist(cluster_df1, method = "euclidean")
+
+# Display the first few entries of the distance matrix
+as.matrix(distance_matrix)[1:20, 1:20]
+```
+
+## Hierarchisches Clustering
+
+Nun wenden wir Ward's Methode des hierarchischen Clustering an.
+
+```{r hierarchical-clustering}
+# Perform hierarchical clustering
+hc1 <- hclust(distance_matrix, method = "ward.D2")
+
+# Display the dendrogram
+plot(hc1, 
+     main = "Dendrogram for Hierarchical Clustering", 
+     xlab = "Observations", 
+     ylab = "Height")
+```
+
+Das Dendrogramm stellt dar, wie die Cluster schrittweise durch das Zusammenführen einzelner Datenpunkte (oder kleinerer Cluster) zu größeren Clustern gebildet werden. Es ist wie ein Baum, wobei jeder Zweig einen Datenpunkt oder ein Cluster von Datenpunkten darstellt. Je weiter man den Baum hinuntergeht, desto ähnlicher sind sich die Datenpunkte. Die Höhe, in der sich zwei Zweige (Cluster) treffen, stellt die Unähnlichkeit (oder den Abstand) zwischen ihnen dar. Eine geringere Höhe bedeutet, dass sich die Cluster sehr ähnlich sind, während eine größere Höhe bedeutet, dass die Cluster unterschiedlicher sind.
+
+## Zahl der Cluster bestimmen
+
+Wir verwenden zwei Visualisierungsmethoden, um die optimale Anzahl von Clustern zu bestimmen: das Ellbogen-Kriterium und die Silhouettenanalyse.
+
+```{r determine-clusters}
+#Elbow method
+fviz_nbclust(cluster_df1, FUN = hcut, method = "wss") + labs(subtitle = "Elbow method")
+
+## Silhouette method
+fviz_nbclust(cluster_df1, FUN = hcut, method = "silhouette")+labs(subtitle = "Silhouette method")
+
+```
+
+Interpretation der Diagramme:
+
+Das Ellbogendiagramm visualisiert die Fehlerquadratsumme innerhalb der Cluster (Within Sum of Square; WSS) in Abhängigkeit von der Anzahl der Cluster. Ziel ist es, den Knick zu identifizieren, an dem sich die Abnahme der WSS verlangsamt. Untersuchen Sie das Diagramm und suchen Sie den Punkt, an dem die Kurve einen „Ellbogen“ bildet oder abflacht. Dieser Punkt stellt die optimale Anzahl von Clustern dar.
+
+Wenn kein eindeutiger Knick vorhanden ist, können Sie zusätzlich den Silhouettenkoeffizienten berechnen. Dieser misst, wie ähnlich ein Objekt seinem eigenen Cluster im Vergleich zu Objekten im nächsten benachbarten Cluster ist. Je näher bei 1 der Koeffizient ist, desto besser sind die Cluster abgegrenzt und desto größer ist die Kohäsion der Cluster. Suchen Sie im Diagramm nach der Anzahl der Cluster mit dem höchsten durchschnittlichen Silhouettenkoeffizienten. In unserem Fall sind es drei Cluster.
+
+## Die Clusterlösung visualisieren und interpretieren
+
+Decide on the number of clusters and assign cluster labels to the data (e.g., 3).
+
+```{r cut-dendrogram}
+# Cut the dendrogram/tree to create 3 clusters
+clusters <- cutree(hc1, k = 3)
+
+# Add cluster membership to the original dataset
+df1$Cluster <- clusters
+
+#Visualize the clusters in the dendrogram
+plot(hc1, cex = 0.6)
+rect.hclust(hc1, k = 3, border = 2:5)
+
+# Scatterplot of the first two dimensions (scaled data)
+plot(cluster_df1[, 1:2], 
+     col = clusters, 
+     pch = 19, 
+     main = "Scatterplot of Clusters",
+     xlab = "First Dimension (scaled)",
+     ylab = "Second Dimension (scaled)")
+
+# Cluster plot
+fviz_cluster(list(data = cluster_df1, cluster = clusters))
+```
+
+Interpretation der Diagramme:
+
+Das Dendrogramm gibt Aufschluss über die Beziehung zwischen den Datenpunkten und wie sie aufgrund ihrer Ähnlichkeiten gruppiert sind (siehe oben). Die Rechtecke heben die drei Hauptcluster hervor und zeigen die Ebene, auf der jedes Cluster gebildet wurde.
+
+Das Streudiagramm projiziert die Daten auf ihre ersten beiden Hauptkomponenten (oder Dimensionen), wobei jeder Punkt eine Beobachtung darstellt, die entsprechend dem ihr zugewiesenen Cluster eingefärbt ist. Achtung! Die Dimensionen für das Streudiagramm oder das Clusterdiagramm entsprechen nicht den ersten beiden Variablen, die in das Clustering eingegeben wurden, sondern stellen in der Regel die ersten beiden Hauptkomponenten dar. Im Grunde führt R eine Faktorenanalyse durch, um die dreidimensionalen Daten zu visualisieren und auf zwei Dimensionen zu projizieren.
+
+Der Cluster Plot ist ein verfeinertes Streudiagramm nach derselben Logik. Es zeigt die einzelnen Datenpunkte in einem 2D-Diagramm, wobei die Cluster durch unterschiedliche Farben deutlich gekennzeichnet sind.
+
+```{r cluster-summary}
+# Calculate the mean of each variable for each cluster
+cluster_summary <- aggregate(df1, by = list(Cluster = clusters), FUN = mean)
+cluster_size <- table(clusters)
+
+# Add the size of each cluster to the cluster_summary
+cluster_summary$Members <- cluster_size[as.factor(cluster_summary$Cluster)]
+
+# Calculate and add the percentage of members per cluster
+total_members <- sum(cluster_size)
+cluster_summary$Percentage <- (cluster_summary$Members / total_members) * 100
+
+# Display cluster summary
+cluster_summary
+```
+
+Beschreibung:
+
+Cluster 1: Unabhängige Die Tabelle zeigt, dass die Befragten (n = 461) in Cluster 1 mit 6.16 (auf einer 7-Punkte-Skala) eine vergleichsweise sehr hohe Autonomieorientierung aufweisen während ihre Werte für die Kontrollorientierung, verglichen mit den anderen Clustern, unterdurchschnittlich ausgeprägt sind (Experten: M = 2.33; Peers: M = 2.60).
+
+Cluster 2: Bestätigungssuchende Die zweite Gruppe von Befragten wurde als Bestätigungssuchende bezeichnet (n = 396). Diese Gruppe von Befragten gab relativ hohe Werte sowohl für die Autonomie (M = 6.13) als auch für die Kontrollorientierung an (Kontrollorientierung - Experten: M = 4.60; Kontrollorientierung - Peers: M = 3.60).
+
+Cluster 3: Abhängige Die dritte Gruppe von Befragten ist eher von externer Bestätigung abhängig (n = 169). Die Befragten gaben unterdurchschnittliche Werte für die Autonomieorientierung an (M = 4.42), die Werte der Kontrollorientierung gegenüber Experten waren im Vergleich zur Gesamtstichprobe leicht überdurchschnittlich (M = 3.60), ebenso gegenüber Peers (M = 3.78). Die Experten-Abhängigen sind die kleinste Gruppe in unserer Stichprobe (16 %).
+
+##Hausübung 10 Jetzt sind Sie dran! Wir verwenden für diese Übung die reliablen Wertefaktoren aus den Ergebnissen der HÜ9. Den Datensatz dazu finden Sie im Ordner der Übung 10. Sie können ihn hier wieder mit load(df_c) einlesen
+
+Zur Erinnerung: folgende Wertefaktoren waren reliabel: - persönliche Werte: "TC1" - Vergnügen: "TC2" - Status: "TC3"
+
+1.  Erstellen Sie einen Datensatz mit den ausgewählten Variablen.
+
+```{r select-variables}
+# Select  the variables of interest and store them in a new df
+
+
+```
+
+2.  Bereinigen Sie die Daten und lassen Sie sich die deskriptiven Statistiken für die drei Variablen ausgeben.
+
+Antwort: hier eigentlich nicht notwendig, denn es gibt keine Missings (hatten wir ja bei der letzen HÜ schon ausgeschlossen), und die Faktorwerte sind sowieso schon standardisiert. :-)
+
+```{r prepare-data}
+
+
+```
+
+3.  Berechnen Sie die euklidischen Distanzen.
+
+```{r compute-distance1}
+
+
+```
+
+4.  Führen Sie ein hierarchisches Clustering nach Ward durch und erstellen Sie ein Dendrogramm.
+
+```{r hierarchical-clustering1}
+
+
+
+```
+
+5.  Wie viele Cluster wählen Sie, und warum?
+
+```{r determine-clusters1}
+
+
+```
+
+6.  Benennen und beschreiben Sie die gewählten Cluster.
+
+```{r cluster-interpretation1}
+
+
+```
+
+**Wichtig!** Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung10.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.

@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Kathrin Karsay und Annie Waldherr">
+<meta name="dcterms.date" content="2025-01-10">
+
+<title>Übung 10: Clusteranalyse – R Tutorials</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R Tutorials</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">German</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index1.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lernziele" id="toc-lernziele" class="nav-link active" data-scroll-target="#lernziele">Lernziele</a></li>
+  <li><a href="#das-arbeitsverzeichnis" id="toc-das-arbeitsverzeichnis" class="nav-link" data-scroll-target="#das-arbeitsverzeichnis">Das Arbeitsverzeichnis</a></li>
+  <li><a href="#pakete-installieren-und-laden" id="toc-pakete-installieren-und-laden" class="nav-link" data-scroll-target="#pakete-installieren-und-laden">Pakete installieren und laden</a></li>
+  <li><a href="#daten-einlesen-und-vorbereiten" id="toc-daten-einlesen-und-vorbereiten" class="nav-link" data-scroll-target="#daten-einlesen-und-vorbereiten">Daten einlesen und vorbereiten</a></li>
+  <li><a href="#variablen-auswählen" id="toc-variablen-auswählen" class="nav-link" data-scroll-target="#variablen-auswählen">Variablen auswählen</a></li>
+  <li><a href="#daten-bereinigen-und-standardisieren" id="toc-daten-bereinigen-und-standardisieren" class="nav-link" data-scroll-target="#daten-bereinigen-und-standardisieren">Daten bereinigen und standardisieren</a></li>
+  <li><a href="#distanzmatrix-berechnen" id="toc-distanzmatrix-berechnen" class="nav-link" data-scroll-target="#distanzmatrix-berechnen">Distanzmatrix berechnen</a></li>
+  <li><a href="#hierarchisches-clustering" id="toc-hierarchisches-clustering" class="nav-link" data-scroll-target="#hierarchisches-clustering">Hierarchisches Clustering</a></li>
+  <li><a href="#zahl-der-cluster-bestimmen" id="toc-zahl-der-cluster-bestimmen" class="nav-link" data-scroll-target="#zahl-der-cluster-bestimmen">Zahl der Cluster bestimmen</a></li>
+  <li><a href="#die-clusterlösung-visualisieren-und-interpretieren" id="toc-die-clusterlösung-visualisieren-und-interpretieren" class="nav-link" data-scroll-target="#die-clusterlösung-visualisieren-und-interpretieren">Die Clusterlösung visualisieren und interpretieren</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Übung 10: Clusteranalyse</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Kathrin Karsay und Annie Waldherr </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 10, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="lernziele" class="level2">
+<h2 class="anchored" data-anchor-id="lernziele">Lernziele</h2>
+<p>Die Clusteranalyse ist eine Analysemethode, mit der Datenpunkte auf der Grundlage ihrer Ähnlichkeit gruppiert werden. In dieser Übung führen Sie ein hierarchisches Clustering nach der Ward-Methode durch. Sie werden lernen, wie man</p>
+<ul>
+<li>den Datensatz vorbereitet und die entsprechenden Variablen auswählt,</li>
+<li>den schrittweisen Prozess des hierarchischen Clusterings durchführt,</li>
+<li>die Ergebnisse mit Hilfe von Dendrogrammen, Streudiagrammen, Ellbogendiagrammen und Silhouettediagrammen auswertet,</li>
+<li>die Ergebnisse der Clusteranalyse berichtet.</li>
+</ul>
+</section>
+<section id="das-arbeitsverzeichnis" class="level2">
+<h2 class="anchored" data-anchor-id="das-arbeitsverzeichnis">Das Arbeitsverzeichnis</h2>
+<p>Wie immer prüfen wir zuerst mit “getwd()”, unter welchem Pfad sich unser Arbeitsverzeichnis befindet. Alle Skripte und Datensätze, mit denen wir arbeiten wollen, sollten in diesem Ordner abgelegt sein.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Check working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial"</code></pre>
+</div>
+</div>
+</section>
+<section id="pakete-installieren-und-laden" class="level2">
+<h2 class="anchored" data-anchor-id="pakete-installieren-und-laden">Pakete installieren und laden</h2>
+<p>Dann laden wir wieder mit dem Paket “pacman” die nötigen R-Pakete.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##Install and load packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) {<span class="fu">install.packages</span>(<span class="st">"pacman"</span>); <span class="fu">library</span>(pacman)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, car, factoextra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="daten-einlesen-und-vorbereiten" class="level2">
+<h2 class="anchored" data-anchor-id="daten-einlesen-und-vorbereiten">Daten einlesen und vorbereiten</h2>
+<p>Für diese Übung werden wir die Daten (n=1027) einer repräsentativen Stichprobe der niederländischen Bevölkerung verwenden. Die Daten werden in diesem Artikel beschrieben:</p>
+<p>Smit, E. S., &amp; Bol, N. (2019). From self-reliers to expert-dependents: identifying classes based on health-related need for autonomy and need for external control among mobile users. Media Psychology, 23(3), 391–414. <a href="https://doi.org/10.1080/15213269.2019.1604235" class="uri">https://doi.org/10.1080/15213269.2019.1604235</a></p>
+<p>Hinweis: Die Autoren verwenden eine etwas andere Methode der Clusteranalyse, nämlich Latent Class Analysis. Wie Sie jedoch sehen werden, wird unsere Clusteranalyse ähnliche Ergebnisse liefern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"HCOS.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir werfen einen ersten Blick auf den Datensatz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#inspectdataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Für die weitere Analyse wollen wir fehlende Werte ausschließen. Mit der Funktion “anyNA” bekommen wir zunächst die Information, dass der Datensatz fehlende Werte (NA) enthält. Anschließend nutzen wir, wie in den vorigen Übungen, “drop_na”, um diese Fälle auszuschließen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#exclude missing cases</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anyNA</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Wir inspizieren den Datensatz nochmals. Er enthält jetzt n=1026 Fälle.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#inspectdataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="variablen-auswählen" class="level2">
+<h2 class="anchored" data-anchor-id="variablen-auswählen">Variablen auswählen</h2>
+<p>Wir wollen besser verstehen, wie sich Nutzer:innen mobiler Technologien in ihrem Bedürfnis nach Autonomie und ihrem Bedürfnis nach externer Kontrolle in Bezug auf gesundheitsbezogene Entscheidungen voneinander unterscheiden.</p>
+<p>Forschungsfrage: Welche Subtypen können wir unter den Nutzern mobiler Technologien in Bezug auf gesundheitsbezogene Entscheidungen identifizieren, und zwar auf Grundlage ihrer Bedürfnisse nach Autonomie und externer Kontrolle?</p>
+<p>Wir werden die folgenden drei Variablen für die Clusteranalyse verwenden:</p>
+<ul>
+<li>HCOS_autonomy: Preference for autonomy (e.g., “How likely are you to: Set your own goals?”)</li>
+<li>HCOS_control_expert: Preference for expert control(e.g., “How likely are you to: Have an expert set goals for you?”)</li>
+<li>HCOS_control_peer: Preference for peer control (e.g., “How likely are you to: Ask friends or family to help you set goals?”)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select only the variables of interest</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(HCOS_autonomy, HCOS_control_expert, HCOS_control_peer)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect data</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  HCOS_autonomy HCOS_control_expert HCOS_control_peer
+1             6                 2,5               4,5
+2           5,5                3,75              3,75
+3             7                6,25              3,75
+4          5,25                   3              4,25
+5             6                   4               1,5
+6             5                   2               1,5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,026
+Columns: 3
+$ HCOS_autonomy       &lt;chr&gt; "6", "5,5", "7", "5,25", "6", "5", "6,75", "6,75",…
+$ HCOS_control_expert &lt;chr&gt; "2,5", "3,75", "6,25", "3", "4", "2", "4,75", "7",…
+$ HCOS_control_peer   &lt;chr&gt; "4,5", "3,75", "3,75", "4,25", "1,5", "1,5", "4,75…</code></pre>
+</div>
+</div>
+</section>
+<section id="daten-bereinigen-und-standardisieren" class="level2">
+<h2 class="anchored" data-anchor-id="daten-bereinigen-und-standardisieren">Daten bereinigen und standardisieren</h2>
+<p>Bei der Inspektion des Datensatzes fällt uns auf, dass die Variablen nicht numerisch sind. Dies ändern wir mit dem folgenden Code und ersetzen dabei auch gleich Kommas durch Punkte.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert variables to numeric by replacing commas with periods</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df1<span class="sc">$</span>HCOS_autonomy <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">"."</span>, df1<span class="sc">$</span>HCOS_autonomy))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df1<span class="sc">$</span>HCOS_control_expert <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">"."</span>, df1<span class="sc">$</span>HCOS_control_expert))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>df1<span class="sc">$</span>HCOS_control_peer <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">","</span>, <span class="st">"."</span>, df1<span class="sc">$</span>HCOS_control_peer))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the structure of the cleaned dataset</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 1,026
+Columns: 3
+$ HCOS_autonomy       &lt;dbl&gt; 6.00, 5.50, 7.00, 5.25, 6.00, 5.00, 6.75, 6.75, 6.…
+$ HCOS_control_expert &lt;dbl&gt; 2.50, 3.75, 6.25, 3.00, 4.00, 2.00, 4.75, 7.00, 4.…
+$ HCOS_control_peer   &lt;dbl&gt; 4.50, 3.75, 3.75, 4.25, 1.50, 1.50, 4.75, 4.50, 1.…</code></pre>
+</div>
+</div>
+<p>Wir lassen uns deskriptive Statistiken zu den Variablen ausgeben:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df1)<span class="co">#shows range, quartile, median and mean for each variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> HCOS_autonomy   HCOS_control_expert HCOS_control_peer
+ Min.   :1.000   Min.   :1.000       Min.   :1.000    
+ 1st Qu.:5.250   1st Qu.:2.312       1st Qu.:2.000    
+ Median :6.000   Median :3.500       Median :3.250    
+ Mean   :5.864   Mean   :3.419       Mean   :3.179    
+ 3rd Qu.:6.750   3rd Qu.:4.250       3rd Qu.:4.250    
+ Max.   :7.000   Max.   :7.000       Max.   :7.000    </code></pre>
+</div>
+</div>
+<p>Da allen drei Variablen dieselbe Messskala zugrundeliegt (Likert-Skala von 1-7), ist eine Standardisierung der Variablen in diesem Fall nicht notwendig; sie schadet aber auch nicht.</p>
+<p>Der Vollständigkeit halber fügen wir deshalb in diesem Tutorial den entsprechenden Code hinzu. Mit dem Befehl “scale” standardisieren wir alle Variablen in unserem Datensatz “df1”. Dabei wird von jedem Wert der Mittelwert der jeweiligen Variablen subtrahiert (Zentrierung) und durch ihre Standardabweichung dividiert (Skalierung). Als Resultat erhalten wir nun eine Matrix, weshalb wir unseren Datensatz wieder in einen Dataframe umwandeln müssen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize the data</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cluster_df1 <span class="ot">&lt;-</span> <span class="fu">scale</span>(df1)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cluster_df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cluster_df1 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cluster_df1)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the summary of the scaled data</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cluster_df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> HCOS_autonomy     HCOS_control_expert HCOS_control_peer 
+ Min.   :-5.0932   Min.   :-1.77847    Min.   :-1.58373  
+ 1st Qu.:-0.6432   1st Qu.:-0.81345    1st Qu.:-0.85687  
+ Median : 0.1421   Median : 0.05966    Median : 0.05172  
+ Mean   : 0.0000   Mean   : 0.00000    Mean   : 0.00000  
+ 3rd Qu.: 0.9274   3rd Qu.: 0.61110    3rd Qu.: 0.77858  
+ Max.   : 1.1892   Max.   : 2.63304    Max.   : 2.77747  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(cluster_df1<span class="sc">$</span>HCOS_autonomy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(cluster_df1<span class="sc">$</span>HCOS_control_expert)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(cluster_df1<span class="sc">$</span>HCOS_control_peer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Die standardisierten Daten haben für alle Variablen den Mittelwert=0 und die Standardabweichung=1. Nun sind wir endlich bereit für die eigentliche Clusteranalyse.</p>
+</section>
+<section id="distanzmatrix-berechnen" class="level2">
+<h2 class="anchored" data-anchor-id="distanzmatrix-berechnen">Distanzmatrix berechnen</h2>
+<p>Wir berechnen paarweise Distanzen nach der Euklidischen Distanz.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the Euclidean distance matrix</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>distance_matrix <span class="ot">&lt;-</span> <span class="fu">dist</span>(cluster_df1, <span class="at">method =</span> <span class="st">"euclidean"</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the first few entries of the distance matrix</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.matrix</span>(distance_matrix)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           1         2         3         4         5         6         7
+1  0.0000000 1.1899405 2.9992782 0.8859297 2.4436360 2.4467375 1.8402409
+2  1.1899405 0.0000000 2.4177526 0.7104162 1.7270130 2.1457773 1.6679300
+3  2.9992782 2.4177526 0.0000000 3.0331040 2.5510429 4.1017844 1.3465501
+4  0.8859297 0.7104162 3.0331040 0.0000000 2.2699851 2.1458456 2.0626351
+5  2.4436360 1.7270130 2.5510429 2.2699851 0.0000000 1.8051980 2.5497701
+6  2.4467375 2.1457773 4.1017844 2.1458456 1.8051980 0.0000000 3.6092092
+7  1.8402409 1.6679300 1.3465501 2.0626351 2.5497701 3.6092092 0.0000000
+8  3.4005527 2.7785405 0.8184106 3.3390648 3.1995433 4.6505376 1.6642672
+9  2.2829531 1.5560263 2.4385372 2.1117273 0.1817167 1.8143211 2.3823945
+10 2.6315271 2.6111866 4.7501385 2.3955305 2.5712720 0.8013356 4.0917690
+11 0.3678730 1.0665144 2.9771948 0.6632953 2.5482825 2.5497701 1.8051980
+12 1.8414189 1.6744886 1.2994593 2.1463825 2.1292258 3.3265973 0.6320587
+13 2.3694574 2.1891835 3.6121988 2.3823945 1.2994593 1.0785020 3.2353562
+14 2.2463730 1.4072287 3.2535635 1.3932116 2.7178889 2.7109041 2.6682339
+15 1.9702287 1.9676590 1.7037866 2.2243883 3.0617235 3.9873819 0.5451501
+16 1.7561138 1.6865135 3.6633407 1.6499875 1.6533783 0.7558295 3.0171854
+17 1.5609200 0.7754183 2.1022769 1.1479909 2.2724999 2.8996255 1.3341170
+18 1.7630814 2.1052888 2.5125583 2.0897359 3.4920844 4.0681386 1.2495446
+19 2.8476412 3.0330028 4.0240178 3.1866092 2.1464304 2.1570039 3.6343192
+20 2.4962962 2.5145538 4.6977124 2.2607893 2.5904637 0.8609307 3.9978859
+           8         9        10        11        12        13       14
+1  3.4005527 2.2829531 2.6315271 0.3678730 1.8414189 2.3694574 2.246373
+2  2.7785405 1.5560263 2.6111866 1.0665144 1.6744886 2.1891835 1.407229
+3  0.8184106 2.4385372 4.7501385 2.9771948 1.2994593 3.6121988 3.253563
+4  3.3390648 2.1117273 2.3955305 0.6632953 2.1463825 2.3823945 1.393212
+5  3.1995433 0.1817167 2.5712720 2.5482825 2.1292258 1.2994593 2.717889
+6  4.6505376 1.8143211 0.8013356 2.5497701 3.3265973 1.0785020 2.710904
+7  1.6642672 2.3823945 4.0917690 1.8051980 0.6320587 3.2353562 2.668234
+8  0.0000000 3.0785704 5.2765901 3.3005884 1.8919111 4.2888724 3.312629
+9  3.0785704 0.0000000 2.5648428 2.3808024 1.9764120 1.3370330 2.587176
+10 5.2765901 2.5648428 0.0000000 2.7398812 3.8532201 1.6400683 3.047331
+11 3.3005884 2.3808024 2.7398812 0.0000000 1.9146336 2.5837527 1.953261
+12 1.8919111 1.9764120 3.8532201 1.9146336 0.0000000 2.7979739 2.891024
+13 4.2888724 1.3370330 1.6400683 2.5837527 2.7979739 0.0000000 3.205464
+14 3.3126294 2.5871761 3.0473306 1.9532613 2.8910237 3.2054635 0.000000
+15 1.8069586 2.8897233 4.4065032 1.8857170 1.1362499 3.6794671 2.795159
+16 4.2311514 1.6026712 1.1355090 1.9169514 2.7319506 0.9144463 2.561868
+17 2.2564975 2.0987553 3.3517951 1.3255628 1.6121073 2.9311081 1.334117
+18 2.5596695 3.3125335 4.3499132 1.6279239 1.7561138 3.8907640 2.774426
+19 4.7847299 2.1845522 2.4459459 3.1602935 3.1016731 1.1972737 4.237924
+20 5.2104667 2.5712720 0.1817167 2.5975887 3.7796757 1.6896534 2.942588
+          15        16        17        18       19        20
+1  1.9702287 1.7561138 1.5609200 1.7630814 2.847641 2.4962962
+2  1.9676590 1.6865135 0.7754183 2.1052888 3.033003 2.5145538
+3  1.7037866 3.6633407 2.1022769 2.5125583 4.024018 4.6977124
+4  2.2243883 1.6499875 1.1479909 2.0897359 3.186609 2.2607893
+5  3.0617235 1.6533783 2.2724999 3.4920844 2.146430 2.5904637
+6  3.9873819 0.7558295 2.8996255 4.0681386 2.157004 0.8609307
+7  0.5451501 3.0171854 1.3341170 1.2495446 3.634319 3.9978859
+8  1.8069586 4.2311514 2.2564975 2.5596695 4.784730 5.2104667
+9  2.8897233 1.6026712 2.0987553 3.3125335 2.184552 2.5712720
+10 4.4065032 1.1355090 3.3517951 4.3499132 2.445946 0.1817167
+11 1.8857170 1.9169514 1.3255628 1.6279239 3.160293 2.5975887
+12 1.1362499 2.7319506 1.6121073 1.7561138 3.101673 3.7796757
+13 3.6794671 0.9144463 2.9311081 3.8907640 1.197274 1.6896534
+14 2.7951587 2.5618675 1.3341170 2.7744265 4.237924 2.9425883
+15 0.0000000 3.3737003 1.5083708 0.8184106 4.059230 4.2964710
+16 3.3737003 0.0000000 2.4603696 3.4222951 1.851345 1.0910169
+17 1.5083708 2.4603696 0.0000000 1.6880562 3.715410 3.2467046
+18 0.8184106 3.4222951 1.6880562 0.0000000 4.267909 4.2149747
+19 4.0592302 1.8513452 3.7154100 4.2679095 0.000000 2.4927491
+20 4.2964710 1.0910169 3.2467046 4.2149747 2.492749 0.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="hierarchisches-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="hierarchisches-clustering">Hierarchisches Clustering</h2>
+<p>Nun wenden wir Ward’s Methode des hierarchischen Clustering an.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform hierarchical clustering</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>hc1 <span class="ot">&lt;-</span> <span class="fu">hclust</span>(distance_matrix, <span class="at">method =</span> <span class="st">"ward.D2"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the dendrogram</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc1, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Dendrogram for Hierarchical Clustering"</span>, </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Observations"</span>, </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Height"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/hierarchical-clustering-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Das Dendrogramm stellt dar, wie die Cluster schrittweise durch das Zusammenführen einzelner Datenpunkte (oder kleinerer Cluster) zu größeren Clustern gebildet werden. Es ist wie ein Baum, wobei jeder Zweig einen Datenpunkt oder ein Cluster von Datenpunkten darstellt. Je weiter man den Baum hinuntergeht, desto ähnlicher sind sich die Datenpunkte. Die Höhe, in der sich zwei Zweige (Cluster) treffen, stellt die Unähnlichkeit (oder den Abstand) zwischen ihnen dar. Eine geringere Höhe bedeutet, dass sich die Cluster sehr ähnlich sind, während eine größere Höhe bedeutet, dass die Cluster unterschiedlicher sind.</p>
+</section>
+<section id="zahl-der-cluster-bestimmen" class="level2">
+<h2 class="anchored" data-anchor-id="zahl-der-cluster-bestimmen">Zahl der Cluster bestimmen</h2>
+<p>Wir verwenden zwei Visualisierungsmethoden, um die optimale Anzahl von Clustern zu bestimmen: das Ellbogen-Kriterium und die Silhouettenanalyse.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Elbow method</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(cluster_df1, <span class="at">FUN =</span> hcut, <span class="at">method =</span> <span class="st">"wss"</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Elbow method"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+ℹ The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at &lt;https://github.com/kassambara/ggpubr/issues&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+ℹ The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at &lt;https://github.com/kassambara/ggpubr/issues&gt;.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+ℹ The deprecated feature was likely used in the ggpubr package.
+  Please report the issue at &lt;https://github.com/kassambara/ggpubr/issues&gt;.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/determine-clusters-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Silhouette method</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(cluster_df1, <span class="at">FUN =</span> hcut, <span class="at">method =</span> <span class="st">"silhouette"</span>)<span class="sc">+</span><span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Silhouette method"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/determine-clusters-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Interpretation der Diagramme:</p>
+<p>Das Ellbogendiagramm visualisiert die Fehlerquadratsumme innerhalb der Cluster (Within Sum of Square; WSS) in Abhängigkeit von der Anzahl der Cluster. Ziel ist es, den Knick zu identifizieren, an dem sich die Abnahme der WSS verlangsamt. Untersuchen Sie das Diagramm und suchen Sie den Punkt, an dem die Kurve einen „Ellbogen“ bildet oder abflacht. Dieser Punkt stellt die optimale Anzahl von Clustern dar.</p>
+<p>Wenn kein eindeutiger Knick vorhanden ist, können Sie zusätzlich den Silhouettenkoeffizienten berechnen. Dieser misst, wie ähnlich ein Objekt seinem eigenen Cluster im Vergleich zu Objekten im nächsten benachbarten Cluster ist. Je näher bei 1 der Koeffizient ist, desto besser sind die Cluster abgegrenzt und desto größer ist die Kohäsion der Cluster. Suchen Sie im Diagramm nach der Anzahl der Cluster mit dem höchsten durchschnittlichen Silhouettenkoeffizienten. In unserem Fall sind es drei Cluster.</p>
+</section>
+<section id="die-clusterlösung-visualisieren-und-interpretieren" class="level2">
+<h2 class="anchored" data-anchor-id="die-clusterlösung-visualisieren-und-interpretieren">Die Clusterlösung visualisieren und interpretieren</h2>
+<p>Decide on the number of clusters and assign cluster labels to the data (e.g., 3).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cut the dendrogram/tree to create 3 clusters</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>clusters <span class="ot">&lt;-</span> <span class="fu">cutree</span>(hc1, <span class="at">k =</span> <span class="dv">3</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Add cluster membership to the original dataset</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>df1<span class="sc">$</span>Cluster <span class="ot">&lt;-</span> clusters</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize the clusters in the dendrogram</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc1, <span class="at">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rect.hclust</span>(hc1, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">border =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/cut-dendrogram-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatterplot of the first two dimensions (scaled data)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cluster_df1[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>], </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> clusters, </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>, </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Scatterplot of Clusters"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"First Dimension (scaled)"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Second Dimension (scaled)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/cut-dendrogram-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster plot</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(<span class="fu">list</span>(<span class="at">data =</span> cluster_df1, <span class="at">cluster =</span> clusters))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uebung10_files/figure-html/cut-dendrogram-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Interpretation der Diagramme:</p>
+<p>Das Dendrogramm gibt Aufschluss über die Beziehung zwischen den Datenpunkten und wie sie aufgrund ihrer Ähnlichkeiten gruppiert sind (siehe oben). Die Rechtecke heben die drei Hauptcluster hervor und zeigen die Ebene, auf der jedes Cluster gebildet wurde.</p>
+<p>Das Streudiagramm projiziert die Daten auf ihre ersten beiden Hauptkomponenten (oder Dimensionen), wobei jeder Punkt eine Beobachtung darstellt, die entsprechend dem ihr zugewiesenen Cluster eingefärbt ist. Achtung! Die Dimensionen für das Streudiagramm oder das Clusterdiagramm entsprechen nicht den ersten beiden Variablen, die in das Clustering eingegeben wurden, sondern stellen in der Regel die ersten beiden Hauptkomponenten dar. Im Grunde führt R eine Faktorenanalyse durch, um die dreidimensionalen Daten zu visualisieren und auf zwei Dimensionen zu projizieren.</p>
+<p>Der Cluster Plot ist ein verfeinertes Streudiagramm nach derselben Logik. Es zeigt die einzelnen Datenpunkte in einem 2D-Diagramm, wobei die Cluster durch unterschiedliche Farben deutlich gekennzeichnet sind.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the mean of each variable for each cluster</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>cluster_summary <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(df1, <span class="at">by =</span> <span class="fu">list</span>(<span class="at">Cluster =</span> clusters), <span class="at">FUN =</span> mean)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>cluster_size <span class="ot">&lt;-</span> <span class="fu">table</span>(clusters)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the size of each cluster to the cluster_summary</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>cluster_summary<span class="sc">$</span>Members <span class="ot">&lt;-</span> cluster_size[<span class="fu">as.factor</span>(cluster_summary<span class="sc">$</span>Cluster)]</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and add the percentage of members per cluster</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>total_members <span class="ot">&lt;-</span> <span class="fu">sum</span>(cluster_size)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>cluster_summary<span class="sc">$</span>Percentage <span class="ot">&lt;-</span> (cluster_summary<span class="sc">$</span>Members <span class="sc">/</span> total_members) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display cluster summary</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>cluster_summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Cluster HCOS_autonomy HCOS_control_expert HCOS_control_peer Cluster Members
+1       1      5.960291            3.762864          4.354027       1     447
+2       2      6.243848            2.894295          2.045861       2     447
+3       3      4.253788            4.030303          3.035985       3     132
+  Percentage
+1   43.56725
+2   43.56725
+3   12.86550</code></pre>
+</div>
+</div>
+<p>Beschreibung:</p>
+<p>Cluster 1: Unabhängige Die Tabelle zeigt, dass die Befragten (n = 461) in Cluster 1 mit 6.16 (auf einer 7-Punkte-Skala) eine vergleichsweise sehr hohe Autonomieorientierung aufweisen während ihre Werte für die Kontrollorientierung, verglichen mit den anderen Clustern, unterdurchschnittlich ausgeprägt sind (Experten: M = 2.33; Peers: M = 2.60).</p>
+<p>Cluster 2: Bestätigungssuchende Die zweite Gruppe von Befragten wurde als Bestätigungssuchende bezeichnet (n = 396). Diese Gruppe von Befragten gab relativ hohe Werte sowohl für die Autonomie (M = 6.13) als auch für die Kontrollorientierung an (Kontrollorientierung - Experten: M = 4.60; Kontrollorientierung - Peers: M = 3.60).</p>
+<p>Cluster 3: Abhängige Die dritte Gruppe von Befragten ist eher von externer Bestätigung abhängig (n = 169). Die Befragten gaben unterdurchschnittliche Werte für die Autonomieorientierung an (M = 4.42), die Werte der Kontrollorientierung gegenüber Experten waren im Vergleich zur Gesamtstichprobe leicht überdurchschnittlich (M = 3.60), ebenso gegenüber Peers (M = 3.78). Die Experten-Abhängigen sind die kleinste Gruppe in unserer Stichprobe (16 %).</p>
+<p>##Hausübung 10 Jetzt sind Sie dran! Wir verwenden für diese Übung die reliablen Wertefaktoren aus den Ergebnissen der HÜ9. Den Datensatz dazu finden Sie im Ordner der Übung 10. Sie können ihn hier wieder mit load(df_c) einlesen</p>
+<p>Zur Erinnerung: folgende Wertefaktoren waren reliabel: - persönliche Werte: “TC1” - Vergnügen: “TC2” - Status: “TC3”</p>
+<ol type="1">
+<li>Erstellen Sie einen Datensatz mit den ausgewählten Variablen.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select  the variables of interest and store them in a new df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Bereinigen Sie die Daten und lassen Sie sich die deskriptiven Statistiken für die drei Variablen ausgeben.</li>
+</ol>
+<p>Antwort: hier eigentlich nicht notwendig, denn es gibt keine Missings (hatten wir ja bei der letzen HÜ schon ausgeschlossen), und die Faktorwerte sind sowieso schon standardisiert. :-)</p>
+<ol start="3" type="1">
+<li>Berechnen Sie die euklidischen Distanzen.</li>
+</ol>
+<ol start="4" type="1">
+<li>Führen Sie ein hierarchisches Clustering nach Ward durch und erstellen Sie ein Dendrogramm.</li>
+</ol>
+<ol start="5" type="1">
+<li>Wie viele Cluster wählen Sie, und warum?</li>
+</ol>
+<ol start="6" type="1">
+<li>Benennen und beschreiben Sie die gewählten Cluster.</li>
+</ol>
+<p><strong>Wichtig!</strong> Speichern Sie das angepasste Markdown mit einem Dateinamen nach dem folgenden Muster: Nachname_Übung10.Rmd Laden Sie diese Datei in den dafür vorgesehenen Ordner in Moodle.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
