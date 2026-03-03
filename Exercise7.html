@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Annie Waldherr &amp; Kathrin Karsay">
+<meta name="dcterms.date" content="2026-01-08">
+
+<title>Exercise7: Explorative Factor Analysis I – R Tutorials</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-dfb324f25d9b1687192fa8be62ac8f9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">R Tutorials</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">German</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index1.html"> 
+<span class="menu-text">English</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-working-directory" id="toc-the-working-directory" class="nav-link active" data-scroll-target="#the-working-directory">The working directory</a></li>
+  <li><a href="#install-and-load-packages" id="toc-install-and-load-packages" class="nav-link" data-scroll-target="#install-and-load-packages">Install and load packages</a></li>
+  <li><a href="#read-data" id="toc-read-data" class="nav-link" data-scroll-target="#read-data">Read data</a></li>
+  <li><a href="#correlation-matrix-and-check-of-requirements" id="toc-correlation-matrix-and-check-of-requirements" class="nav-link" data-scroll-target="#correlation-matrix-and-check-of-requirements">Correlation matrix and check of requirements</a></li>
+  <li><a href="#factor-extraction" id="toc-factor-extraction" class="nav-link" data-scroll-target="#factor-extraction">Factor extraction</a></li>
+  <li><a href="#for-further-reading" id="toc-for-further-reading" class="nav-link" data-scroll-target="#for-further-reading">For further reading</a></li>
+  <li><a href="#homework-assignment-7" id="toc-homework-assignment-7" class="nav-link" data-scroll-target="#homework-assignment-7">Homework assignment 7</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Exercise7: Explorative Factor Analysis I</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Annie Waldherr &amp; Kathrin Karsay </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 8, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="the-working-directory" class="level2">
+<h2 class="anchored" data-anchor-id="the-working-directory">The working directory</h2>
+<p>As always, we first check with “getwd()” under which path our working directory is located. All scripts and data sets we want to work with should be placed in this folder.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">##check working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "C:/Users/antje/Documents/studium PUK/Master-Publizistik/STUDIENASSISTENZ/Test Tutorial"</code></pre>
+</div>
+</div>
+</section>
+<section id="install-and-load-packages" class="level2">
+<h2 class="anchored" data-anchor-id="install-and-load-packages">Install and load packages</h2>
+<p>Then, we load the necessary R packages with the “pacman” package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##load and install packages</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) {<span class="fu">install.packages</span>(<span class="st">"pacman"</span>); <span class="fu">library</span>(pacman)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(tidyverse, car, corpcor, corrplot, psych, GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="read-data" class="level2">
+<h2 class="anchored" data-anchor-id="read-data">Read data</h2>
+<p>For this exercise, we again use the data set from the European Social Survey: ESS Round 8 (2016): integrated file, edition 2.2, to be found at: <a href="https://ess-search.nsd.no/en/study/f8e11f55-0c14-4ab3-abde-96d3f14d3c76" class="uri">https://ess-search.nsd.no/en/study/f8e11f55-0c14-4ab3-abde-96d3f14d3c76</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#load data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"ESS8e02_2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This time we create a filtered data set for the Austrian respondents with the following variables: - How interested in politics (polintr) - Able to take active role in political group (actrolga) - Confident in own ability to participate (cptppola) - Contacted politicians or government officials last 12 months (contplt) - Worked in political party or action group last 12 months (wrkprty) - Worked in another organization or association last 12 months (wrkorg) - Worn or displayed a campaign badge/sticker last 12 months (badge) - Signed petition last 12 months (sgnptit) - Taken part in lawful public demonstration last 12 months (pbldmn) - Boycotted certain products last 12 months (bctprd) - Posted or shared anything about politics online last 12 months (pstplonl)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter cases and choose variables</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(cntry <span class="sc">==</span> <span class="st">"AT"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(polintr, actrolga, cptppola, contplt, wrkprty, wrkorg, badge, sgnptit, pbldmn, bctprd, pstplonl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#inspect datframe</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df1)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df1)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df1)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we define the missing/invalid values as “NA”. Remember: In order to identify these values, we check the associated code book! Fortunately, for all eleven variables the missing values are coded in the same way: 7 = refusal, 8 = don’t know, 9 = no answer. Thus, we can recode all values in the data with just one line of code.</p>
+<p>To do this, we use the mutate_all() function from the dplyr package, which is part of the Tidyverse. The “~ifelse(. %in% c(7, 8, 9), NA, .)” statement checks whether each value in the variables is either 7, 8, or 9. If so, the value is replaced with NA; otherwise, the original value is retained. Alternatively, we can proceed as in Exercise 5 and apply the “Recode” function to each variable separately. This takes a bit of work, but it works the same way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recode missing values</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> df1 <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span><span class="fu">ifelse</span>(. <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="cn">NA</span>, .))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We check with View() if it worked.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For further analysis, we exclude the cases with missing values using the “drop_na” function. We apply it to the entire data set because we exclude all cases with missing values at once. With View() we can look at the filtered data set and check if it worked.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Exclude cases with missing values</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will reuse the data in Exercise 8, which is why we export it into a .csv-File and an .RData file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Save dataframe</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(df1, <span class="at">file =</span> <span class="st">"ESS8e02_2_AT_PCA.csv"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(df1, <span class="at">file =</span> <span class="st">"df1.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="correlation-matrix-and-check-of-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-matrix-and-check-of-requirements">Correlation matrix and check of requirements</h2>
+<p>First, we use the “cor” function to output the correlation matrix and assign it to a new “R_df1” object. The correlation patterns are easier to inspect if we plot the matrix using the corrplot function. Factor analysis is only useful if the different variables are also correlated with each other (r &gt; 0), but not too strongly (r &lt; 0.9), because if two variables are perfectly correlated with each other, they are likely to measure the same construct.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Table</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>R_df1 <span class="ot">&lt;-</span> df1 <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(.)<span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(., <span class="dv">2</span>)<span class="co"># rounded to two decimals</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>R_df1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         polintr actrolga cptppola contplt wrkprty wrkorg badge sgnptit pbldmn
+polintr     1.00    -0.43    -0.42    0.26    0.22   0.25  0.21    0.24   0.15
+actrolga   -0.43     1.00     0.74   -0.25   -0.24  -0.27 -0.22   -0.22  -0.17
+cptppola   -0.42     0.74     1.00   -0.25   -0.24  -0.26 -0.20   -0.22  -0.16
+contplt     0.26    -0.25    -0.25    1.00    0.33   0.29  0.13    0.21   0.10
+wrkprty     0.22    -0.24    -0.24    0.33    1.00   0.34  0.29    0.20   0.16
+wrkorg      0.25    -0.27    -0.26    0.29    0.34   1.00  0.24    0.26   0.15
+badge       0.21    -0.22    -0.20    0.13    0.29   0.24  1.00    0.27   0.21
+sgnptit     0.24    -0.22    -0.22    0.21    0.20   0.26  0.27    1.00   0.27
+pbldmn      0.15    -0.17    -0.16    0.10    0.16   0.15  0.21    0.27   1.00
+bctprd      0.25    -0.22    -0.22    0.17    0.13   0.23  0.18    0.35   0.22
+pstplonl    0.23    -0.25    -0.25    0.12    0.18   0.18  0.23    0.31   0.25
+         bctprd pstplonl
+polintr    0.25     0.23
+actrolga  -0.22    -0.25
+cptppola  -0.22    -0.25
+contplt    0.17     0.12
+wrkprty    0.13     0.18
+wrkorg     0.23     0.18
+badge      0.18     0.23
+sgnptit    0.35     0.31
+pbldmn     0.22     0.25
+bctprd     1.00     0.31
+pstplonl   0.31     1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Graph</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(R_df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise7_files/figure-html/correlation matrix-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our case, the correlation matrix shows consistently weak to moderate correlations ( 0.1 &lt; r &lt; 0.5). Using the Bartlett test, we check whether the correlation matrix deviates significantly from an identity matrix in which all correlations are 0. To do this, we apply the “cortest.bartlett” function to our R matrix. Here, we also have to specify the size of the sample, i.e., the number of cases in our data set, as an argument. Alternatively, we can also apply the function directly to our data set “df1”. We can ignore the warning that R now gives us.</p>
+<p>In addition, we calculate the Kaiser-Meyer-Olkin (KMO) measures of sampling adequacy (MSA) for the variables. They indicate whether there is enough data for each factor to obtain reliable results for factor analysis. The values should be at least &gt; 0.5.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Bartlett (should be significant, p&lt;0.05)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(R_df1, <span class="at">n =</span> <span class="dv">1868</span>)<span class="co">#calculated based on the R matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$chisq
+[1] 4342.212
+
+$p.value
+[1] 0
+
+$df
+[1] 55</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cortest.bartlett</span>(df1)<span class="co">#alternative: calculated directly from the data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>R was not square, finding R from data</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$chisq
+[1] 4348.039
+
+$p.value
+[1] 0
+
+$df
+[1] 55</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#KMO (Values should be at least &gt; 0.5)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">KMO</span>(R_df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Kaiser-Meyer-Olkin factor adequacy
+Call: KMO(r = R_df1)
+Overall MSA =  0.81
+MSA for each item = 
+ polintr actrolga cptppola  contplt  wrkprty   wrkorg    badge  sgnptit 
+    0.91     0.72     0.72     0.84     0.82     0.88     0.86     0.85 
+  pbldmn   bctprd pstplonl 
+    0.87     0.85     0.87 </code></pre>
+</div>
+</div>
+<p>The Bartlett test is significant, i.e.&nbsp;the overall correlations are significantly different from zero. The MSA values according to KMO are all greater than 0.7, i.e., in the acceptable range of values. From the results we can conclude that our data are suitable for factor analysis.</p>
+</section>
+<section id="factor-extraction" class="level2">
+<h2 class="anchored" data-anchor-id="factor-extraction">Factor extraction</h2>
+<p>We first perform a principal component analysis (PCA) without rotation to make a decision on how many factors (components) we want to extract. We use the “principal” function from the “psych” package and set the number of factors (nfactors) equal to the number of variables (=length of the data vector; length(df1)) and the rotation method (rotate) to “none”. We use the correlation matrix “R_df1” as a basis. However, you can also use the “df1” data set directly.</p>
+<p>We also use the “plot” function to create a scree plot in which we plot the eigenvalues for the factors. With “abline(h=1)” we add a horizontal line at value 1 to better check the Kaiser criterion (eigenvalue h &gt; 1).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Unrotated PCA</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>pc1 <span class="ot">&lt;-</span> <span class="fu">principal</span>(R_df1, <span class="at">nfactors =</span> <span class="fu">length</span>(df1), <span class="at">rotate=</span><span class="st">"none"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>pc1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = R_df1, nfactors = length(df1), rotate = "none")
+Standardized loadings (pattern matrix) based upon correlation matrix
+           PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11 h2
+polintr   0.62 -0.26 -0.14  0.10  0.08 -0.09  0.33  0.51  0.35 -0.13  0.01  1
+actrolga -0.70  0.49  0.28  0.12  0.04  0.04  0.09  0.17  0.10 -0.01  0.36  1
+cptppola -0.69  0.50  0.28  0.11  0.04  0.02  0.10  0.19  0.11  0.01 -0.36  1
+contplt   0.49 -0.16  0.48  0.39 -0.27  0.18  0.32 -0.11 -0.08  0.35  0.00  1
+wrkprty   0.53 -0.01  0.57 -0.20 -0.06  0.26 -0.07  0.07 -0.17 -0.49 -0.01  1
+wrkorg    0.56  0.02  0.41  0.12  0.12 -0.29 -0.55  0.07  0.24  0.18  0.01  1
+badge     0.50  0.26  0.17 -0.56  0.38 -0.14  0.27  0.01 -0.15  0.27  0.01  1
+sgnptit   0.57  0.42 -0.06  0.19  0.08 -0.18  0.20 -0.49  0.28 -0.25  0.00  1
+pbldmn    0.42  0.44 -0.17 -0.27 -0.69 -0.16 -0.05  0.13  0.00  0.05  0.00  1
+bctprd    0.52  0.35 -0.24  0.46  0.17 -0.13 -0.06  0.20 -0.50 -0.06  0.00  1
+pstplonl  0.53  0.34 -0.30 -0.01  0.13  0.65 -0.17  0.03  0.18  0.16  0.00  1
+               u2 com
+polintr   4.4e-16 4.1
+actrolga  1.1e-15 3.1
+cptppola -8.9e-16 3.2
+contplt   1.2e-15 6.0
+wrkprty   1.1e-16 4.0
+wrkorg    2.2e-16 4.3
+badge     1.1e-16 5.0
+sgnptit  -6.7e-16 4.9
+pbldmn   -2.2e-16 3.3
+bctprd   -6.7e-16 5.1
+pstplonl  7.8e-16 3.6
+
+                       PC1  PC2  PC3  PC4  PC5  PC6  PC7  PC8  PC9 PC10 PC11
+SS loadings           3.48 1.26 1.11 0.88 0.78 0.71 0.69 0.64 0.62 0.58 0.26
+Proportion Var        0.32 0.11 0.10 0.08 0.07 0.06 0.06 0.06 0.06 0.05 0.02
+Cumulative Var        0.32 0.43 0.53 0.61 0.68 0.75 0.81 0.87 0.92 0.98 1.00
+Proportion Explained  0.32 0.11 0.10 0.08 0.07 0.06 0.06 0.06 0.06 0.05 0.02
+Cumulative Proportion 0.32 0.43 0.53 0.61 0.68 0.75 0.81 0.87 0.92 0.98 1.00
+
+Mean item complexity =  4.2
+Test of the hypothesis that 11 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0 
+
+Fit based upon off diagonal values = 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Screeplot</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">plot</span>(pc1<span class="sc">$</span>values, <span class="at">type =</span> <span class="st">'b'</span>)<span class="co">#Elbow diagram on the eigenvalues</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">1</span>)<span class="co">#we add a horizontal line at value 1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Exercise7_files/figure-html/extraction of the factors-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>First we see the R output for our call. The following values are returned for each extracted component: - SS loadings: These are the eigenvalues (sum of squared factor loadings) of the factors. - Proportion Var: If you divide the eigenvalue by the number of components, you get the share of the variance explained by the factor in relation to the total variance. For example, PC1 explains 32% of the total variance. - Cumulative Var: The explained variance is summed up over all components. - Proportion Explained: sets the variance explained by the components in relation to the total explained variance, i.e.&nbsp;here the explained variance always adds up to 1, while Proportion Var only adds up to 1 if the entire variance in the data set is explained by the components. Because we extracted the maximum number of factors here, Proportion Var and Proportion Explained are the same. - Cumulative Proportion: The Proportion Explained is summed up over all components.</p>
+<p>Next, we see a table (data.frame) that contains the correlations between variables and components (factor loadings) in the first columns. Since these are still based on the unrotated matrix, they are not meaningful and we do not interpret them further. This is followed by a column (h2) showing the communalities, i.e.&nbsp;the variance of a variable explained by all factors together. Since we extracted as many factors as variables in our first PCA, the communalities for all variables are 1. The following column contains values for the “uniqueness” (u2), i.e.&nbsp;the unexplained part of the variance of a variable (h2-1). This is followed by the “com” column, which lists a measure of the complexity of the variable. Complexity represents the number of components required to explain the observed variable. A perfect solution with a simple structure would have a complexity of 1 since each item would only load on one factor.</p>
+<p>We can see from the scree plot and the table with the eigenvalues (SS loadings) that the third component still has an eigenvalue greater than 1, but all the others are below it. Therefore, for further analysis, we extract three factors.</p>
+<p>We now repeat the PCA and enter “nfactors = 3” and the rotation method “rotate = oblimin”, i.e.&nbsp;we rotate in such a way that variables only load on one factor if possible and allow the factors to correlate with each other.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Rotated PCA</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pca2 <span class="ot">&lt;-</span> <span class="fu">principal</span>(R_df1, <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate=</span><span class="st">"oblimin"</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>pca2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = R_df1, nfactors = 3, rotate = "oblimin")
+Standardized loadings (pattern matrix) based upon correlation matrix
+           TC1   TC2   TC3   h2   u2 com
+polintr  -0.59  0.11  0.11 0.47 0.53 1.1
+actrolga  0.89  0.00  0.00 0.80 0.20 1.0
+cptppola  0.90  0.01  0.00 0.80 0.20 1.0
+contplt  -0.13 -0.11  0.68 0.50 0.50 1.1
+wrkprty   0.03  0.00  0.79 0.61 0.39 1.0
+wrkorg   -0.04  0.11  0.64 0.49 0.51 1.1
+badge     0.07  0.39  0.37 0.35 0.65 2.0
+sgnptit   0.04  0.66  0.15 0.50 0.50 1.1
+pbldmn    0.07  0.66 -0.02 0.40 0.60 1.0
+bctprd   -0.09  0.65 -0.05 0.45 0.55 1.0
+pstplonl -0.13  0.66 -0.10 0.48 0.52 1.1
+
+                       TC1  TC2  TC3
+SS loadings           2.09 2.00 1.75
+Proportion Var        0.19 0.18 0.16
+Cumulative Var        0.19 0.37 0.53
+Proportion Explained  0.36 0.34 0.30
+Cumulative Proportion 0.36 0.70 1.00
+
+ With component correlations of 
+      TC1   TC2   TC3
+TC1  1.00 -0.33 -0.34
+TC2 -0.33  1.00  0.30
+TC3 -0.34  0.30  1.00
+
+Mean item complexity =  1.2
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.09 
+
+Fit based upon off diagonal values = 0.88</code></pre>
+</div>
+</div>
+<p>The output is the same as the previous one, but now only three components are extracted and accordingly we only get information for these three components. In the “Proportion Var” row, we see that the first factor explains 19% of the total variance, the second factor 18%, and the third 16%. Together, all three factors explain 53% of the total variance in the variables (see the “Cumulative Var” row, which sums up the explained variance from factor to factor).</p>
+<p>A table with the correlations between the components is now also displayed in the R Console. We see that all three factors correlate moderately with each other.</p>
+<p>In order to be able to interpret the factors, we look at the table with the factor loadings (data.frame). We can make this even clearer with the following code so that factor loadings below 0.4 are not displayed, and factor loadings are sorted by size.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear pattern matrix</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print.psych</span>(pca2, <span class="at">cut =</span> <span class="fl">0.4</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = R_df1, nfactors = 3, rotate = "oblimin")
+Standardized loadings (pattern matrix) based upon correlation matrix
+         item   TC1   TC2   TC3   h2   u2 com
+cptppola    3  0.90             0.80 0.20 1.0
+actrolga    2  0.89             0.80 0.20 1.0
+polintr     1 -0.59             0.47 0.53 1.1
+pstplonl   11        0.66       0.48 0.52 1.1
+sgnptit     8        0.66       0.50 0.50 1.1
+pbldmn      9        0.66       0.40 0.60 1.0
+bctprd     10        0.65       0.45 0.55 1.0
+badge       7                   0.35 0.65 2.0
+wrkprty     5              0.79 0.61 0.39 1.0
+contplt     4              0.68 0.50 0.50 1.1
+wrkorg      6              0.64 0.49 0.51 1.1
+
+                       TC1  TC2  TC3
+SS loadings           2.09 2.00 1.75
+Proportion Var        0.19 0.18 0.16
+Cumulative Var        0.19 0.37 0.53
+Proportion Explained  0.36 0.34 0.30
+Cumulative Proportion 0.36 0.70 1.00
+
+ With component correlations of 
+      TC1   TC2   TC3
+TC1  1.00 -0.33 -0.34
+TC2 -0.33  1.00  0.30
+TC3 -0.34  0.30  1.00
+
+Mean item complexity =  1.2
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.09 
+
+Fit based upon off diagonal values = 0.88</code></pre>
+</div>
+</div>
+<p>Now we can clearly see which items load on which component. Factor 1 summarizes the items cptppola (confidence in one’s own ability to participate), actrolga (activity in a political group) and polintr (political interest). This could be interpreted as “belief in political effectiveness”. The items pstplonl (online posts), sgnptit (petitions), pbldmn (demonstrations), bctprd (boycott) load at factor 2. These all involve more or less symbolic political activities. Factor 3 also includes the items wrkprty (work for a political party) and contplt (contacts with politics), and one could describe it as more practical political activities.</p>
+<p>Can you think of alternative labels for the three factors? What happened to the badge variable?</p>
+<p><strong>Note</strong>: These interpretations are always very subjective, i.e.&nbsp;there is not always a clear and correct solution.</p>
+</section>
+<section id="for-further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="for-further-reading">For further reading</h2>
+<p>Chapter 17 in: Fields, A. (2012). Discovering Statistics Using R. Sage.</p>
+</section>
+<section id="homework-assignment-7" class="level2">
+<h2 class="anchored" data-anchor-id="homework-assignment-7">Homework assignment 7</h2>
+<p>It’s your turn!</p>
+<ol type="1">
+<li>From the original “ESS8e02_2.csv” data set, create a new filtered data set for the Austrian respondents that contains all variables with “important to” or “important that”. Use the code book to select the variables. There are 21 variables in total. The data set and code book can be found in the Moodle folder for exercise 5.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter data and select variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Recode and remove invalid/missing values for all variables.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recode missing values</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove missing values</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Check whether the data meet the requirements for a factor analysis. Report any violations of the requirements.</li>
+</ol>
+<p>Answer:…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Prerequisite check</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="4" type="1">
+<li>Now perform a principal component analysis without rotation and determine the number of factors to be extracted. How and according to which criteria do you make this decision?</li>
+</ol>
+<p>Answer: …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA extraction</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li>Now conduct a principal component analysis with oblique (oblimin) rotation and the right number of factors. How much variance do the individual factors explain and how much variance is explained by the entire model?</li>
+</ol>
+<p>Answer: …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#PCA rotation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="6" type="1">
+<li>Interpret the content of the factors using the factor loadings of the pattern matrix.</li>
+</ol>
+<p>Answer: …</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pattern matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Important!</strong> Save the customized Markdown with a filename like this: Last_Name_Exercise7.Rmd Upload this file to the designated folder on Moodle.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
